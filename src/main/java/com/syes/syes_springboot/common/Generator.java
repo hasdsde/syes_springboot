@@ -32,7 +32,7 @@ public class Generator {
                             .entityBuilder()    //entity前置，才能用lombok
                             .enableLombok()  //使用lombok
                             .controllerBuilder()
-                            .enableHyphenStyle(); //restMapping注解
+                            .enableRestStyle(); //restMapping注解
                 })
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();

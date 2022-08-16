@@ -2,13 +2,15 @@ package com.syes.syes_springboot.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-<<<<<<< HEAD
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-=======
 
 import lombok.*;
->>>>>>> fd88836e6262aa9d69e70528e22687db4a9722cf
 
 /**
  * <p>
@@ -18,23 +20,19 @@ import lombok.*;
  * @author hasd
  * @since 2022-08-16
  */
+
 @Getter
 @Setter
-<<<<<<< HEAD
-=======
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
->>>>>>> fd88836e6262aa9d69e70528e22687db4a9722cf
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> fd88836e6262aa9d69e70528e22687db4a9722cf
-    private String number;
+    //主键策略，表示这个主键不是自动增加而是需要手动输入的
+    @TableId(type = IdType.INPUT)
+    private String id;
 
     private String nickname;
 
@@ -49,4 +47,14 @@ public class User implements Serializable {
     private String phone;
 
 
+    //获取用户时，不会返回密码
+    @JsonIgnore
+    public String getPassword() {
+        return password;
+    }
+
+    @JsonProperty
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
