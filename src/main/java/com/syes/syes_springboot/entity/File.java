@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.*;
 
 /**
  * <p>
@@ -17,21 +17,29 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Item implements Serializable {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class File implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // 主键自增，不行再改
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String title;
+    private String name;
+
+    private String type;
+
+    private String size;
+
+    private String url;
+
+    private String md5;
+
+    private Boolean isDelete;
+
+    private String enable;
 
     private LocalDateTime createtime;
-
-    private String description;
-
-    private Boolean onsale;
-
-
 }

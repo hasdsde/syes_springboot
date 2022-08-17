@@ -5,6 +5,7 @@ import com.syes.syes_springboot.common.Result;
 import com.syes.syes_springboot.entity.Item;
 import com.syes.syes_springboot.entity.Item;
 import com.syes.syes_springboot.mapper.ItemMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -13,7 +14,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author test
@@ -28,7 +29,7 @@ public class ItemController {
 
     // 根据id查询
     @GetMapping("/{id}")
-    public Result getItemById(@PathVariable int id){
+    public Result getItemById(@PathVariable int id) {
         Item item = itemMapper.selectById(id);
         return Result.success(item);
     }

@@ -30,7 +30,7 @@ public class Generator {
                             .pathInfo(Collections.singletonMap(OutputFile.xml, "D:/工具/编程/idea/java工作区/syes_springboot/src/main/resources/mapper"));
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("item")//设置表名
+                    builder.addInclude("file")//设置表名
                             .mapperBuilder()
                             .enableMapperAnnotation() // 开启mapper注解
                             .entityBuilder()    //entity前置，才能用lombok
