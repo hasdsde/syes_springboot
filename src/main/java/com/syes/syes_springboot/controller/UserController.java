@@ -7,7 +7,6 @@ import com.syes.syes_springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Resource
+    @Autowired
     UserMapper userMapper;
 
     //根据id查询
