@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.syes.syes_springboot.mapper") // 扫描mapper文件夹
 public class SyesSpringbootApplication {
 
     public static void main(String[] args) {
