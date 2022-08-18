@@ -14,8 +14,8 @@ spring:
 
   servlet:
     multipart:
-      max-file-size: 2GB
-      max-request-size: 2GB
+      max-file-size: 10GB
+      max-request-size: 10GB
   mvc:
     static-path-pattern: /file/** # 静态资源访问
   resources:
@@ -27,7 +27,10 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 my:
-  server: localhost # 上传到服务器需要改这个
-  file-config:
+  server: # 上传到服务器需要改这个
+    name: localhost
     uploadPath: 'D:/下载/不用思考，删这个文件夹/' # 文件下载到哪里，记得屁股加个杠
-    downloadPath: '${my.server}:${server.port}/file/' # 存url到数据库时用的他
+
+  file-config:
+    uploadPath: '${my.server.uploadPath}'
+    downloadPath: '${my.server.name}:${server.port}/file/' # 存url到数据库时用的他
