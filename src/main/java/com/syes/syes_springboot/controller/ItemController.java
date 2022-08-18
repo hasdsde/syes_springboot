@@ -3,9 +3,7 @@ package com.syes.syes_springboot.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.syes.syes_springboot.common.Result;
 import com.syes.syes_springboot.entity.Item;
-import com.syes.syes_springboot.entity.Item;
 import com.syes.syes_springboot.mapper.ItemMapper;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -63,7 +61,6 @@ public class ItemController {
         Integer total = itemMapper.selectCount(wrapper); //获取总数
         int StartPage = (currentPage - 1) * pagesize; //开始页数
         List<Item> itemList = itemMapper.slectByPage(StartPage, pagesize); //列表
-
         HashMap<String, Object> map = new HashMap<>();
         map.put("data", itemList);
         map.put("total", total);
