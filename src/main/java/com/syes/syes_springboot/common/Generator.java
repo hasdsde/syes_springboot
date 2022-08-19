@@ -17,6 +17,7 @@ public class Generator {
                     builder.author("test") // 设置作者
                             .fileOverride() // 覆盖已生成文件
                             .enableSwagger() // 开启 swagger 模式
+                            .disableOpenDir()//完成后不打开文件夹
                             // 指定输出目录
                             //直接右键复制项目根目录的绝对路径
                             .outputDir("D:/CODE/syes_springboot/src/main/java");

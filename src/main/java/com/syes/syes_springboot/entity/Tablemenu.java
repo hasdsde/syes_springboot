@@ -28,7 +28,7 @@ public class Tablemenu implements Serializable {
     private String label;
 
     @ApiModelProperty("所属表格")
-    private String table;
+    private String tablename;
 
 
 }
