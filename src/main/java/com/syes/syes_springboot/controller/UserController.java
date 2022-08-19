@@ -7,6 +7,7 @@ import com.syes.syes_springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,13 +29,16 @@ public class UserController {
     //根据id查询
     @GetMapping("/{id}")
     public Result getUserByid(@PathVariable("id") String id) {
-        User user = userMapper.selectById(id);
-        return Result.success(user);
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", id);
+        List<User> users = userMapper.selectList(wrapper);
+        return Result.success(users);
     }
 
     //新建用户
     @PostMapping("/")
     public Result SaveUser(@RequestBody User user) {
+        user.setCreatetime(LocalDateTime.now());
         int insert = userMapper.insert(user);
         return Result.success();
     }
