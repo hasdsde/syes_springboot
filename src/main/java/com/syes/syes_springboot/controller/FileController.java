@@ -1,24 +1,21 @@
 package com.syes.syes_springboot.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.syes.syes_springboot.Utils.FileUtil;
 import com.syes.syes_springboot.Utils.IdUtil;
 import com.syes.syes_springboot.Utils.SecureUtil;
-import com.syes.syes_springboot.Utils.StrUtil;
 import com.syes.syes_springboot.common.Result;
 import com.syes.syes_springboot.entity.File;
 import com.syes.syes_springboot.mapper.FileMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
