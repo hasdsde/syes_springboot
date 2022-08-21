@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,12 +57,6 @@ public class UserController {
         return Result.success();
     }
 
-    //批量删除
-    @GetMapping("/dlist")
-    public Result deleteUser(int[] ids) {
-        System.out.println(Arrays.toString(ids));
-        return Result.success();
-    }
 
     //分页查询
     @GetMapping("/page")
