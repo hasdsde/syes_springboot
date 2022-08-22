@@ -1,14 +1,15 @@
 package com.syes.syes_springboot.entity;
 
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author test
@@ -30,5 +31,5 @@ public class Tablemenu implements Serializable {
     @ApiModelProperty("所属表格")
     private String tablename;
 
-
+    private String name;
 }

@@ -1,9 +1,6 @@
 server:
     port: 8000
 
-mybatis:
-    mapper-locations: classpath:mappers/*xml
-    type-aliases-package: com.syes.syes_springboot.mybatis.entity
 
 spring:
     datasource:
@@ -21,10 +18,12 @@ spring:
     resources:
         static-locations: file:${my.file-config.uploadPath} # 静态资源目录
 
-
+mybatis:
+    mapper-locations: mapper/*.xml
 mybatis-plus:
     configuration:
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+        map-underscore-to-camel-case: false
 
 my:
     server: # 上传到服务器需要改这个

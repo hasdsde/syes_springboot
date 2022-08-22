@@ -38,5 +38,5 @@ public class Item implements Serializable {
 
     private String userid;
 
-    private String name;
+
 }
