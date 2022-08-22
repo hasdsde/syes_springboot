@@ -26,11 +26,13 @@ public class ItemController {
     @Resource
     ItemMapper itemMapper;
 
-    // 根据id查询
+    // 根据用户id查询
     @GetMapping("/{id}")
     public Result getItemById(@PathVariable int id) {
-        Item item = itemMapper.selectById(id);
-        return Result.success(item);
+        QueryWrapper<Item> wrapper = new QueryWrapper<>();
+        wrapper.eq("userid", id);
+        List<Item> items = itemMapper.selectList(wrapper);
+        return Result.success(items);
     }
 
     //新建item
@@ -44,6 +46,7 @@ public class ItemController {
     //修改item
     @PutMapping("/")
     public Result updateItem(@RequestBody Item item) {
+        item.setCreatetime(LocalDateTime.now());
         int i = itemMapper.updateById(item);
         return Result.success();
     }
