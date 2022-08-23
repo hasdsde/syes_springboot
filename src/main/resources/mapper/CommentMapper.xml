@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syes.syes_springboot.mapper.CommentMapper">
+
+    <!--      根据userid查询       -->
+    <select id="getCommentByUserId" resultMap="CommentMap" parameterType="string">
+        select c.id         cid,
+               c.createtime ct,
+               u.id         uid,
+               u.createtime ut,
+               itemid,
+               userid,
+               content,
+               tocommentid,
+               u.nickname,
+               u.realname,
+               u.avatar,
+               u.phone
+        from comment as c
+                 inner join user as u on c.userid = u.id
+        where c.userid = #{id}
+    </select>
+    <!--根据itemid查询-->
+    <select id="getCommentByItemId" resultMap="CommentMap" parameterType="int">
+        select c.id         cid,
+               c.createtime ct,
+               u.id         uid,
+               u.createtime ut,
+               itemid,
+               userid,
+               content,
+               tocommentid,
+               u.nickname,
+               u.realname,
+               u.avatar,
+               u.phone
+        from comment as c
+                 inner join user as u on c.userid = u.id
+        where #{id} = c.itemid
+    </select>
+    <!--根据id查询-->
+    <select id="getCommentById" resultMap="CommentMap" parameterType="int">
+        select c.id         cid,
+               c.createtime ct,
+               u.id         uid,
+               u.createtime ut,
+               itemid,
+               userid,
+               content,
+               tocommentid,
+               u.nickname,
+               u.realname,
+               u.avatar,
+               u.phone
+        from comment as c
+                 inner join user as u on c.userid = u.id
+        where #{id} = c.id
+    </select>
+    <!--    &lt;!&ndash;修改&ndash;&gt;-->
+    <!--    <update id="updateComment" parameterType="Comment">-->
+    <!--    </update>-->
+    <!--    &lt;!&ndash;   删除 &ndash;&gt;-->
+    <!--    <delete id="deleteComment" parameterType="Comment">-->
+    <!--    </delete>-->
+    <!--    分页    -->
+    <select id="slectByPage" resultMap="CommentMap" parameterType="int">
+        select c.id         cid,
+               c.createtime ct,
+               u.id         uid,
+               u.createtime ut,
+               itemid,
+               userid,
+               content,
+               tocommentid,
+               u.nickname,
+               u.realname,
+               u.avatar,
+               u.phone
+        from comment as c
+                 inner join user u on u.id = userid
+        order by ct desc
+        limit #{arg0}, #{arg1}
+    </select>
+
+    <resultMap id="CommentMap" type="Comment">
+        <!--    重名的    -->
+        <result property="id" column="cid"/>
+        <result property="createtime" column="ct"/>
+        <!--    为什么一样了还要我写，你这不欺负老实人吗~    -->
+        <result property="itemid" column="itemid"/>
+        <result property="userid" column="userid"/>
+        <result property="content" column="content"/>
+        <result property="tocommentid" column="tocommentid"/>
+        <!--    里面那个对象，学java永远不缺对象    -->
+        <association property="user" javaType="User">
+            <!--    重名的    -->
+            <result property="id" column="uid"/>
+            <result property="createtime" column="ut"/>
+            <!--      密码不返回      -->
+            <result property="nickname" column="nickname"/>
+            <result property="realname" column="realname"/>
+            <result property="avatar" column="avatar"/>
+            <result property="phone" column="phone"/>
+        </association>
+    </resultMap>
+</mapper>

@@ -24,6 +24,7 @@ mybatis-plus:
     configuration:
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
         map-underscore-to-camel-case: false
+    type-aliases-package: com.syes.syes_springboot.entity
 
 my:
     server: # 上传到服务器需要改这个

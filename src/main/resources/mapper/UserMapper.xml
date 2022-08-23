@@ -3,7 +3,7 @@
 <mapper namespace="com.syes.syes_springboot.mapper.UserMapper">
 
 
-    <select id="slectByPage" resultType="com.syes.syes_springboot.entity.User" parameterType="int">
+    <select id="slectByPage" resultType="User" parameterType="int">
         select *
         from user
         order by createtime desc

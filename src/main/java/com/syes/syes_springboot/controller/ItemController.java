@@ -62,8 +62,8 @@ public class ItemController {
     @GetMapping("/page")
     public Result slectByPage(@RequestParam("pagesize") int pagesize, @RequestParam("currentpage") int currentPage) {
 
-        QueryWrapper wrapper = new QueryWrapper();
-        Integer total = itemMapper.selectCount(wrapper).intValue(); //获取总数
+
+        Integer total = itemMapper.selectCount(null).intValue(); //获取总数
         int StartPage = (currentPage - 1) * pagesize; //开始页数
         List<Item> itemList = itemMapper.slectByPage(StartPage, pagesize); //列表
         HashMap<String, Object> map = new HashMap<>();

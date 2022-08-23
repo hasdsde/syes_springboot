@@ -3,7 +3,7 @@
 <mapper namespace="com.syes.syes_springboot.mapper.ItemMapper">
 
 
-    <select id="slectByPage" resultType="com.syes.syes_springboot.entity.Item" parameterType="int">
+    <select id="slectByPage" resultType="Item" parameterType="int">
         select *
         from item
         order by createtime desc

@@ -54,7 +54,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     public Result deleteUser(@PathVariable("id") String id) {
         userMapper.deleteById(id);
-        return Result.success();
+        return Result.success(id);
     }
 
 
@@ -62,8 +62,7 @@ public class UserController {
     @GetMapping("/page")
     public Result slectByPage(@RequestParam("pagesize") int pagesize, @RequestParam("currentpage") int currentPage) {
 
-        QueryWrapper wrapper = new QueryWrapper();
-        Integer total = userMapper.selectCount(wrapper).intValue(); //获取总数
+        Integer total = userMapper.selectCount(null).intValue(); //获取总数
         int StartPage = (currentPage - 1) * pagesize; //开始页数
         List<User> userList = userMapper.slectByPage(StartPage, pagesize); //列表
 
