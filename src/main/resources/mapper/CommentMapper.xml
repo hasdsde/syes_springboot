@@ -17,7 +17,7 @@
                u.avatar,
                u.phone
         from comment as c
-                 inner join user as u on c.userid = u.id
+                 right join user as u on c.userid = u.id
         where c.userid = #{id}
     </select>
     <!--根据itemid查询-->
@@ -35,7 +35,7 @@
                u.avatar,
                u.phone
         from comment as c
-                 inner join user as u on c.userid = u.id
+                 left join user as u on c.userid = u.id
         where #{id} = c.itemid
     </select>
     <!--根据id查询-->
@@ -53,7 +53,7 @@
                u.avatar,
                u.phone
         from comment as c
-                 inner join user as u on c.userid = u.id
+                 left join user as u on c.userid = u.id
         where #{id} = c.id
     </select>
     <!--    &lt;!&ndash;修改&ndash;&gt;-->
