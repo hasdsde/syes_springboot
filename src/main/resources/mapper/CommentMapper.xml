@@ -77,7 +77,7 @@
                u.avatar,
                u.phone
         from comment as c
-                 inner join user u on u.id = userid
+                 left join user u on u.id = userid
         order by ct desc
         limit #{arg0}, #{arg1}
     </select>
