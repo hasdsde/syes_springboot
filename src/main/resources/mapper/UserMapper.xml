@@ -9,4 +9,11 @@
         order by createtime desc
         limit #{arg0}, #{arg1}
     </select>
+    <select id="slectByPageSearch" resultType="com.syes.syes_springboot.entity.User">
+        select *
+        from user
+        where id = #{arg2}
+        order by createtime desc
+        limit #{arg0}, #{arg1}
+    </select>
 </mapper>

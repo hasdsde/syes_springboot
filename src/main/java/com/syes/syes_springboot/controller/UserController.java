@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,14 +27,6 @@ public class UserController {
     @Autowired
     UserMapper userMapper;
 
-    //根据id查询
-    @GetMapping("/{id}")
-    public Result getUserByid(@PathVariable("id") String id) {
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("id", id);
-        List<User> users = userMapper.selectList(wrapper);
-        return Result.success(users);
-    }
 
     //新建用户
     @PostMapping("/")
@@ -60,11 +53,21 @@ public class UserController {
 
     //分页查询
     @GetMapping("/page")
-    public Result slectByPage(@RequestParam("pagesize") int pagesize, @RequestParam("currentpage") int currentPage) {
+    public Result slectByPage(@RequestParam("pagesize") int pagesize, @RequestParam("currentpage") int currentPage, @RequestParam("searchtext") String SearchText) {
 
-        Integer total = userMapper.selectCount(null).intValue(); //获取总数
+        Integer total;
         int StartPage = (currentPage - 1) * pagesize; //开始页数
-        List<User> userList = userMapper.slectByPage(StartPage, pagesize); //列表
+        List<User> userList = new ArrayList<>();
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", SearchText);
+        if (SearchText.isEmpty()) {
+            userList = userMapper.slectByPage(StartPage, pagesize); //列表
+            total = userMapper.selectCount(null).intValue(); //获取总数
+        } else {
+            userList = userMapper.slectByPageSearch(StartPage, pagesize, SearchText); //列表
+            total = userMapper.selectCount(wrapper).intValue(); //获取总数
+        }
+
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("data", userList);

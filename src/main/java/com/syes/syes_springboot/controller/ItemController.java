@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,14 +27,6 @@ public class ItemController {
     @Resource
     ItemMapper itemMapper;
 
-    // 根据用户id查询
-    @GetMapping("/{id}")
-    public Result getItemById(@PathVariable String id) {
-        QueryWrapper<Item> wrapper = new QueryWrapper<>();
-        wrapper.eq("userid", id);
-        List<Item> items = itemMapper.selectList(wrapper);
-        return Result.success(items);
-    }
 
     //新建item
     @PostMapping("/")
@@ -60,10 +53,23 @@ public class ItemController {
 
     //分页查询
     @GetMapping("/page")
-    public Result slectByPage(@RequestParam("pagesize") int pagesize, @RequestParam("currentpage") int currentPage) {
-        Integer total = itemMapper.selectCount(null).intValue(); //获取总数
+    public Result slectByPage(
+            @RequestParam("pagesize") int pagesize,
+            @RequestParam("currentpage") int currentPage,
+            @RequestParam("searchtext") String SearchText
+    ) {
+        Integer total;
         int StartPage = (currentPage - 1) * pagesize; //开始页数
-        List<Item> itemList = itemMapper.slectByPage(StartPage, pagesize); //列表
+        List<Item> itemList = new ArrayList<>();
+        QueryWrapper<Item> wrapper = new QueryWrapper<>();
+        wrapper.eq("userid", SearchText);
+        if (SearchText.isEmpty()) {
+            itemList = itemMapper.slectByPage(StartPage, pagesize); //列表
+            total = itemMapper.selectCount(null).intValue(); //获取总数
+        } else {
+            itemList = itemMapper.slectByPageSearch(StartPage, pagesize, SearchText); //列表
+            total = itemMapper.selectCount(wrapper).intValue(); //获取总数
+        }
         HashMap<String, Object> map = new HashMap<>();
         map.put("data", itemList);
         map.put("total", total);

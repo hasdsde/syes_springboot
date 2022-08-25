@@ -81,6 +81,54 @@
         order by ct desc
         limit #{arg0}, #{arg1}
     </select>
+    <select id="slectByPageSearch" resultType="com.syes.syes_springboot.entity.Comment">
+        select c.id         cid,
+               c.createtime ct,
+               u.id         uid,
+               u.createtime ut,
+               itemid,
+               userid,
+               content,
+               tocommentid,
+               u.nickname,
+               u.realname,
+               u.avatar,
+               u.phone
+        from comment as c
+                 left join user u on u.id = userid
+        where userid = #{arg2}
+        order by ct desc
+        limit #{arg0}, #{arg1}
+    </select>
+    <select id="slectByPageSearchItem" resultType="com.syes.syes_springboot.entity.Comment">
+        select c.id         cid,
+               c.createtime ct,
+               u.id         uid,
+               u.createtime ut,
+               itemid,
+               userid,
+               content,
+               tocommentid,
+               u.nickname,
+               u.realname,
+               u.avatar,
+               u.phone
+        from comment as c
+                 left join user u on u.id = userid
+        where itemid = #{arg2}
+        order by ct desc
+        limit #{arg0}, #{arg1}
+    </select>
+    <select id="selectCountSearch" resultType="java.lang.Integer">
+        select count(*)
+        from comment
+        where userid = #{seatchText}
+    </select>
+    <select id="selectCountItem" resultType="java.lang.Integer">
+        select count(*)
+        from comment
+        where itemid = #{seatchText}
+    </select>
 
     <resultMap id="CommentMap" type="Comment">
         <!--    重名的    -->

@@ -1,15 +1,14 @@
 package com.syes.syes_springboot.mapper;
 
-import com.syes.syes_springboot.entity.File;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.syes.syes_springboot.entity.User;
+import com.syes.syes_springboot.entity.File;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author test
@@ -21,4 +20,5 @@ public interface FileMapper extends BaseMapper<File> {
     // 分页查询
     List<File> slectByPage(int currentPage, int pagesize);
 
+    List<File> slectByPageSearch(int startPage, int pagesize, String searchText);
 }

@@ -3,9 +3,16 @@
 <mapper namespace="com.syes.syes_springboot.mapper.ItemMapper">
 
 
-    <select id="slectByPage" resultType="Item" parameterType="int">
+    <select id="slectByPage" resultType="com.syes.syes_springboot.entity.Item" parameterType="int">
         select *
         from item
+        order by createtime desc
+        limit #{arg0}, #{arg1}
+    </select>
+    <select id="slectByPageSearch" resultType="com.syes.syes_springboot.entity.Item">
+        select *
+        from item
+        where userid = #{arg2}
         order by createtime desc
         limit #{arg0}, #{arg1}
     </select>

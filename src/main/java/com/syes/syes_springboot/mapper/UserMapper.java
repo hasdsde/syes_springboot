@@ -18,4 +18,6 @@ import java.util.List;
 public interface UserMapper extends BaseMapper<User> {
 
     List<User> slectByPage(int currentPage, int pagesize);
+
+    List<User> slectByPageSearch(int startPage, int pagesize, String searchText);
 }

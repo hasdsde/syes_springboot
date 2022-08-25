@@ -1,8 +1,7 @@
 package com.syes.syes_springboot.mapper;
 
-import com.syes.syes_springboot.entity.Comment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.syes.syes_springboot.entity.User;
+import com.syes.syes_springboot.entity.Comment;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -35,4 +34,13 @@ public interface CommentMapper extends BaseMapper<Comment> {
 
     // 分页
     List<Comment> slectByPage(int currentPage, int pagesize);
+
+    List<Comment> slectByPageSearch(int startPage, int pagesize, String seatchText);
+
+    List<Comment> slectByPageSearchItem(int startPage, int pagesize, String seatchText);
+
+
+    Integer selectCountSearch(String seatchText);
+
+    Integer selectCountItem(String seatchText);
 }

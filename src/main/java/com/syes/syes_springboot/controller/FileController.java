@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,20 +41,23 @@ public class FileController {
     @Value("${my.file-config.downloadPath}")
     private String downloadPath;
 
-    @GetMapping("/{userid}")
-    public Result getfileByid(@PathVariable("userid") String userid) {
-        QueryWrapper<File> wrapper = new QueryWrapper();
-        wrapper.eq("userid", userid);
-        List<File> fileList = fileMapper.selectList(wrapper);
-        return Result.success(fileList);
-    }
 
     //分页查询
     @GetMapping("/page")
-    public Result slectByPage(@RequestParam("pagesize") int pagesize, @RequestParam("currentpage") int currentPage) {
-        Integer total = fileMapper.selectCount(null).intValue(); //获取总数
+    public Result slectByPage(@RequestParam("pagesize") int pagesize, @RequestParam("currentpage") int currentPage, @RequestParam("searchtext") String SearchText) {
+        Integer total;
         int StartPage = (currentPage - 1) * pagesize; //开始页数
-        List<File> fileList = fileMapper.slectByPage(StartPage, pagesize); //列表
+        QueryWrapper<File> wrapper = new QueryWrapper<>();
+        wrapper.eq("userid", SearchText);
+        List<File> fileList = new ArrayList<>();
+        if (SearchText.isEmpty()) {
+            fileList = fileMapper.slectByPage(StartPage, pagesize); //列表
+            total = fileMapper.selectCount(null).intValue(); //获取总数
+        } else {
+            fileList = fileMapper.slectByPageSearch(StartPage, pagesize, SearchText); //列表
+            total = fileMapper.selectCount(wrapper).intValue(); //获取总数
+        }
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("data", fileList);
         map.put("total", total);
@@ -124,6 +129,7 @@ public class FileController {
         saveFile.setUrl(url);
         saveFile.setMd5(md5);
         saveFile.setUserid(userid);
+        saveFile.setCreatetime(LocalDateTime.now());
         fileMapper.insert(saveFile);
 
         // 测试
