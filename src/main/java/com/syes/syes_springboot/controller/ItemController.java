@@ -28,7 +28,7 @@ public class ItemController {
 
     // 根据用户id查询
     @GetMapping("/{id}")
-    public Result getItemById(@PathVariable int id) {
+    public Result getItemById(@PathVariable String id) {
         QueryWrapper<Item> wrapper = new QueryWrapper<>();
         wrapper.eq("userid", id);
         List<Item> items = itemMapper.selectList(wrapper);
@@ -61,8 +61,6 @@ public class ItemController {
     //分页查询
     @GetMapping("/page")
     public Result slectByPage(@RequestParam("pagesize") int pagesize, @RequestParam("currentpage") int currentPage) {
-
-
         Integer total = itemMapper.selectCount(null).intValue(); //获取总数
         int StartPage = (currentPage - 1) * pagesize; //开始页数
         List<Item> itemList = itemMapper.slectByPage(StartPage, pagesize); //列表

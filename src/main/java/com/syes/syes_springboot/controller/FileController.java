@@ -8,10 +8,7 @@ import com.syes.syes_springboot.common.Result;
 import com.syes.syes_springboot.entity.File;
 import com.syes.syes_springboot.mapper.FileMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -41,6 +38,19 @@ public class FileController {
 
     @Value("${my.file-config.downloadPath}")
     private String downloadPath;
+
+
+    //分页查询
+    @GetMapping("/page")
+    public Result slectByPage(@RequestParam("pagesize") int pagesize, @RequestParam("currentpage") int currentPage) {
+        Integer total = fileMapper.selectCount(null).intValue(); //获取总数
+        int StartPage = (currentPage - 1) * pagesize; //开始页数
+        List<File> fileList = fileMapper.slectByPage(StartPage, pagesize); //列表
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("data", fileList);
+        map.put("total", total);
+        return Result.success(map);
+    }
 
 
     @PostMapping("/upload")

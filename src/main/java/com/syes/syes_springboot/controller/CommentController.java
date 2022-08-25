@@ -1,10 +1,7 @@
 package com.syes.syes_springboot.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.syes.syes_springboot.common.Result;
 import com.syes.syes_springboot.entity.Comment;
-import com.syes.syes_springboot.entity.Comment;
-import com.syes.syes_springboot.mapper.CommentMapper;
 import com.syes.syes_springboot.mapper.CommentMapper;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +45,7 @@ public class CommentController {
         Comment comments = mapper.getCommentById(id);
         return Result.success(comments);
     }
+    
 
     //新建评论
     @PostMapping("/")
@@ -79,7 +77,6 @@ public class CommentController {
         Integer total = mapper.selectCount(null).intValue(); //获取总数
         int StartPage = (currentPage - 1) * pagesize; //开始页数
         List<Comment> commentList = mapper.slectByPage(StartPage, pagesize); //列表
-
         HashMap<String, Object> map = new HashMap<>();
         map.put("data", commentList);
         map.put("total", total);
