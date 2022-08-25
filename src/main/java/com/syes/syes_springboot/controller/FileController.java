@@ -54,7 +54,7 @@ public class FileController {
 
 
     @PostMapping("/upload")
-    public Result upload(@RequestParam("file") MultipartFile file) {
+    public Result upload(@RequestPart("file") MultipartFile file, @RequestParam("userid") String userid) {
 
         // 测试用的map
         Map<String, Object> map = new HashMap<>();
@@ -100,6 +100,7 @@ public class FileController {
         saveFile.setSize(size);
         saveFile.setUrl(url);
         saveFile.setMd5(md5);
+        saveFile.setUserid(userid);
         fileMapper.insert(saveFile);
 
         // 测试
@@ -108,6 +109,7 @@ public class FileController {
         map.put("size", size);
         map.put("url", url);
         map.put("md5", md5);
+        map.put("userid", userid);
 
         map.put("uuid", uuid);
 

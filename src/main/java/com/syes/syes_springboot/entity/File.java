@@ -35,6 +35,8 @@ public class File implements Serializable {
 
     private String url;
 
+    private String userid;
+
     private String md5;
 
     private Boolean isDelete;
