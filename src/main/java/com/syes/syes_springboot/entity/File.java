@@ -39,8 +39,6 @@ public class File implements Serializable {
 
     private String md5;
 
-    private String userid;
-
     private Boolean is_delete;
 
     private String enable;

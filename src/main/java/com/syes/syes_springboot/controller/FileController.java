@@ -132,6 +132,7 @@ public class FileController {
         map.put("size", size);
         map.put("url", url);
         map.put("md5", md5);
+        map.put("userid", userid);
 
         map.put("uuid", uuid);
 
