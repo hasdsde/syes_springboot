@@ -39,7 +39,7 @@ public class File implements Serializable {
 
     private String userid;
 
-    private Boolean isDelete;
+    private Boolean is_delete;
 
     private String enable;
 

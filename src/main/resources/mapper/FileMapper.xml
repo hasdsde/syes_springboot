@@ -3,7 +3,7 @@
 <mapper namespace="com.syes.syes_springboot.mapper.FileMapper">
 
     <select id="slectByPage" resultType="com.syes.syes_springboot.entity.File" parameterType="int">
-        select id, name, url, userid, createtime
+        select id, name, url, userid, createtime, is_delete
         from file
         order by createtime desc
         limit #{arg0}, #{arg1}
