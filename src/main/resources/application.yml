@@ -29,7 +29,7 @@ mybatis-plus:
 my:
     server: # 上传到服务器需要改这个
         name: localhost
-        uploadPath: 'D:/下载/不用思考，删这个文件夹/' # 文件下载到哪里，记得屁股加个杠
+        uploadPath: 'D:/pic/' # 文件下载到哪里，记得屁股加个杠
 
     file-config:
         uploadPath: '${my.server.uploadPath}'

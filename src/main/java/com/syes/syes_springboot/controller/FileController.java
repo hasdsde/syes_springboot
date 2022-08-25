@@ -39,6 +39,13 @@ public class FileController {
     @Value("${my.file-config.downloadPath}")
     private String downloadPath;
 
+    @GetMapping("/{userid}")
+    public Result getfileByid(@PathVariable("userid") String userid) {
+        QueryWrapper<File> wrapper = new QueryWrapper();
+        wrapper.eq("userid", userid);
+        List<File> fileList = fileMapper.selectList(wrapper);
+        return Result.success(fileList);
+    }
 
     //分页查询
     @GetMapping("/page")
@@ -52,9 +59,25 @@ public class FileController {
         return Result.success(map);
     }
 
+    //硬删除
+    @DeleteMapping("/{id}")
+    public Result DeleteByid(@PathVariable("id") int id) {
+        fileMapper.deleteById(id);
+        return Result.success();
+    }
+
+    //    软删除
+    @GetMapping("/status")
+    private Result upDeleById(@RequestParam("id") int id, @RequestParam("status") Boolean status) {
+        File file = new File();
+        file.setId(id);
+        file.setIs_delete(status);
+        fileMapper.updateById(file);
+        return Result.success();
+    }
 
     @PostMapping("/upload")
-    public Result upload(@RequestPart("file") MultipartFile file, @RequestParam("userid") String userid) {
+    public Result upload(@RequestParam("file") MultipartFile file, @RequestParam("userid") String userid) {
 
         // 测试用的map
         Map<String, Object> map = new HashMap<>();
@@ -109,7 +132,6 @@ public class FileController {
         map.put("size", size);
         map.put("url", url);
         map.put("md5", md5);
-        map.put("userid", userid);
 
         map.put("uuid", uuid);
 

@@ -2,14 +2,14 @@ package com.syes.syes_springboot.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import lombok.*;
-
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author test
@@ -39,7 +39,9 @@ public class File implements Serializable {
 
     private String md5;
 
-    private Boolean isDelete;
+    private String userid;
+
+    private Boolean is_delete;
 
     private String enable;
 
