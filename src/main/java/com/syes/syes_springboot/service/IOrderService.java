@@ -1,6 +1,6 @@
 package com.syes.syes_springboot.service;
 
-import com.syes.syes_springboot.entity.Collection;
+import com.syes.syes_springboot.entity.Order;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author eula
  * @since 2022-08-26
  */
-public interface ICollectionService extends IService<Collection> {
+public interface IOrderService extends IService<Order> {
 
 }
