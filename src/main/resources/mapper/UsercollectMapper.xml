@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syes.syes_springboot.mapper.UsercollectMapper">
+
+    <!--      根据userid查询       -->
+    <select id="getAllByUserId" resultType="com.syes.syes_springboot.entity.Usercollect">
+            select *
+            from usercollect as c
+                     right join item as u on c.itemid = u.id
+            where c.userid = #{id}
+    </select>
+
+    <select id="slectByPage" resultType="com.syes.syes_springboot.entity.Usercollect" parameterType="int">
+        select *
+        from usercollect
+        limit #{arg0}, #{arg1}
+    </select>
+
+    <select id="slectByPageSearch" resultType="com.syes.syes_springboot.entity.Usercollect">
+        select *
+        from usercollect
+        where userid = #{arg2}
+        limit #{arg0}, #{arg1}
+    </select>
+
+</mapper>
