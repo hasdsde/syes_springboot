@@ -48,6 +48,27 @@ public class OrderController {
         return Result.success();
     }
 
+    //根据id修改状态
+    @GetMapping("/status")
+    public Result updateStatusByid(@RequestParam("id") int id, @RequestParam("status") Integer status) {
+        Order order = new Order();
+        order.setId(id);
+        int bstatus = status == 0 ? 1 : 0;
+        order.setEnable(bstatus);
+        orderMapper.updateById(order);
+        return Result.success();
+    }    //根据id修改状态
+
+    //切换12345状态
+    @GetMapping("/status/order")
+    public Result updateorderStatusByid(@RequestParam("id") int id, @RequestParam("status") Integer status) {
+        Order order = new Order();
+        order.setId(id);
+        order.setStatus(status);
+        orderMapper.updateById(order);
+        return Result.success();
+    }
+
     //分页查询
     @GetMapping("/page")
     public Result slectByPage(
@@ -69,7 +90,7 @@ public class OrderController {
                 orderList = orderMapper.slectByPageSearchItem(StartPage, pagesize, SeatchText); //列表
                 total = orderMapper.selectCountItem(SeatchText).intValue(); //获取总数
             }
-            
+
         }
         HashMap<String, Object> map = new HashMap<>();
         map.put("data", orderList);

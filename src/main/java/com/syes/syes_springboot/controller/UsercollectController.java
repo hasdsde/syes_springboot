@@ -2,20 +2,18 @@ package com.syes.syes_springboot.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.syes.syes_springboot.common.Result;
-import com.syes.syes_springboot.entity.Item;
 import com.syes.syes_springboot.entity.Usercollect;
 import com.syes.syes_springboot.mapper.UsercollectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author eula
@@ -41,7 +39,7 @@ public class UsercollectController {
         usercollectMapper.deleteById(id);
         return Result.success();
     }
-
+    
     //分页查询
     @GetMapping("/page")
     public Result slectByPage(

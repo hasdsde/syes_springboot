@@ -4,34 +4,34 @@
 
     <select id="slectByPage" resultType="com.syes.syes_springboot.entity.Order">
         select *
-        from `order`
+        from userorder
         order by createtime desc
         limit #{arg0},#{arg1}
     </select>
     <select id="slectByPageSearch" resultType="com.syes.syes_springboot.entity.Order">
         select *
-        from `order`
+        from userorder
         where userid = #{arg2}
         order by createtime desc
         limit #{arg0},#{arg1}
     </select>
     <select id="selectCountSearch" resultType="java.lang.Integer">
         select count(*)
-        from `order`
+        from userorder
         where userid = #{arg2}
         order by createtime desc
         limit #{arg0},#{arg1}
     </select>
     <select id="slectByPageSearchItem" resultType="com.syes.syes_springboot.entity.Order">
         select *
-        from `order`
+        from userorder
         where itemid = #{arg2}
         order by createtime desc
         limit #{arg0},#{arg1}
     </select>
     <select id="selectCountItem" resultType="java.lang.Integer">
         select count(*)
-        from `order`
+        from userorder
         where itemid = #{arg2}
         order by createtime desc
         limit #{arg0},#{arg1}
