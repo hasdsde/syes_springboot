@@ -1,16 +1,20 @@
 package com.syes.syes_springboot.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.syes.syes_springboot.Utils.JwtUtil;
 import com.syes.syes_springboot.common.Result;
+import com.syes.syes_springboot.entity.Dto.UserDto;
 import com.syes.syes_springboot.entity.User;
 import com.syes.syes_springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -27,6 +31,20 @@ public class UserController {
     @Autowired
     UserMapper userMapper;
 
+    //登录
+    @PostMapping("/login")
+    public Result Login(
+            @RequestBody UserDto userDto,
+            HttpServletRequest request) {
+        User user = userMapper.selectById(userDto.getUserid());
+        if (Objects.equals(user.getPassword(), userDto.getPassword())) {
+
+            String token = JwtUtil.CreateToken(user.getId(), user.getRealname(), user.getPassword());
+            return Result.success(token);
+        } else {
+            return Result.error("401", "密码不正确`");
+        }
+    }
 
     //新建用户
     @PostMapping("/")

@@ -26,6 +26,7 @@ public class UsercollectController {
     @Autowired
     UsercollectMapper usercollectMapper;
 
+
     //新建
     @PostMapping("/")
     public Result SaveItem(@RequestBody Usercollect usercollect) {
@@ -39,7 +40,7 @@ public class UsercollectController {
         usercollectMapper.deleteusercollect(userid, itemid);
         return Result.success();
     }
-    
+
     //查询收藏人的数量
     @GetMapping("/{itemid}")
     public long queryByItem(@PathVariable int itemid) {

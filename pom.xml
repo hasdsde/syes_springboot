@@ -16,7 +16,11 @@
     </properties>
 
     <dependencies>
-
+        <!--jwt-->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+        </dependency>
         <!--        druid-->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -124,11 +128,11 @@
             <version>1.0.47_1</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba</groupId>-->
-<!--            <artifactId>druid-spring-boot-starter</artifactId>-->
-<!--            <version>1.2.11</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba</groupId>-->
+        <!--            <artifactId>druid-spring-boot-starter</artifactId>-->
+        <!--            <version>1.2.11</version>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <dependencyManagement>
