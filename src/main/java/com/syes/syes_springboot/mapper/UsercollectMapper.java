@@ -21,8 +21,12 @@ public interface UsercollectMapper extends BaseMapper<Usercollect> {
     // 根据userid查询
     List<Usercollect> getAllByUserId(String userid);
 
+    int deleteusercollect(String userid , int itemid);
+
     // 分页
     List<Usercollect> slectByPage(int currentPage, int pagesize);
 
     List<Usercollect> slectByPageSearch(int currentPage, int pagesize, String searchtext);
+
+    List<Item> getitemByUserId(String id);
 }
