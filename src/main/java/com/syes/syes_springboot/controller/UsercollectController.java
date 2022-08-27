@@ -42,8 +42,8 @@ public class UsercollectController {
     }
 
     //查询收藏人的数量
-    @GetMapping("/{itemid}")
-    public long queryByItem(@PathVariable int itemid) {
+    @GetMapping("/itemid/{itemid}")
+    public long queryByItem(@PathVariable("itemid") int itemid) {
         QueryWrapper<Usercollect> wrapper = new QueryWrapper<>();
         wrapper.eq("itemid", itemid);
         Long count = usercollectMapper.selectCount(wrapper);
@@ -51,7 +51,7 @@ public class UsercollectController {
     }
 
     //根据userid查询收藏物品
-    @GetMapping("/{id}")
+    @GetMapping("/userid/{userid}")
     public Result getCommentByUserId(@PathVariable String userid) {
         QueryWrapper<Usercollect> wrapper = new QueryWrapper<>();
         wrapper.eq("userid", userid);
