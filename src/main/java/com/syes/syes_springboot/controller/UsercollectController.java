@@ -2,6 +2,7 @@ package com.syes.syes_springboot.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.syes.syes_springboot.common.Result;
+import com.syes.syes_springboot.entity.Comment;
 import com.syes.syes_springboot.entity.Item;
 import com.syes.syes_springboot.entity.Usercollect;
 import com.syes.syes_springboot.mapper.UsercollectMapper;
@@ -36,11 +37,30 @@ public class UsercollectController {
     }
 
     //删除
-    @DeleteMapping("/{id}")
-    public Result deleteItem(@PathVariable("id") String id) {
-        usercollectMapper.deleteById(id);
+    @DeleteMapping("/{userid}/{itemid}")
+    public Result deleteItem(@PathVariable("userid") String userid , @PathVariable("itemid") int itemid) {
+        usercollectMapper.deleteusercollect(userid,itemid);
         return Result.success();
     }
+
+    //查询收藏人的数量
+    @GetMapping("/{itemid}")
+    public long queryByItem(@PathVariable int itemid){
+        QueryWrapper<Usercollect> wrapper = new QueryWrapper<>();
+        wrapper.eq("itemid",itemid);
+        Long count = usercollectMapper.selectCount(wrapper);
+        return count;
+    }
+
+    //根据userid查询收藏物品
+    @GetMapping("/{id}")
+    public Result getCommentByUserId(@PathVariable String userid) {
+        QueryWrapper<Usercollect> wrapper = new QueryWrapper<>();
+        wrapper.eq("userid",userid);
+        List<Usercollect> res = usercollectMapper.selectList(wrapper);
+        return Result.success(res);
+    }
+
 
     //分页查询
     @GetMapping("/page")
@@ -66,5 +86,7 @@ public class UsercollectController {
         map.put("total", total);
         return Result.success(map);
     }
+
+
 
 }
