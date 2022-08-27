@@ -5,6 +5,7 @@ import com.syes.syes_springboot.entity.Item;
 import com.syes.syes_springboot.entity.Usercollect;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,8 +19,7 @@ import java.util.List;
  */
 @Mapper
 public interface UsercollectMapper extends BaseMapper<Usercollect> {
-    // 根据userid查询
-    List<Usercollect> getAllByUserId(String userid);
+
 
     int deleteusercollect(String userid , int itemid);
 
@@ -28,5 +28,5 @@ public interface UsercollectMapper extends BaseMapper<Usercollect> {
 
     List<Usercollect> slectByPageSearch(int currentPage, int pagesize, String searchtext);
 
-    List<Item> getitemByUserId(String id);
+
 }

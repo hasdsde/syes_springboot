@@ -2,16 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.syes.syes_springboot.mapper.UsercollectMapper">
     <delete id="deleteusercollect">
-        delete from usercollect where itemid = #{itemid} and userid = #{userid};
+        delete from usercollect where userid = #{arg0} and itemid = #{arg1};
     </delete>
 
-    <!--      根据userid查询       -->
-    <select id="getAllByUserId" resultType="com.syes.syes_springboot.entity.Usercollect">
-            select *
-            from usercollect as c
-                     right join item as u on c.itemid = u.id
-            where c.userid = #{id}
-    </select>
+
 
     <select id="slectByPage" resultType="com.syes.syes_springboot.entity.Usercollect" parameterType="int">
         select *
@@ -25,11 +19,6 @@
         where userid = #{arg2}
         limit #{arg0}, #{arg1}
     </select>
-    <select id="getitemByUserId" resultType="com.syes.syes_springboot.entity.Item">
-        select item.*
-        from item,usercollect
-        where usercollect.userid = #{userid}
-        and   item.id = usercollect.itemid
-    </select>
+
 
 </mapper>
