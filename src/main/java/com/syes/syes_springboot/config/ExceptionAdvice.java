@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(BusinessException.class)
-    public Result handleBussinessException(Exception e) {
-        return Result.error("401", "业务异常消息：" + e.getMessage());
+    public Result handleBussinessException(BusinessException e) {
+        return Result.error(e.getCode(), "业务异常：" + e.getMessage());
     }
 }
