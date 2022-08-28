@@ -10,7 +10,6 @@ import com.syes.syes_springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,8 +34,12 @@ public class UserController {
     //登录
     @PostMapping("/login")
     public Result Login(
-            @RequestBody UserDto userDto,
-            HttpServletRequest request) {
+            @RequestBody UserDto userDto) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", userDto.getUserid());
+        if (userMapper.selectCount(wrapper) == 0) {
+            throw new BusinessException("499", "用户不存在");
+        }
         User user = userMapper.selectById(userDto.getUserid());
         if (Objects.equals(user.getPassword(), userDto.getPassword())) {
             String token = JwtUtil.CreateToken(user.getId(), user.getRealname(), user.getPassword());
