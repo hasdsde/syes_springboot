@@ -19,13 +19,24 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        //放行OPTIONS请求
+        String method = request.getMethod();
+        if ("OPTIONS".equals(method)) {
+            return true;
+        }
+        //获取token
         String token = request.getHeader("token");
         System.out.println("Token已拦截请求");
         //token不存在直接报错
         if (token == null) {
             throw new BusinessException("Token不存在");
         }
-        String userid = JwtUtil.getAudience(token); //获取签发对象的Userid
+        String userid = null; //获取签发对象的Userid
+        try {
+            userid = JwtUtil.getAudience(token);
+        } catch (Exception e) {
+            throw new BusinessException("499", "数据校验失败");
+        }
         User RealUser = userMapper.selectById(userid);
         //姓名不匹配返回
         if (!Objects.equals(RealUser.getRealname(), JwtUtil.getClaimByName(token, "username").asString())) {
@@ -34,6 +45,7 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
         if (JwtUtil.checkDate(token)) {
             throw new BusinessException("499", "token过期");
         }
+        System.out.println("tocken验证成功");
         //布尔值验证
         return JwtUtil.vertifyToken(token, RealUser.getId(), RealUser.getPassword());
     }

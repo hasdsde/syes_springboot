@@ -43,7 +43,11 @@ public class UserController {
         User user = userMapper.selectById(userDto.getUserid());
         if (Objects.equals(user.getPassword(), userDto.getPassword())) {
             String token = JwtUtil.CreateToken(user.getId(), user.getRealname(), user.getPassword());
-            return Result.success(token);
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("token", token);
+            data.put("username", user.getNickname());
+            data.put("avatar", user.getAvatar());
+            return Result.success(data);
         } else {
             throw new BusinessException("401", "密码错误");
         }
