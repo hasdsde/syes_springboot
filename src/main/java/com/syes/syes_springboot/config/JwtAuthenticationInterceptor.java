@@ -1,7 +1,9 @@
 package com.syes.syes_springboot.config;
 
 import com.syes.syes_springboot.Utils.JwtUtil;
+import com.syes.syes_springboot.entity.Rootuser;
 import com.syes.syes_springboot.entity.User;
+import com.syes.syes_springboot.mapper.RootuserMapper;
 import com.syes.syes_springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,6 +18,8 @@ import java.util.Objects;
 public class JwtAuthenticationInterceptor implements HandlerInterceptor {
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    RootuserMapper rootuserMapper;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -31,23 +35,39 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
         if (token == null) {
             throw new BusinessException("Token不存在");
         }
+        //获取签发对象id，不存在直接报错
         String userid = null; //获取签发对象的Userid
         try {
-            userid = JwtUtil.getAudience(token);
+            userid = JwtUtil.getAudience(token);//获取token中的签发对象
         } catch (Exception e) {
             throw new BusinessException("499", "数据校验失败");
         }
-        User RealUser = userMapper.selectById(userid);
-        //姓名不匹配返回
-        if (!Objects.equals(RealUser.getRealname(), JwtUtil.getClaimByName(token, "username").asString())) {
-            throw new BusinessException("认证错误");
+        //带着token验证载荷username是否正确
+        User RealUser = null;
+        Rootuser rootUser = null;
+        if (userid.equals("root")) {
+            rootUser = rootuserMapper.selectById(userid);
+            if (!Objects.equals(rootUser.getUsername(), JwtUtil.getClaimByName(token, "username").asString())) {
+                throw new BusinessException("认证错误");
+            }
+        } else {
+            RealUser = userMapper.selectById(userid);
+            //姓名不匹配返回
+            if (!Objects.equals(RealUser.getRealname(), JwtUtil.getClaimByName(token, "username").asString())) {
+                throw new BusinessException("认证错误");
+            }
         }
+        //检查是否过期
         if (JwtUtil.checkDate(token)) {
             throw new BusinessException("499", "token过期");
         }
         System.out.println("tocken验证成功");
         //布尔值验证
-        return JwtUtil.vertifyToken(token, RealUser.getId(), RealUser.getPassword());
+        if (userid.equals("root")) {
+            return JwtUtil.vertifyRootToken(token, userid, rootUser.getPassword(), rootUser.getUsername());
+        } else {
+            return JwtUtil.vertifyToken(token, userid, RealUser.getPassword());
+        }
     }
 
     @Override
