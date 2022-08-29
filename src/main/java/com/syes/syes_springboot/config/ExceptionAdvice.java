@@ -11,6 +11,6 @@ public class ExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(BusinessException.class)
     public Result handleBussinessException(BusinessException e) {
-        return Result.error(e.getCode(), "业务异常：" + e.getMessage());
+        return Result.error(e.getCode(), "异常：" + e.getMessage());
     }
 }
