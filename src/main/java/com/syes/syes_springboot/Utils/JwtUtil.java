@@ -24,10 +24,32 @@ public class JwtUtil {
                 .sign(Algorithm.HMAC256(userid + password));  //加密算法
     }
 
+    public static String CreateRootToken(String userid, String userName, String password) {
+        Calendar now = Calendar.getInstance();
+        now.add(Calendar.HOUR, 2);
+        Date time = now.getTime();
+        return JWT.create().withAudience(userid)//签发对象
+                .withIssuedAt(new Date())//创建日期
+                .withExpiresAt(time)//过期日期
+                .withClaim("username", userName)//载荷
+                .sign(Algorithm.HMAC256(userid + "哼哼哼啊啊啊啊啊啊啊啊" + password + userName));  //加密算法
+    }
+
     //认证测试
     public static Boolean vertifyToken(String token, String userid, String password) {
         DecodedJWT jwt = null;
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(userid + password)).build();
+        try {
+            jwt = verifier.verify(token);
+            return true;
+        } catch (JWTVerificationException e) {
+            return false;
+        }
+    }
+
+    public static Boolean vertifyRootToken(String token, String userid, String password, String userName) {
+        DecodedJWT jwt = null;
+        JWTVerifier verifier = JWT.require(Algorithm.HMAC256(userid + "哼哼哼啊啊啊啊啊啊啊啊" + password + userName)).build();
         try {
             jwt = verifier.verify(token);
             return true;
