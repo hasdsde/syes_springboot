@@ -5,18 +5,22 @@
 
     <select id="query" resultType="com.syes.syes_springboot.entity.Dto.Item_homeDto">
 
-        select itempic.picid,
+        select
+               file.url,
+               item.id,
+               item.title,
                user.nickname,
                user.avatar,
                item.price,
                item.createtime,
-               guroupu.cc
+               guroupu.collectionnum
         from item
                  left join user on item.userid = user.id
                  left join itempic on item.id = itempic.itemid
+                 left join file on itempic.picid = file.id
                  left join usercollect on item.id = usercollect.itemid
-                 left join (select itemid, count(*) as cc from usercollect group by itemid) as guroupu
-                           on guroupu.itemid = guroupu.itemid
+                 left join (select itemid, count(*) as collectionnum from usercollect group by itemid) as guroupu
+                           on item.id = guroupu.itemid
         order by createtime desc
             limit #{arg0}, #{arg1}
     </select>

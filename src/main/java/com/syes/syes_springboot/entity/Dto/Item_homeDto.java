@@ -12,10 +12,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item_homeDto {
-    private String itemid;
+    private String url;
+    private int id;
+    private String title;
     private String nickname;
     private String avatar;
-    private int price;
+    private double price;
     private LocalDateTime createtime;
     private int collectionnum;
     private int clicknum;
