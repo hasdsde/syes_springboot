@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syes.syes_springboot.mapper.ItemHomeMapper">
+
+
+    <select id="query" resultType="com.syes.syes_springboot.entity.Dto.Item_homeDto">
+
+        select itempic.picid,
+               user.nickname,
+               user.avatar,
+               item.price,
+               item.createtime,
+               guroupu.cc
+        from item
+                 left join user on item.userid = user.id
+                 left join itempic on item.id = itempic.itemid
+                 left join usercollect on item.id = usercollect.itemid
+                 left join (select itemid, count(*) as cc from usercollect group by itemid) as guroupu
+                           on guroupu.itemid = guroupu.itemid
+        order by createtime desc
+            limit #{arg0}, #{arg1}
+    </select>
+</mapper>
