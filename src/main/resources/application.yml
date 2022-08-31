@@ -6,7 +6,7 @@ server:
 
 spring:
     datasource:
-        url: jdbc:mysql://hasdsd.cn:3307/syes?serverTimezone=UTC
+        url: jdbc:mysql://hasdsd.cn:3307/syes?serverTimezone=UTC&characterEncoding=utf8&useSSL=false
         driver-class-name: com.mysql.cj.jdbc.Driver
         username: root
         password: 123456
@@ -28,7 +28,7 @@ mybatis:
 mybatis-plus:
     configuration:
         map-underscore-to-camel-case: true
-        log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     type-aliases-package: com.syes.syes_springboot.entity
 
 
@@ -44,5 +44,5 @@ my:
         downloadPath: '${my.server.name}:${server.port}${my.file-config.staticPath}' # 存url到数据库时用的他
 logging:
     level:
-        root: debug
+        root: info
 
