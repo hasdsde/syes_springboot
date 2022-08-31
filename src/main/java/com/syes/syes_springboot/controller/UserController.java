@@ -47,6 +47,7 @@ public class UserController {
             data.put("token", token);
             data.put("username", user.getNickname());
             data.put("avatar", user.getAvatar());
+            data.put("userid", user.getId());
             return Result.success(data);
         } else {
             throw new BusinessException("401", "密码错误");

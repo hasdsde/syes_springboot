@@ -27,9 +27,10 @@ mybatis:
     mapper-locations: mapper/*.xml
 mybatis-plus:
     configuration:
-        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
         map-underscore-to-camel-case: true
+        log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
     type-aliases-package: com.syes.syes_springboot.entity
+
 
 my:
     server: # 上传到服务器需要改这个
@@ -41,3 +42,7 @@ my:
         uploadPath: '${my.server.uploadPath}'
         staticPath: '/file/img/'
         downloadPath: '${my.server.name}:${server.port}${my.file-config.staticPath}' # 存url到数据库时用的他
+logging:
+    level:
+        root: debug
+
