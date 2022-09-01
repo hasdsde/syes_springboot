@@ -1,16 +1,26 @@
 package com.syes.syes_springboot.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.syes.syes_springboot.Utils.FileUtil;
+import com.syes.syes_springboot.Utils.IdUtil;
+import com.syes.syes_springboot.Utils.SecureUtil;
 import com.syes.syes_springboot.common.Result;
+import com.syes.syes_springboot.config.BusinessException;
+import com.syes.syes_springboot.entity.File;
 import com.syes.syes_springboot.entity.Item;
+import com.syes.syes_springboot.mapper.FileMapper;
 import com.syes.syes_springboot.mapper.ItemMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -25,15 +35,52 @@ import java.util.List;
 public class ItemController {
 
     @Resource
-    ItemMapper itemMapper;
+    private FileMapper fileMapper;
 
+    @Resource
+    private ItemMapper itemMapper;
+
+    @Value("${my.file-config.uploadPath}")
+    private String uploadPath;
+
+    @Value("${my.file-config.downloadPath}")
+    private String downloadPath;
+
+    // 新建item附带图片
+    @PostMapping("/uploadAll")
+    public Result InsertItem(/*@RequestPart Item item,*/
+            @RequestPart("files") MultipartFile[] files,
+            @RequestParam("title") String title,
+            @RequestParam("userid") String userid,
+            @RequestParam("description") String description,
+            @RequestParam("price") Double price,
+            @RequestParam("onsale") Boolean onsale) {
+
+        Item item = new Item();
+        item.setTitle(title);
+        item.setUserid(userid);
+        item.setDescription(description);
+        item.setPrice(price);
+        item.setOnsale(onsale);
+
+        Map<String, Object> map = new HashMap<>();
+        // 上传item
+        map.put("item", SaveItem(item).getData());
+
+        int index = 0;
+        for (MultipartFile file : files) {
+            map.put(String.valueOf(index++), new FileUtil(fileMapper,uploadPath,downloadPath).uploadF(file, item.getUserid()));
+        }
+
+        return Result.success(map);
+    }
 
     //新建item
     @PostMapping("/")
     public Result SaveItem(@RequestBody Item item) {
         item.setCreatetime(LocalDateTime.now());
         int insert = itemMapper.insert(item);
-        return Result.success();
+        return Result.success(item.getId());
     }
 
     //修改item
