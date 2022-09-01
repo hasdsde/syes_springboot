@@ -45,4 +45,3 @@ my:
 logging:
     level:
         root: info
-

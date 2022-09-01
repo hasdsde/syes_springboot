@@ -15,14 +15,14 @@ public class Generator {
         String localPath = "D:/CODE/";
 
         // 表名
-        String tableName = "rootuser";
+        String tableName = "sort";
 
         FastAutoGenerator.create(
                         "jdbc:mysql://hasdsd.cn:3307/syes",
                         "root",
                         "123456")
                 .globalConfig(builder -> {
-                    builder.author("eula") // 设置作者
+                    builder.author("hasdsd") // 设置作者
                             .fileOverride() // 覆盖已生成文件
                             .enableSwagger() // 开启 swagger 模式
                             .disableOpenDir()//完成后不打开文件夹

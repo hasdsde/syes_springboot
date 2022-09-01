@@ -2,20 +2,14 @@ package com.syes.syes_springboot.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.syes.syes_springboot.Utils.FileUtil;
-import com.syes.syes_springboot.Utils.IdUtil;
-import com.syes.syes_springboot.Utils.SecureUtil;
 import com.syes.syes_springboot.common.Result;
-import com.syes.syes_springboot.config.BusinessException;
 import com.syes.syes_springboot.entity.File;
 import com.syes.syes_springboot.mapper.FileMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -83,12 +77,11 @@ public class FileController {
         return Result.success();
     }
 
+    //创建图片
     @PostMapping("/upload")
-    public Result upload(@RequestParam("file") MultipartFile file, @RequestParam("userid") String userid) {
-
+    public Result upload(@RequestPart(value = "file") final MultipartFile file, @RequestParam("userid") String userid) {
         // 返回结果集
-        Map<String, Object> map = new FileUtil(fileMapper,uploadPath,downloadPath).uploadF(file, userid);
-
+        Map<String, Object> map = new FileUtil(fileMapper, uploadPath, downloadPath).uploadF(file, userid);
         return Result.success(map);
     }
 }
