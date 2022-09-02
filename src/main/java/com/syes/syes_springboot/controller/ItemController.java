@@ -1,21 +1,16 @@
 package com.syes.syes_springboot.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.syes.syes_springboot.Utils.FileUtil;
 import com.syes.syes_springboot.common.Result;
 import com.syes.syes_springboot.entity.Item;
 import com.syes.syes_springboot.mapper.FileMapper;
 import com.syes.syes_springboot.mapper.ItemMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -44,12 +39,13 @@ public class ItemController {
     // 新建item附带图片
     @PostMapping("/uploadAll")
     public Result InsertItem(/*@RequestPart Item item,*/
-            @RequestPart("files") MultipartFile[] files,
             @RequestParam("title") String title,
             @RequestParam("userid") String userid,
             @RequestParam("description") String description,
-            @RequestParam("price") Double price) {
-
+            @RequestParam("price") Double price,
+            @RequestParam("piclist") int[] piclist
+    ) {
+        System.out.println(Arrays.toString(piclist));
         Item item = new Item();
         item.setTitle(title);
         item.setUserid(userid);
@@ -59,12 +55,7 @@ public class ItemController {
         Map<String, Object> map = new HashMap<>();
         // 上传item
         map.put("item", SaveItem(item).getData());
-        //分别上传图片
-        int index = 0;
-        for (MultipartFile file : files) {
-            map.put(String.valueOf(index++), new FileUtil(fileMapper, uploadPath, downloadPath).uploadF(file, item.getUserid()));
-        }
-        return Result.success(map);
+        return Result.success();
     }
 
     //新建item

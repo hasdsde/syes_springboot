@@ -6,6 +6,7 @@ import com.syes.syes_springboot.mapper.SortMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,8 +34,15 @@ public class SortController {
     }
 
     @GetMapping("/n")
-    public Result SelectNsort() {
-        List<Sort> sorts = sortMapper.selectNsort();
+    public Result SelectNsort(@RequestParam("checkid") String checkid) {
+        List<Sort> sorts = new ArrayList<>();
+        if (checkid.isEmpty()) {
+            sorts = sortMapper.selectNsort();
+        } else {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("pid", checkid);
+            sorts = sortMapper.selectByMap(map);
+        }
         return Result.success(sorts);
     }
 
