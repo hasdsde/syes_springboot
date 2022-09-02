@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syes.syes_springboot.mapper.RollimgMapper">
+
+
+    <insert id="addrollimg">
+        insert into rollimg (url) values (#{arg0});
+    </insert>
+
+    <delete id="deleterollimg">
+        delete from rollimg where id = #{arg0} and url = #{arg1};
+    </delete>
+
+    <select id="queryrollimg" resultType="com.syes.syes_springboot.entity.Rollimg">
+        select * from rollimg where id = #{arg0}
+    </select>
+
+
+</mapper>
