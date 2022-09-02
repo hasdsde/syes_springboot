@@ -20,4 +20,6 @@ public interface SortMapper extends BaseMapper<Sort> {
     List<Sort> slectByPage(int startPage, int pagesize);
 
     List<Sort> slectByPageSearch(int startPage, int pagesize, String searchText);
+
+    List<Sort> selectNsort();
 }

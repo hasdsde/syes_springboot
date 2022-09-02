@@ -15,4 +15,9 @@
         order by id desc
         limit #{arg0}, #{arg1}
     </select>
+    <select id="selectNsort" resultType="com.syes.syes_springboot.entity.Sort">
+        select *
+        from sort
+        where pid is not null
+    </select>
 </mapper>
