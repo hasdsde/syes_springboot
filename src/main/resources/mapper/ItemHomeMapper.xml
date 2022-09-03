@@ -5,8 +5,7 @@
 
     <select id="query" resultType="com.syes.syes_springboot.entity.Dto.Item_homeDto">
 
-        select
-               file.url,
+        select file.url,
                item.id,
                item.title,
                user.nickname,
@@ -22,6 +21,6 @@
                  left join (select itemid, count(*) as collectionnum from usercollect group by itemid) as guroupu
                            on item.id = guroupu.itemid
         order by createtime desc
-            limit #{arg0}, #{arg1}
+        limit #{arg0}, #{arg1}
     </select>
 </mapper>

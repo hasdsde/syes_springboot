@@ -1,9 +1,7 @@
 package com.syes.syes_springboot.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.syes.syes_springboot.common.Result;
 import com.syes.syes_springboot.entity.Rollimg;
-import com.syes.syes_springboot.entity.Usercollect;
 import com.syes.syes_springboot.mapper.RollimgMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +10,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author hasdsd
@@ -32,26 +30,32 @@ public class RollimgController {
     }
 
     //查询所有
-    @PostMapping("/")
-    public Result queryAllRollimg(){
+    @GetMapping("/")
+    public Result queryAllRollimg() {
         List<Rollimg> ro = rollimgMapper.queryallarollimg();
         return Result.success(ro);
     }
 
+    //    //新增
+//    @PostMapping("/url")
+//    public Result addRollimg(@RequestBody String url) {
+//        System.out.println(url);
+////        rollimgMapper.addrollimg((String) url);
+//        return Result.success(url);
+//    }
     //新增
-    @GetMapping("/url/{url}")
-    public Result addRollimg(@PathVariable String url){
+    @GetMapping("/url")
+    public Result addRollimg(@RequestParam("url") String url) {
         rollimgMapper.addrollimg(url);
         return Result.success();
     }
 
+
     //删除
-    @DeleteMapping("/{id}/{url}")
-    public Result deleteRollimg(@PathVariable("id") int id , @PathVariable("url") String url){
-        int count = rollimgMapper.deleterollimg(id,url);
-        System.out.println(count);
-        if(count >= 1) return Result.success();
-        else return Result.error();
+    @DeleteMapping("/{id}")
+    public Result deleteRollimg(@PathVariable("id") int id) {
+        rollimgMapper.deleteById(id);
+        return Result.success();
     }
 
 

@@ -111,6 +111,7 @@ public class FileUtil {
         List<com.syes.syes_springboot.entity.File> files = fileMapper.selectList(queryWrapper);
         int resId = files.get(0).getId();
         map.put("id", resId);
+        map.put("url", url);
         return map;
     }
 
