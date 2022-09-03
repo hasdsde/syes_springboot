@@ -30,6 +30,14 @@ public class RollimgController {
         List<Rollimg> ro = rollimgMapper.queryrollimg(id);
         return Result.success(ro);
     }
+
+    //查询所有
+    @PostMapping("/")
+    public Result queryAllRollimg(){
+        List<Rollimg> ro = rollimgMapper.queryallarollimg();
+        return Result.success(ro);
+    }
+
     //新增
     @GetMapping("/url/{url}")
     public Result addRollimg(@PathVariable String url){
