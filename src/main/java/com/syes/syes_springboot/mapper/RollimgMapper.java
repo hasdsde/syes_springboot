@@ -23,4 +23,6 @@ public interface RollimgMapper extends BaseMapper<Rollimg> {
     int deleterollimg(int id, String url);
 
     void addrollimg(String url);
+
+    List<Rollimg> queryallarollimg();
 }

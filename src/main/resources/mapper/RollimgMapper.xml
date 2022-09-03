@@ -12,7 +12,10 @@
     </delete>
 
     <select id="queryrollimg" resultType="com.syes.syes_springboot.entity.Rollimg">
-        select * from rollimg where id = #{arg0}
+        select * from rollimg where id = #{arg0};
+    </select>
+    <select id="queryallarollimg" resultType="com.syes.syes_springboot.entity.Rollimg">
+        select * from rollimg;
     </select>
 
 
