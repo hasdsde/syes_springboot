@@ -3,18 +3,10 @@ package com.syes.syes_springboot.Utils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.syes.syes_springboot.config.BusinessException;
 import com.syes.syes_springboot.mapper.FileMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -23,13 +15,13 @@ import java.util.Map;
 
 public class FileUtil {
 
-//    @Resource
+    //    @Resource
     private FileMapper fileMapper;
 
-//    @Value("${my.file-config.uploadPath}")
+    //    @Value("${my.file-config.uploadPath}")
     private String uploadPath;
 
-//    @Value("${my.file-config.downloadPath}")
+    //    @Value("${my.file-config.downloadPath}")
     private String downloadPath;
 
     public FileUtil(FileMapper fileMapper, String uploadPath, String downloadPath) {
@@ -39,7 +31,7 @@ public class FileUtil {
     }
 
     public static String extName(String originalFilename) {
-        if (originalFilename == null){
+        if (originalFilename == null) {
             return "";
         }
         if (originalFilename.contains(".")) {
@@ -69,7 +61,7 @@ public class FileUtil {
         String size = String.valueOf(file.getSize());
         String url = downloadPath;
 
-        // name是主键吧，为了不报错就加个判断吧
+        // name是唯一，为了不报错就加个判断吧
         if (nameExists(originalFilename)) {
             throw new BusinessException("文件名重复");
         }
@@ -96,7 +88,7 @@ public class FileUtil {
 
         // 上传数据库
         com.syes.syes_springboot.entity.File saveFile = new com.syes.syes_springboot.entity.File();
-        saveFile.setName(originalFilename);
+        saveFile.setName(uuid);
         saveFile.setType(type);
         saveFile.setSize(size);
         saveFile.setUrl(url);
@@ -106,17 +98,16 @@ public class FileUtil {
         fileMapper.insert(saveFile);
 
         // 测试
-        map.put("originalFilename", originalFilename);
+        map.put("originalFilename", uuid);
         map.put("type", type);
         map.put("size", size);
         map.put("url", url);
         map.put("md5", md5);
         map.put("userid", userid);
-
         map.put("uuid", uuid);
 
         QueryWrapper<com.syes.syes_springboot.entity.File> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("name", originalFilename);
+        queryWrapper.eq("name", uuid);
         List<com.syes.syes_springboot.entity.File> files = fileMapper.selectList(queryWrapper);
         int resId = files.get(0).getId();
         map.put("id", resId);

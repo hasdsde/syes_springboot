@@ -3,14 +3,19 @@ package com.syes.syes_springboot.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.syes.syes_springboot.common.Result;
 import com.syes.syes_springboot.entity.Item;
+import com.syes.syes_springboot.entity.Itempic;
 import com.syes.syes_springboot.mapper.FileMapper;
 import com.syes.syes_springboot.mapper.ItemMapper;
+import com.syes.syes_springboot.mapper.ItempicMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>
@@ -26,7 +31,8 @@ public class ItemController {
 
     @Resource
     private FileMapper fileMapper;
-
+    @Resource
+    private ItempicMapper itempicMapper;
     @Resource
     private ItemMapper itemMapper;
 
@@ -45,17 +51,23 @@ public class ItemController {
             @RequestParam("price") Double price,
             @RequestParam("piclist") int[] piclist
     ) {
+        //上传物品并获取id
         System.out.println(Arrays.toString(piclist));
         Item item = new Item();
         item.setTitle(title);
         item.setUserid(userid);
         item.setDescription(description);
         item.setPrice(price);
-
-        Map<String, Object> map = new HashMap<>();
-        // 上传item
-        map.put("item", SaveItem(item).getData());
-        return Result.success();
+        Integer id = (Integer) SaveItem(item).getData();
+        System.out.println("id==" + id);
+        //上传的图片物品关联数据库
+        for (int i : piclist) {
+            Itempic itempic = new Itempic();
+            itempic.setItemid(id);
+            itempic.setPicid(i);
+            itempicMapper.insert(itempic);
+        }
+        return Result.success("上传成功");
     }
 
     //新建item
