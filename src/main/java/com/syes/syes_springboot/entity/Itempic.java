@@ -1,14 +1,14 @@
 package com.syes.syes_springboot.entity;
 
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author hasdsd
@@ -24,4 +24,6 @@ public class Itempic implements Serializable {
     private Integer picid;
 
     private Integer itemid;
+    private Integer ishead;
+
 }
