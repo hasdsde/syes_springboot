@@ -33,6 +33,12 @@ public class SortController {
         return Result.success(sorts);
     }
 
+    @GetMapping("/nAll")
+    public Result SelectNsortAll() {
+        List<Sort> sorts = sortMapper.NodeNotNull();
+        return Result.success(sorts);
+    }
+
     @GetMapping("/n")
     public Result SelectNsort(@RequestParam("checkid") String checkid) {
         List<Sort> sorts = new ArrayList<>();
@@ -66,7 +72,7 @@ public class SortController {
         int i = sortMapper.updateById(sort);
         return Result.success();
     }
-
+    
     //删除
     @DeleteMapping("/{id}")
     public Result DeleteByid(@PathVariable("id") int id) {
