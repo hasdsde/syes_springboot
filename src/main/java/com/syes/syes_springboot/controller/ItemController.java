@@ -63,6 +63,12 @@ public class ItemController {
         //上传的图片物品关联数据库
         for (int i : piclist) {
             Itempic itempic = new Itempic();
+            //如果表内没有这个物品的图片，那么设置第一张图为首页
+            QueryWrapper<Itempic> wrapper = new QueryWrapper<>();
+            wrapper.eq("itemid", id);
+            if (itempicMapper.selectCount(wrapper) == 0) {
+                itempic.setIshead(1);
+            }
             itempic.setItemid(id);
             itempic.setPicid(i);
             itempicMapper.insert(itempic);
