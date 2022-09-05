@@ -3,16 +3,20 @@ package com.syes.syes_springboot.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.syes.syes_springboot.common.Result;
 import com.syes.syes_springboot.entity.Auction;
+import com.syes.syes_springboot.entity.Item;
+import com.syes.syes_springboot.entity.User;
 import com.syes.syes_springboot.mapper.AuctionMapper;
+import com.syes.syes_springboot.mapper.ItemMapper;
+import com.syes.syes_springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author hasdsd
@@ -23,36 +27,58 @@ import java.util.List;
 public class AuctionController {
     @Autowired
     AuctionMapper auctionMapper;
+    @Autowired
+    ItemMapper itemMapper;
+    @Autowired
+    UserMapper userMapper;
 
     //新增
-    @GetMapping("/add/{itemid}/{userid}/{price}")
-    public Result addAuction(@PathVariable int itemid, @PathVariable String userid ,@PathVariable int price){
-        auctionMapper.insert(itemid,userid,price);
+    @PostMapping("/new")
+    public Result addAuction(@RequestBody Auction auction) {
+        auction.setTime(LocalDateTime.now());
+        auctionMapper.insert(auction);
         return Result.success();
     }
 
     //删除
     @DeleteMapping("/{id}")
-    public Result deleteAuction(@PathVariable int id){
+    public Result deleteAuction(@PathVariable int id) {
         auctionMapper.deleteById(id);
         return Result.success();
     }
 
-    //更新
-    @GetMapping("/modify/{id}/{price}")
-    public Result modifyAuction(@PathVariable int id,@PathVariable int price){
-        auctionMapper.updateById(price,id);
+    //修改
+    @PutMapping("/modify")
+    public Result modifyAuction(@RequestBody Auction auction) {
+        auctionMapper.updateById(auction);
         return Result.success();
     }
 
-    //查询
-    @GetMapping("/query/{id}")
-    public Result queryAuction(@PathVariable int id){
-        Auction auction = auctionMapper.selectById(id);
-        return Result.success(auction);
+    //根据物品查用户
+    @GetMapping("/queryItem/{itemid}")
+    public Result queryItemAuction(@PathVariable int itemid) {
+        QueryWrapper<Auction> wrapper = new QueryWrapper<>();
+        wrapper.eq("itemid", itemid);
+        List<Auction> list = auctionMapper.selectList(wrapper);
+        //查询用户头像
+        for (Auction auction : list) {
+            User user = userMapper.selectById(auction.getUserid());
+            auction.setAvatar(user.getAvatar());
+        }
+        return Result.success(list);
     }
 
-
-
-
+    //根据用户查物品
+    @GetMapping("/queryUser/{Userid}")
+    public Result queryUserAuction(@PathVariable String Userid) {
+        QueryWrapper<Auction> wrapper = new QueryWrapper<>();
+        wrapper.eq("Userid", Userid);
+        List<Auction> list = auctionMapper.selectList(wrapper);
+        //查询物品标题
+        for (Auction auction : list) {
+            Item item = itemMapper.selectById(auction.getItemid());
+            auction.setTitle(item.getTitle());
+        }
+        return Result.success(list);
+    }
 }

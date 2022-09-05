@@ -2,11 +2,4 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.syes.syes_springboot.mapper.AuctionMapper">
 
-    <insert id="insert">
-        insert into auction (userid, itemid, price) values (#{arg0},#{arg1},#{arg2})
-    </insert>
-
-    <update id="updateById">
-        update auction set price = #{arg0} where id = #{arg1}
-    </update>
 </mapper>
