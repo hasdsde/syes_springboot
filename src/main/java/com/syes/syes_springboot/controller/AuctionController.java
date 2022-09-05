@@ -33,7 +33,7 @@ public class AuctionController {
     UserMapper userMapper;
 
     //新增
-    @PostMapping("/new")
+    @PostMapping("/")
     public Result addAuction(@RequestBody Auction auction) {
         auction.setTime(LocalDateTime.now());
         auctionMapper.insert(auction);
@@ -48,7 +48,7 @@ public class AuctionController {
     }
 
     //修改
-    @PutMapping("/modify")
+    @PutMapping("/")
     public Result modifyAuction(@RequestBody Auction auction) {
         auctionMapper.updateById(auction);
         return Result.success();
