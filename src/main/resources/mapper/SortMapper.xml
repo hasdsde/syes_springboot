@@ -20,4 +20,9 @@
         from sort
         where pid is not null
     </select>
+    <select id="NodeNotNull" resultType="com.syes.syes_springboot.entity.Sort">
+        select *
+        from sort
+        where pid is not null
+    </select>
 </mapper>
