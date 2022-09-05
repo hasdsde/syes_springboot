@@ -1,15 +1,23 @@
 package com.syes.syes_springboot.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.syes.syes_springboot.Utils.IdUtil;
 import com.syes.syes_springboot.common.Result;
+import com.syes.syes_springboot.entity.Item;
 import com.syes.syes_springboot.entity.Usercollect;
+import com.syes.syes_springboot.mapper.ItemMapper;
 import com.syes.syes_springboot.mapper.UsercollectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.ws.FaultAction;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -26,6 +34,51 @@ public class UsercollectController {
     @Autowired
     UsercollectMapper usercollectMapper;
 
+    @Resource
+    ItemMapper itemMapper;
+
+    @GetMapping("/queryByUserId")
+    public Result queryByUserId(HttpServletRequest request,
+                                @RequestParam("cp") int cp,
+                                @RequestParam("ps") int ps) {
+        // 根据request获取userid
+        String userId = IdUtil.getId(request);
+
+        // 初始化
+        Map<String, Object> map = new HashMap<>();
+        Page<Usercollect> page = new Page<>(cp, ps);
+
+        // 查询收藏物品
+        QueryWrapper<Usercollect> wrapper = new QueryWrapper<>();
+        wrapper.eq("userid", userId);
+        Page<Usercollect> lists = usercollectMapper.selectPage(page, wrapper);
+        Long count = usercollectMapper.selectCount(wrapper);
+
+        System.out.println(lists);
+
+        // 获取物品详情
+        for (Usercollect list : lists.getRecords()) {
+            // 获取itemid
+            Integer itemid = list.getItemid();
+            // 查询数据
+            Item item = itemMapper.selectById(itemid);
+            list.setItem(item);
+        }
+
+        map.put("lists", lists);
+        map.put("count", count);
+
+        return Result.success(map);
+    }
+
+    @GetMapping("/queryByItemId")
+    public Result queryByItemId(@RequestParam("itemid") int itemid) {
+        // 返回收藏总数wq
+        QueryWrapper<Usercollect> wrapper = new QueryWrapper<>();
+        wrapper.eq("itemid",itemid);
+        Long count = usercollectMapper.selectCount(wrapper);
+        return Result.success(count);
+    }
 
     //新建
     @PostMapping("/")

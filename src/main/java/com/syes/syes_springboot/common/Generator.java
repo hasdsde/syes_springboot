@@ -10,12 +10,12 @@ import java.util.Collections;
 public class Generator {
     public static void main(String[] args) {
         // 我不想再改地址了
-//        String localPath = "D:/工具/编程/idea/java工作区/";
-        String localPath = "C:/Users/郭金祥/IdeaProjects/";
+        String localPath = "D:/工具/编程/idea/java工作区/";
+//        String localPath = "C:/Users/郭金祥/IdeaProjects/";
 //        String localPath = "D:/CODE/";
 
         // 表名
-        String tableName = "auction";
+        String tableName = "userlike";
 
         FastAutoGenerator.create(
                         "jdbc:mysql://hasdsd.cn:3307/syes",
