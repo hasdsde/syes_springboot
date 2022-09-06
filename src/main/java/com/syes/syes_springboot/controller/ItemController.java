@@ -55,11 +55,9 @@ public class ItemController {
         // 获取item
         Item item = itemMapper.selectById(itemid);
 
-        // user信息搞里头
-        User user = userMapper.selectById(item.getUserid());
-        User resUser = new User();
-        resUser.setId(user.getId().substring(2, 4));
-        item.setUser(resUser);
+        // 修改userid
+        String userid = item.getUserid().substring(2, 4);
+        item.setUserid(userid);
 
         // 获取itempic表数据
         LambdaQueryWrapper<Itempic> picWrapper = new LambdaQueryWrapper<>();
