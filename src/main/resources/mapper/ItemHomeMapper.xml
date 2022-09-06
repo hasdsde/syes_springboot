@@ -12,7 +12,8 @@
                user.avatar,
                item.price,
                item.createtime,
-               guroupu.collectionnum
+               guroupu.collectionnum,
+               gi.grade
         from item
                  left join user on item.userid = user.id
                  left join itempic on item.id = itempic.itemid and itempic.ishead = 1
@@ -20,6 +21,7 @@
                  left join usercollect on item.id = usercollect.itemid
                  left join (select itemid, count(*) as collectionnum from usercollect group by itemid) as guroupu
                            on item.id = guroupu.itemid
+                 left join (select substr(id, 3, 2) as grade, id from user) as gi on item.userid = gi.id
         order by createtime desc
         limit #{arg0}, #{arg1}
     </select>

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.ws.FaultAction;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.Map;
 
 /**
  * <p>
- * 前端控制器
+ * 用户收藏
  * </p>
  *
  * @author eula
@@ -75,7 +74,7 @@ public class UsercollectController {
     public Result queryByItemId(@RequestParam("itemid") int itemid) {
         // 返回收藏总数wq
         QueryWrapper<Usercollect> wrapper = new QueryWrapper<>();
-        wrapper.eq("itemid",itemid);
+        wrapper.eq("itemid", itemid);
         Long count = usercollectMapper.selectCount(wrapper);
         return Result.success(count);
     }

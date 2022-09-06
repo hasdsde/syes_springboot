@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.bind.annotation.W3CDomHandler;
 
 /**
  * <p>
- * 前端控制器
+ * 用户点赞
  * </p>
  *
  * @author hasdsd
@@ -53,7 +52,7 @@ public class UserlikeController {
     public Result queryByItemId(@RequestParam("itemid") int itemid) {
 
         QueryWrapper<Userlike> wrapper = new QueryWrapper<>();
-        wrapper.eq("itemid",itemid);
+        wrapper.eq("itemid", itemid);
         Long count = userlikeMapper.selectCount(wrapper);
 
         return Result.success(count);

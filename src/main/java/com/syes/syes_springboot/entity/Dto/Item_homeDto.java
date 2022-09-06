@@ -21,4 +21,5 @@ public class Item_homeDto {
     private LocalDateTime createtime;
     private int collectionnum;
     private int clicknum;
+    private int grade;
 }

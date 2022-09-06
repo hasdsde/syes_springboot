@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,43 +19,43 @@ public class ItemHomeController {
 
     @GetMapping("/page")
     public Result query(@RequestParam("pagesize") int pagesize, @RequestParam("currentpage") int currentpage) {
-        List<Item_homeDto> check = check(pagesize,currentpage);
-
-        return Result.success(check);
+        int StartPage = (currentpage - 1) * pagesize;
+        List<Item_homeDto> items = itemHomeMapper.query(StartPage, pagesize);
+        return Result.success(items);
     }
-
-    public List<Item_homeDto> check( int pagesize, int currentpage){
-        List<Item_homeDto> item1 = new ArrayList<>();
-        boolean st = true;
-        while (true) {
-            int StartPage = (currentpage - 1) * pagesize;
-            List<Item_homeDto> items = itemHomeMapper.query(StartPage, pagesize);
-
-            if (items.size() < pagesize) {
-                for (int i = 1; i < items.size(); i++) {
-                    while (i < items.size() && items.get(i).getId() == items.get(i - 1).getId()) i++;
-                    if(i <= items.size()) item1.add(items.get(i - 1));
-                    if (item1.size() == pagesize) {
-                        st = false;
-                        break;
-                    }
-                }
-                st = false;
-            } else {
-                for (int i = 1; i < items.size(); i++) {
-                    while (i < items.size() && items.get(i).getId() == items.get(i - 1).getId()) i++;
-                    if(i <= items.size()) item1.add(items.get(i - 1));
-                    if (item1.size() == pagesize) {
-                        st = false;
-                        break;
-                    }
-                }
-
-            }
-            if (!st) break;
-            currentpage++;
-        }
-        return item1;
-    }
+//
+//    public List<Item_homeDto> check( int pagesize, int currentpage){
+//        List<Item_homeDto> item1 = new ArrayList<>();
+//        boolean st = true;
+//        while (true) {
+//            int StartPage = (currentpage - 1) * pagesize;
+//            List<Item_homeDto> items = itemHomeMapper.query(StartPage, pagesize);
+//
+//            if (items.size() < pagesize) {
+//                for (int i = 1; i < items.size(); i++) {
+//                    while (i < items.size() && items.get(i).getId() == items.get(i - 1).getId()) i++;
+//                    if(i <= items.size()) item1.add(items.get(i - 1));
+//                    if (item1.size() == pagesize) {
+//                        st = false;
+//                        break;
+//                    }
+//                }
+//                st = false;
+//            } else {
+//                for (int i = 1; i < items.size(); i++) {
+//                    while (i < items.size() && items.get(i).getId() == items.get(i - 1).getId()) i++;
+//                    if(i <= items.size()) item1.add(items.get(i - 1));
+//                    if (item1.size() == pagesize) {
+//                        st = false;
+//                        break;
+//                    }
+//                }
+//
+//            }
+//            if (!st) break;
+//            currentpage++;
+//        }
+//        return item1;
+//    }
 }
 
