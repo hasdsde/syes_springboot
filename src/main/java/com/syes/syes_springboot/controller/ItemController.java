@@ -56,8 +56,15 @@ public class ItemController {
         Item item = itemMapper.selectById(itemid);
 
         // 修改userid
+        String realUserId = item.getUserid();
         String userid = item.getUserid().substring(2, 4);
         item.setUserid(userid);
+
+        // user搞里头
+        User user = userMapper.selectById(realUserId);
+        user.setId(userid);
+        item.setUser(user);
+
 
         // 获取itempic表数据
         LambdaQueryWrapper<Itempic> picWrapper = new LambdaQueryWrapper<>();
@@ -66,9 +73,7 @@ public class ItemController {
 
         for (Itempic itempic : itempicList) {
             File file = fileMapper.selectById(itempic.getPicid());
-            File resFile = new File();
-            resFile.setUrl(file.getUrl());
-            item.addImg(resFile);
+            item.addImg(file);
         }
 
         return Result.success(item);
