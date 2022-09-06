@@ -1,12 +1,16 @@
 package com.syes.syes_springboot.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.syes.syes_springboot.common.Result;
+import com.syes.syes_springboot.entity.File;
 import com.syes.syes_springboot.entity.Item;
 import com.syes.syes_springboot.entity.Itempic;
+import com.syes.syes_springboot.entity.User;
 import com.syes.syes_springboot.mapper.FileMapper;
 import com.syes.syes_springboot.mapper.ItemMapper;
 import com.syes.syes_springboot.mapper.ItempicMapper;
+import com.syes.syes_springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,11 +40,41 @@ public class ItemController {
     @Resource
     private ItemMapper itemMapper;
 
+    @Resource
+    private UserMapper userMapper;
+
     @Value("${my.file-config.uploadPath}")
     private String uploadPath;
 
     @Value("${my.file-config.downloadPath}")
     private String downloadPath;
+
+    @GetMapping("/id")
+    public Result itemById(@RequestParam("itemid") int itemid) {
+
+        // 获取item
+        Item item = itemMapper.selectById(itemid);
+
+        // user信息搞里头
+        User user = userMapper.selectById(item.getUserid());
+        User resUser = new User();
+        resUser.setId(user.getId().substring(2, 4));
+        item.setUser(resUser);
+
+        // 获取itempic表数据
+        LambdaQueryWrapper<Itempic> picWrapper = new LambdaQueryWrapper<>();
+        picWrapper.eq(Itempic::getItemid, itemid);
+        List<Itempic> itempicList = itempicMapper.selectList(picWrapper);
+
+        for (Itempic itempic : itempicList) {
+            File file = fileMapper.selectById(itempic.getPicid());
+            File resFile = new File();
+            resFile.setUrl(file.getUrl());
+            item.addImg(resFile);
+        }
+
+        return Result.success(item);
+    }
 
     // 新建item附带图片
     @PostMapping("/uploadAll")
