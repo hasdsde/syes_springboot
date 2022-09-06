@@ -21,4 +21,6 @@ public interface FileMapper extends BaseMapper<File> {
     List<File> slectByPage(int currentPage, int pagesize);
 
     List<File> slectByPageSearch(int startPage, int pagesize, String searchText);
+
+    List<File> selectimgByid(int itemid);
 }

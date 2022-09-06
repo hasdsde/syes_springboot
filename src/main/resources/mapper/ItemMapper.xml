@@ -16,4 +16,18 @@
         order by createtime desc
         limit #{arg0}, #{arg1}
     </select>
+    <select id="selectItemByid" resultType="com.syes.syes_springboot.entity.Item">
+        select title,
+               item.createtime,
+               description,
+               onsale,
+               price,
+               user.nickname,
+               user.avatar,
+               gi.grade
+        from item
+                 left join user on item.userid = user.id
+                 left join (select substr(id, 3, 2) as grade, id from user) as gi on item.userid = gi.id
+        where item.id = #{arg0}
+    </select>
 </mapper>

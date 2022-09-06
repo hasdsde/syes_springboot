@@ -15,6 +15,11 @@
         order by createtime desc
         limit #{arg0}, #{arg1}
     </select>
+    <select id="selectimgByid" resultType="com.syes.syes_springboot.entity.File">
+        select url
+        from file
+        where id in (select picid from itempic where itemid = #{arg0})
+    </select>
 
 
 </mapper>

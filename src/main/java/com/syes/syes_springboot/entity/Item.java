@@ -1,6 +1,5 @@
 package com.syes.syes_springboot.entity;
 
-import cn.hutool.core.img.Img;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -9,8 +8,6 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <p>
@@ -43,15 +40,9 @@ public class Item implements Serializable {
     private String userid;
 
     @TableField(exist = false)
-    private List<File> imgList;
-
+    private String nickname;
     @TableField(exist = false)
-    private User user;
-
-    public void addImg(File file){
-        if (this.imgList == null){
-            this.imgList = new ArrayList<>();
-        }
-        imgList.add(file);
-    }
+    private String avatar;
+    @TableField(exist = false)
+    private String grade;
 }

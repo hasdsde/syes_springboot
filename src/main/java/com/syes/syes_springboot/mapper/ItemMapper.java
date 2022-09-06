@@ -21,4 +21,6 @@ public interface ItemMapper extends BaseMapper<Item> {
     List<Item> slectByPage(int currentPage, int pagesize);
 
     List<Item> slectByPageSearch(int currentPage, int pagesize, String searchtext);
+
+    Item selectItemByid(int itemid);
 }

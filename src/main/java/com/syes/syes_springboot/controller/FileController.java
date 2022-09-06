@@ -37,6 +37,11 @@ public class FileController {
     @Value("${my.file-config.downloadPath}")
     private String downloadPath;
 
+    @GetMapping("/id")
+    public Result getURLfromid(@RequestParam("itemid") int itemid) {
+        List<File> list = fileMapper.selectimgByid(itemid);
+        return Result.success(list);
+    }
 
     //分页查询
     @GetMapping("/page")

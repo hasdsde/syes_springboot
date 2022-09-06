@@ -1,12 +1,9 @@
 package com.syes.syes_springboot.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.syes.syes_springboot.common.Result;
-import com.syes.syes_springboot.entity.File;
 import com.syes.syes_springboot.entity.Item;
 import com.syes.syes_springboot.entity.Itempic;
-import com.syes.syes_springboot.entity.User;
 import com.syes.syes_springboot.mapper.FileMapper;
 import com.syes.syes_springboot.mapper.ItemMapper;
 import com.syes.syes_springboot.mapper.ItempicMapper;
@@ -49,33 +46,10 @@ public class ItemController {
     @Value("${my.file-config.downloadPath}")
     private String downloadPath;
 
+    //根据id获取id页面的信息
     @GetMapping("/id")
     public Result itemById(@RequestParam("itemid") int itemid) {
-
-        // 获取item
-        Item item = itemMapper.selectById(itemid);
-
-        // 修改userid
-        String realUserId = item.getUserid();
-        String userid = item.getUserid().substring(2, 4);
-        item.setUserid(userid);
-
-        // user搞里头
-        User user = userMapper.selectById(realUserId);
-        user.setId(userid);
-        item.setUser(user);
-
-
-        // 获取itempic表数据
-        LambdaQueryWrapper<Itempic> picWrapper = new LambdaQueryWrapper<>();
-        picWrapper.eq(Itempic::getItemid, itemid);
-        List<Itempic> itempicList = itempicMapper.selectList(picWrapper);
-
-        for (Itempic itempic : itempicList) {
-            File file = fileMapper.selectById(itempic.getPicid());
-            item.addImg(file);
-        }
-
+        Item item = itemMapper.selectItemByid(itemid);
         return Result.success(item);
     }
 

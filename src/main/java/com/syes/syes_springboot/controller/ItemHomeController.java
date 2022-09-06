@@ -23,9 +23,9 @@ public class ItemHomeController {
         List<Item_homeDto> items = itemHomeMapper.query(StartPage, pagesize);
         return Result.success(items);
     }
-//
+//  这个屎山代码不要删，要提醒其他人
 //    public List<Item_homeDto> check( int pagesize, int currentpage){
-//        List<Item_homeDto> item1 = new ArrayList<>();
+//        List<Item_hogitmeDto> item1 = new ArrayList<>();
 //        boolean st = true;
 //        while (true) {
 //            int StartPage = (currentpage - 1) * pagesize;
