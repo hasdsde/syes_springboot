@@ -39,6 +39,13 @@ public class CommentController {
         return Result.success(list);
     }
 
+    //根据父级评论id查询子集评论
+    @GetMapping("/e")
+    public Result getCommonE(@RequestParam("commentid") int commentid) {
+        List<Comment> list = mapper.selectEComment(commentid);
+        return Result.success(list);
+    }
+
 
     //新建评论
     @PostMapping("/")

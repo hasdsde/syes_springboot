@@ -11,7 +11,7 @@
                itemid,
                userid,
                content,
-               tocommentid,
+               fromcommentid,
                u.nickname,
                u.realname,
                u.avatar,
@@ -29,7 +29,7 @@
                itemid,
                userid,
                content,
-               tocommentid,
+               fromcommentid,
                u.nickname,
                u.realname,
                u.avatar,
@@ -47,7 +47,7 @@
                itemid,
                userid,
                content,
-               tocommentid,
+               fromcommentid,
                u.nickname,
                u.realname,
                u.avatar,
@@ -71,7 +71,7 @@
                itemid,
                userid,
                content,
-               tocommentid,
+               fromcommentid,
                u.nickname,
                u.realname,
                u.avatar,
@@ -89,7 +89,7 @@
                itemid,
                userid,
                content,
-               tocommentid,
+               fromcommentid,
                u.nickname,
                u.realname,
                u.avatar,
@@ -108,7 +108,7 @@
                itemid,
                userid,
                content,
-               tocommentid,
+               fromcommentid,
                u.nickname,
                u.realname,
                u.avatar,
@@ -134,15 +134,28 @@
                comment.content,
                comment.createtime,
                user.nickname,
-               substr(user.id, 3, 2)                                                        as userid,
+               substr(user.id, 3, 2)                                                          as userid,
                user.avatar,
                user.nickname,
-               (select count(*) from comment as count where count.tocommentid = comment.id) as counts
+               (select count(*) from comment as count where count.fromcommentid = comment.id) as counts
         from comment,
              user
         where userid = user.id
           and itemid = #{arg0}
-          and tocommentid is null
+          and fromcommentid is null
+        order by createtime
+    </select>
+    <select id="selectEComment" resultType="com.syes.syes_springboot.entity.Comment">
+        select comment.content,
+               user.nickname,
+               user.avatar,
+               comment.touserid                                as tid,
+               (select nickname from user where user.id = tid) as tousername
+        from comment,
+             user
+        where comment.userid = user.id
+          and fromcommentid = #{arg0}
+        order by comment.createtime
     </select>
 
     <resultMap id="CommentMap" type="Comment">
@@ -153,7 +166,7 @@
         <result property="itemid" column="itemid"/>
         <result property="userid" column="userid"/>
         <result property="content" column="content"/>
-        <result property="tocommentid" column="tocommentid"/>
+        <result property="fromcommentid" column="fromcommentid"/>
         <!--    里面那个对象，学java永远不缺对象    -->
         <association property="user" javaType="User">
             <!--    重名的    -->

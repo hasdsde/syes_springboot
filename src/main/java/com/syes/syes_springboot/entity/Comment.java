@@ -38,7 +38,9 @@ public class Comment implements Serializable {
     private String content;
 
     //在哪个评论之下
-    private Integer tocommentid;
+    private Integer fromcommentid;
+    //给哪个用户的回复
+    private Integer touserid;
 
     // 用户
     @TableField(exist = false)
@@ -51,5 +53,6 @@ public class Comment implements Serializable {
     private String avatar;
     @TableField(exist = false)
     private String counts;
-
+    @TableField(exist = false)
+    private String tousername;
 }
