@@ -64,6 +64,8 @@ public class AuctionController {
         for (Auction auction : list) {
             User user = userMapper.selectById(auction.getUserid());
             auction.setAvatar(user.getAvatar());
+            auction.setUsername(user.getNickname());
+            auction.setUserid("null");
         }
         return Result.success(list);
     }

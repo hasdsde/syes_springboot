@@ -129,6 +129,21 @@
         from comment
         where itemid = #{seatchText}
     </select>
+    <select id="selectFcomm" resultType="com.syes.syes_springboot.entity.Comment">
+        select comment.id,
+               comment.content,
+               comment.createtime,
+               user.nickname,
+               substr(user.id, 3, 2)                                                        as userid,
+               user.avatar,
+               user.nickname,
+               (select count(*) from comment as count where count.tocommentid = comment.id) as counts
+        from comment,
+             user
+        where userid = user.id
+          and itemid = #{arg0}
+          and tocommentid is null
+    </select>
 
     <resultMap id="CommentMap" type="Comment">
         <!--    重名的    -->

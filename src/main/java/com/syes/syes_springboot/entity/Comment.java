@@ -43,4 +43,13 @@ public class Comment implements Serializable {
     // 用户
     @TableField(exist = false)
     private User user;
+
+    @TableField(exist = false)
+    private String nickname;
+
+    @TableField(exist = false)
+    private String avatar;
+    @TableField(exist = false)
+    private String counts;
+
 }

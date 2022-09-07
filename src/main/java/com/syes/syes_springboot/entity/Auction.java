@@ -41,5 +41,8 @@ public class Auction implements Serializable {
     private String avatar;
     //该属性在数据库中不存在
     @TableField(exist = false)
+    private String username;
+    //该属性在数据库中不存在
+    @TableField(exist = false)
     private String title;
 }

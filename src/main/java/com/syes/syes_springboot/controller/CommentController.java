@@ -32,6 +32,13 @@ public class CommentController {
         return Result.success(res);
     }
 
+    //根据物品id获取父级评论
+    @GetMapping("/f")
+    public Result getCommentF(@RequestParam("itemid") int itemid) {
+        List<Comment> list = mapper.selectFcomm(itemid);
+        return Result.success(list);
+    }
+
 
     //新建评论
     @PostMapping("/")

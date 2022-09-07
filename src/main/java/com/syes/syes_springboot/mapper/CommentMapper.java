@@ -43,4 +43,6 @@ public interface CommentMapper extends BaseMapper<Comment> {
     Integer selectCountSearch(String seatchText);
 
     Integer selectCountItem(String seatchText);
+
+    List<Comment> selectFcomm(int itemid);
 }
