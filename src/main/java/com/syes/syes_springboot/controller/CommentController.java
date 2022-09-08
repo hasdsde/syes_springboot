@@ -1,11 +1,13 @@
 package com.syes.syes_springboot.controller;
 
+import com.syes.syes_springboot.Utils.IdUtil;
 import com.syes.syes_springboot.common.Result;
 import com.syes.syes_springboot.entity.Comment;
 import com.syes.syes_springboot.mapper.CommentMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +51,9 @@ public class CommentController {
 
     //新建评论
     @PostMapping("/")
-    public Result SaveComment(@RequestBody Comment comment) {
+    public Result SaveComment(@RequestBody Comment comment, HttpServletRequest request) {
+        String userid = IdUtil.getId(request);
+        comment.setUserid(userid);
         comment.setCreatetime(LocalDateTime.now());
         int insert = mapper.insert(comment);
         return Result.success();
