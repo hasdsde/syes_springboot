@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 /**
  * <p>
@@ -48,13 +49,24 @@ public class UserlikeController {
         return Result.success(i);
     }
 
+    //点赞量和是否点赞
     @GetMapping("/queryByItemId")
-    public Result queryByItemId(@RequestParam("itemid") int itemid) {
-
+    public Result queryByItemId(@RequestParam("itemid") int itemid, HttpServletRequest request) {
+        HashMap<String, Object> map = new HashMap<>();
+        //检测点赞量
         QueryWrapper<Userlike> wrapper = new QueryWrapper<>();
         wrapper.eq("itemid", itemid);
         Long count = userlikeMapper.selectCount(wrapper);
-
-        return Result.success(count);
+        map.put("counts", count);
+        //判断用户是否点赞
+        String userid = IdUtil.getId(request);
+        wrapper.eq("userid", userid);
+        Long Ucount = userlikeMapper.selectCount(wrapper);
+        if (Ucount == 1) {
+            map.put("status", "true");
+        } else {
+            map.put("status", "false");
+        }
+        return Result.success(map);
     }
 }
