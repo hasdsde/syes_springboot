@@ -1,14 +1,15 @@
 package com.syes.syes_springboot.entity;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author hasdsd
@@ -24,4 +25,16 @@ public class Userlike implements Serializable {
     private String userid;
 
     private Integer itemid;
+
+    //下面是屎山代码
+    @TableField(exist = false)
+    private Integer likes;
+    @TableField(exist = false)
+    private Integer collects;
+    @TableField(exist = false)
+    private Integer comments;
+    @TableField(exist = false)
+    private Integer iflike;
+    @TableField(exist = false)
+    private Integer ifcollect;
 }

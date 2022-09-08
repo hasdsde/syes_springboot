@@ -52,9 +52,6 @@ public class UsercollectController {
         wrapper.eq("userid", userId);
         Page<Usercollect> lists = usercollectMapper.selectPage(page, wrapper);
         Long count = usercollectMapper.selectCount(wrapper);
-
-        System.out.println(lists);
-
         // 获取物品详情
         for (Usercollect list : lists.getRecords()) {
             // 获取itemid
@@ -68,6 +65,26 @@ public class UsercollectController {
         map.put("count", count);
 
         return Result.success(map);
+    }
+
+    //改变情况
+    @GetMapping("/change")
+    public Result ChangeStatus(@RequestParam("itemid") int itemid, HttpServletRequest request) {
+        String userid = IdUtil.getId(request);
+        QueryWrapper<Usercollect> wrapper = new QueryWrapper<>();
+        wrapper.eq("itemid", itemid);
+        wrapper.eq("userid", userid);
+        Long aLong = usercollectMapper.selectCount(wrapper);
+        if (aLong == 1) {
+            usercollectMapper.delete(wrapper);
+        }
+        if (aLong == 0) {
+            Usercollect userlike = new Usercollect();
+            userlike.setItemid(itemid);
+            userlike.setUserid(userid);
+            usercollectMapper.insert(userlike);
+        }
+        return Result.success();
     }
 
     @GetMapping("/queryByItemId")
@@ -98,8 +115,7 @@ public class UsercollectController {
     public long queryByItem(@PathVariable("itemid") int itemid) {
         QueryWrapper<Usercollect> wrapper = new QueryWrapper<>();
         wrapper.eq("itemid", itemid);
-        Long count = usercollectMapper.selectCount(wrapper);
-        return count;
+        return usercollectMapper.selectCount(wrapper);
     }
 
     //根据userid查询收藏物品

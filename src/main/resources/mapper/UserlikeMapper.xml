@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.syes.syes_springboot.mapper.UserlikeMapper">
 
+    <select id="quertAll" resultType="com.syes.syes_springboot.entity.Userlike">
+        select (select count(*) from userlike where itemid = #{arg0})                         as likes,
+               (select count(*) from usercollect where itemid = #{arg0})                      as collects,
+               (select count(*) from comment where itemid = #{arg0})                          as comments,
+               (select count(*) from userlike where itemid = #{arg0} and userid = #{arg1})    as iflike,
+               (select count(*) from usercollect where itemid = #{arg0} and userid = #{arg1}) as ifcollect
+    </select>
 </mapper>
