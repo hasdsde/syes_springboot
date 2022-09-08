@@ -1,6 +1,7 @@
 package com.syes.syes_springboot.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.syes.syes_springboot.Utils.IdUtil;
 import com.syes.syes_springboot.common.Result;
 import com.syes.syes_springboot.entity.Auction;
 import com.syes.syes_springboot.entity.Item;
@@ -11,6 +12,7 @@ import com.syes.syes_springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,7 +36,9 @@ public class AuctionController {
 
     //新增
     @PostMapping("/")
-    public Result addAuction(@RequestBody Auction auction) {
+    public Result addAuction(@RequestBody Auction auction, HttpServletRequest request) {
+        String id = IdUtil.getId(request);
+        auction.setUserid(id);
         auction.setTime(LocalDateTime.now());
         auctionMapper.insert(auction);
         return Result.success();
@@ -49,7 +53,10 @@ public class AuctionController {
 
     //修改
     @PutMapping("/")
-    public Result modifyAuction(@RequestBody Auction auction) {
+    public Result modifyAuction(@RequestBody Auction auction, HttpServletRequest request) {
+        String id = IdUtil.getId(request);
+        auction.setUserid(id);
+        auction.setTime(LocalDateTime.now());
         auctionMapper.updateById(auction);
         return Result.success();
     }

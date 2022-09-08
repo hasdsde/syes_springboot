@@ -19,7 +19,7 @@ public class ItemHomeController {
 
     @GetMapping("/page")
     public Result query(@RequestParam("pagesize") int pagesize, @RequestParam("currentpage") int currentpage) {
-        int StartPage = (currentpage - 1) * pagesize + 1;
+        int StartPage = (currentpage - 1) * pagesize;
         List<Item_homeDto> items = itemHomeMapper.query(StartPage, pagesize);
         return Result.success(items);
     }
