@@ -4,7 +4,6 @@
 
 
     <select id="query" resultType="com.syes.syes_springboot.entity.Dto.Item_homeDto">
-
         select file.url,
                item.id,
                item.title,

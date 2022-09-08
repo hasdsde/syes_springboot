@@ -87,7 +87,6 @@ public class UserController {
     //分页查询
     @GetMapping("/page")
     public Result slectByPage(@RequestParam("pagesize") int pagesize, @RequestParam("currentpage") int currentPage, @RequestParam("searchtext") String SearchText) {
-
         Integer total;
         int StartPage = (currentPage - 1) * pagesize; //开始页数
         List<User> userList = new ArrayList<>();
