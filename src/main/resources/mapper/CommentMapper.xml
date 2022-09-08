@@ -146,7 +146,8 @@
         order by createtime
     </select>
     <select id="selectEComment" resultType="com.syes.syes_springboot.entity.Comment">
-        select comment.content,
+        select comment.id,
+               comment.content,
                user.nickname,
                user.avatar,
                comment.touserid                                as tid,
