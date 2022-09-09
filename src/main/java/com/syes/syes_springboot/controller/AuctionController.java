@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -34,6 +35,22 @@ public class AuctionController {
     @Autowired
     UserMapper userMapper;
 
+    //查看用户是否出价
+    @GetMapping("/")
+    public Result checkAuction(@RequestParam("itemid") int itemid, HttpServletRequest request) {
+        String id = IdUtil.getId(request);
+        QueryWrapper<Auction> wrapper = new QueryWrapper<>();
+        wrapper.eq("userid", id);
+        wrapper.eq("itemid", itemid);
+        Auction auction = null;
+        try {
+            auction = auctionMapper.selectOne(wrapper);
+            return Result.success(auction.getPrice());
+        } catch (Exception e) {
+            return Result.success(-1);
+        }
+    }
+
     //新增
     @PostMapping("/")
     public Result addAuction(@RequestBody Auction auction, HttpServletRequest request) {
@@ -45,9 +62,13 @@ public class AuctionController {
     }
 
     //删除
-    @DeleteMapping("/{id}")
-    public Result deleteAuction(@PathVariable int id) {
-        auctionMapper.deleteById(id);
+    @DeleteMapping("/")
+    public Result deleteAuction(@RequestParam("itemid") int itemid, HttpServletRequest request) {
+        String id = IdUtil.getId(request);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("itemid", itemid);
+        map.put("userid", id);
+        auctionMapper.deleteByMap(map);
         return Result.success();
     }
 
@@ -55,9 +76,11 @@ public class AuctionController {
     @PutMapping("/")
     public Result modifyAuction(@RequestBody Auction auction, HttpServletRequest request) {
         String id = IdUtil.getId(request);
-        auction.setUserid(id);
         auction.setTime(LocalDateTime.now());
-        auctionMapper.updateById(auction);
+        QueryWrapper<Auction> wrapper = new QueryWrapper<>();
+        wrapper.eq("itemid", auction.getItemid());
+        wrapper.eq("userid", id);
+        auctionMapper.update(auction, wrapper);
         return Result.success();
     }
 
