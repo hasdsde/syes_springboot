@@ -40,7 +40,7 @@ public class Comment implements Serializable {
     //在哪个评论之下
     private Integer fromcommentid;
     //给哪个用户的回复
-    private Integer touserid;
+    private String touserid;
 
     // 用户
     @TableField(exist = false)

@@ -48,12 +48,32 @@ public class CommentController {
         return Result.success(list);
     }
 
-
-    //新建评论
-    @PostMapping("/")
-    public Result SaveComment(@RequestBody Comment comment, HttpServletRequest request) {
+    //新建父级评论
+    @PostMapping("/p")
+    public Result SavePComment(@RequestBody Comment comment, HttpServletRequest request) {
         String userid = IdUtil.getId(request);
         comment.setUserid(userid);
+        comment.setCreatetime(LocalDateTime.now());
+        int insert = mapper.insert(comment);
+        return Result.success();
+    }
+
+    //新建回复评论
+    @PostMapping("/")
+    public Result SaveComment(@RequestBody Comment c, HttpServletRequest request) {
+        Comment Fcomment = mapper.selectById(c.getId());
+        Comment comment = new Comment();
+        String userid = IdUtil.getId(request);
+        //操作逻辑
+        if (Fcomment.getFromcommentid() == null) {
+            comment.setFromcommentid(Fcomment.getId());
+        } else {
+            comment.setFromcommentid(Fcomment.getFromcommentid());
+        }
+        comment.setItemid(Fcomment.getItemid());
+        comment.setTouserid(Fcomment.getUserid());
+        comment.setUserid(userid);
+        comment.setContent(c.getContent());
         comment.setCreatetime(LocalDateTime.now());
         int insert = mapper.insert(comment);
         return Result.success();
