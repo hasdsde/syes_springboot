@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,7 +49,7 @@ public class ItemController {
 
     //根据id获取id页面的信息
     @GetMapping("/id")
-    public Result itemById(@RequestParam("itemid") int itemid) {
+    public Result itemById(@RequestParam("itemid") int itemid, HttpServletRequest request) {
         Item item = itemMapper.selectItemByid(itemid);
         return Result.success(item);
     }
