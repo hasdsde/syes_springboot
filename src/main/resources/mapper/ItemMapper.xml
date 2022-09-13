@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.syes.syes_springboot.mapper.ItemMapper">
+    <update id="plusVisited" parameterType="integer">
+        update item
+        set visited = visited + #{arg1}
+        where id = #{arg0}
+    </update>
 
 
     <select id="slectByPage" resultType="com.syes.syes_springboot.entity.Item" parameterType="int">

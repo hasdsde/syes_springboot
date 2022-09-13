@@ -39,6 +39,8 @@ public class Item implements Serializable {
 
     private String userid;
 
+    private int visited;
+
     @TableField(exist = false)
     private String nickname;
     @TableField(exist = false)

@@ -35,6 +35,10 @@ public class RedisConfig extends CachingConfigurerSupport {
         template.setConnectionFactory(factory);
         // key序列化方式
         template.setKeySerializer(redisSerializer);
+        //必须有序列化这句
+        //序列化hash，这是后期加的
+        template.setHashKeySerializer(RedisSerializer.string());
+        template.setHashValueSerializer(RedisSerializer.string());
         // value序列化
         template.setValueSerializer(jackson2JsonRedisSerializer);
         // value hashmap序列化

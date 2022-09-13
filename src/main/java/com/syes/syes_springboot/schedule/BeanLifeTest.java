@@ -1,4 +1,4 @@
-package com.syes.syes_springboot.config;
+package com.syes.syes_springboot.schedule;
 
 import com.syes.syes_springboot.entity.User;
 import com.syes.syes_springboot.mapper.UserMapper;

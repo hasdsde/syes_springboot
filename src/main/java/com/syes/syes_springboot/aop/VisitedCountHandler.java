@@ -1,31 +1,26 @@
 package com.syes.syes_springboot.aop;
 
-import com.syes.syes_springboot.Utils.IdUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.hash.ObjectHashMapper;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-
+//设置浏览量
 @Component
 @Aspect
 public class VisitedCountHandler {
+    @Autowired
+    RedisTemplate redisTemplate;
 
+    //触发方法时，获取itemid
     @After(value = "execution(*  com.syes.syes_springboot.controller.ItemController.itemById(..)) )")
     public void before(JoinPoint joinPoint) throws Throwable {
-        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
-        ServletRequestAttributes sra = (ServletRequestAttributes) ra;
-        HttpServletRequest request = sra.getRequest();
-        String id = IdUtil.getId(request);
-        System.out.println("userid=" + id);
         Object[] args = joinPoint.getArgs();
         Object itemid = args[0].toString();
-        Object header = args[0];
-        System.out.println(itemid);
-        System.out.println("调用了");
+        ObjectHashMapper mapper = new ObjectHashMapper();
+        redisTemplate.opsForHash().increment("item", itemid, 1);
     }
 }
