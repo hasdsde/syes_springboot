@@ -30,4 +30,16 @@ public class AboutController {
         List<Item_homeDto> items = itemHomeMapper.queryCollect(StartPage, pagesize, userid);
         return Result.success(items);
     }
+
+    //历史记录
+    @GetMapping("/history")
+    public Result GetHistoryByUser(
+            @RequestParam("pagesize") int pagesize,
+            @RequestParam("currentpage") int currentpage,
+            HttpServletRequest request) {
+        String userid = IdUtil.getId(request);
+        int StartPage = (currentpage - 1) * pagesize;
+        List<Item_homeDto> items = itemHomeMapper.queryHistory(StartPage, pagesize, userid);
+        return Result.success(items);
+    }
 }

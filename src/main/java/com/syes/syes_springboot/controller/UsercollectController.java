@@ -36,6 +36,7 @@ public class UsercollectController {
     @Resource
     ItemMapper itemMapper;
 
+    //根据用户id查抽查
     @GetMapping("/queryByUserId")
     public Result queryByUserId(HttpServletRequest request,
                                 @RequestParam("cp") int cp,

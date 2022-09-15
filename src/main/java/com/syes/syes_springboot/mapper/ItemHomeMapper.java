@@ -10,4 +10,6 @@ public interface ItemHomeMapper {
     List<Item_homeDto> query(int currentPage, int pagesize);
 
     List<Item_homeDto> queryCollect(int startPage, int pagesize, String userid);
+
+    List<Item_homeDto> queryHistory(int startPage, int pagesize, String userid);
 }

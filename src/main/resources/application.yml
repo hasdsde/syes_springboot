@@ -34,7 +34,7 @@ mybatis:
 mybatis-plus:
     configuration:
         map-underscore-to-camel-case: true
-        log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     type-aliases-package: com.syes.syes_springboot.entity
 
 my:
