@@ -16,6 +16,12 @@
     </properties>
 
     <dependencies>
+        <!--    日志    -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.21</version>
+        </dependency>
         <!--     面向切面   -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -81,8 +87,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
         <!--    mybatis    -->
         <dependency>
             <groupId>com.baomidou</groupId>
