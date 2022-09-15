@@ -29,6 +29,7 @@
                price,
                user.nickname,
                user.avatar,
+               visited,
                gi.grade
         from item
                  left join user on item.userid = user.id

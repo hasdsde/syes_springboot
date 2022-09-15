@@ -12,4 +12,6 @@ public interface ItemHomeMapper {
     List<Item_homeDto> queryCollect(int startPage, int pagesize, String userid);
 
     List<Item_homeDto> queryHistory(int startPage, int pagesize, String userid);
+
+    List<Item_homeDto> getPosted(int startPage, int pagesize, String userid);
 }

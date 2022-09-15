@@ -42,4 +42,16 @@ public class AboutController {
         List<Item_homeDto> items = itemHomeMapper.queryHistory(StartPage, pagesize, userid);
         return Result.success(items);
     }
+
+    //我发布的
+    @GetMapping("/posted")
+    public Result GetIPosted(HttpServletRequest request,
+                             @RequestParam("pagesize") int pagesize,
+                             @RequestParam("currentpage") int currentpage) {
+        int StartPage = (currentpage - 1) * pagesize;
+        String userid = IdUtil.getId(request);
+        List<Item_homeDto> posted = itemHomeMapper.getPosted(StartPage, pagesize, userid);
+        return Result.success(posted);
+    }
+
 }

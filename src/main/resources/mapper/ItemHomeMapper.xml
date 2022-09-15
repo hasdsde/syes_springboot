@@ -67,4 +67,26 @@
         order by userhistory.createtime desc
         limit #{arg0}, #{arg1}
     </select>
+    <select id="getPosted" resultType="com.syes.syes_springboot.entity.Dto.Item_homeDto">
+        select file.url,
+               item.id,
+               item.title,
+               user.nickname,
+               user.avatar,
+               item.price,
+               item.createtime,
+               guroupu.collectionnum,
+               gi.grade
+        from item
+                 left join user on item.userid = user.id
+                 left join userhistory on item.id = userhistory.itemid
+                 left join itempic on item.id = itempic.itemid and itempic.ishead = 1
+                 left join file on itempic.picid = file.id
+                 left join (select itemid, count(*) as collectionnum from usercollect group by itemid) as guroupu
+                           on item.id = guroupu.itemid
+                 left join (select substr(id, 3, 2) as grade, id from user) as gi on item.userid = gi.id
+        where item.userid = #{arg2}
+        order by createtime desc
+        limit #{arg0}, #{arg1}
+    </select>
 </mapper>
