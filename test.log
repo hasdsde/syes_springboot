@@ -1,27 +1,30 @@
-2022-09-15 10:26:54.458  WARN 20968 --- [background-preinit] o.s.h.c.j.Jackson2ObjectMapperBuilder    : For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
-2022-09-15 10:26:54.515  INFO 20968 --- [restartedMain] c.s.s.SyesSpringbootApplication          : Starting SyesSpringbootApplication on LAPTOP-NAT0NA7S with PID 20968 (D:\CODE\syes_springboot\target\classes started by hasd in D:\CODE\syes_springboot)
-2022-09-15 10:26:54.515  INFO 20968 --- [restartedMain] c.s.s.SyesSpringbootApplication          : No active profile set, falling back to default profiles: default
-2022-09-15 10:26:54.548  INFO 20968 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2022-09-15 10:26:54.549  INFO 20968 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2022-09-15 10:26:55.095  INFO 20968 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2022-09-15 10:26:55.096  INFO 20968 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2022-09-15 10:26:55.117  INFO 20968 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11ms. Found 0 Redis repository interfaces.
-2022-09-15 10:26:55.417  INFO 20968 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'redisConfig' of type [com.syes.syes_springboot.config.RedisConfig$$EnhancerBySpringCGLIB$$e57e7df8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2022-09-15 10:26:55.677  INFO 20968 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8000 (http)
-2022-09-15 10:26:55.684  INFO 20968 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2022-09-15 10:26:55.684  INFO 20968 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
-2022-09-15 10:26:55.753  INFO 20968 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2022-09-15 10:26:55.753  INFO 20968 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1204 ms
-2022-09-15 10:26:56.066  INFO 20968 --- [restartedMain] c.a.d.s.b.a.DruidDataSourceAutoConfigure : Init DruidDataSource
-2022-09-15 10:26:56.133  INFO 20968 --- [restartedMain] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
-2022-09-15 10:26:56.382  WARN 20968 --- [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.syes.syes_springboot.entity.Itempic ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-2022-09-15 10:26:56.468  WARN 20968 --- [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.syes.syes_springboot.entity.Tablemenu ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-2022-09-15 10:26:56.493  WARN 20968 --- [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.syes.syes_springboot.entity.Usercollect ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-2022-09-15 10:26:56.504  WARN 20968 --- [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.syes.syes_springboot.entity.Userlike ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-2022-09-15 10:26:56.853  INFO 20968 --- [restartedMain] c.s.s.schedule.BeanLifeTest              : info测试
-2022-09-15 10:26:56.853  WARN 20968 --- [restartedMain] c.s.s.schedule.BeanLifeTest              : warn测试
-2022-09-15 10:26:57.090  INFO 20968 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2022-09-15 10:26:57.396  INFO 20968 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
-2022-09-15 10:26:57.425  INFO 20968 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2022-09-15 10:26:57.469  INFO 20968 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8000 (http) with context path ''
-2022-09-15 10:26:57.480  INFO 20968 --- [restartedMain] c.s.s.SyesSpringbootApplication          : Started SyesSpringbootApplication in 3.386 seconds (JVM running for 4.065)
+2022-09-15 14:08:24.785  WARN 10020 --- [background-preinit] o.s.h.c.j.Jackson2ObjectMapperBuilder    : For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2022-09-15 14:08:24.844  INFO 10020 --- [restartedMain] c.s.s.SyesSpringbootApplication          : Starting SyesSpringbootApplication on LAPTOP-NAT0NA7S with PID 10020 (D:\CODE\syes_springboot\target\classes started by hasd in D:\CODE\syes_springboot)
+2022-09-15 14:08:24.844  INFO 10020 --- [restartedMain] c.s.s.SyesSpringbootApplication          : No active profile set, falling back to default profiles: default
+2022-09-15 14:08:24.877  INFO 10020 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-09-15 14:08:24.878  INFO 10020 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-09-15 14:08:25.441  INFO 10020 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-09-15 14:08:25.443  INFO 10020 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-09-15 14:08:25.464  INFO 10020 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12ms. Found 0 Redis repository interfaces.
+2022-09-15 14:08:25.761  INFO 10020 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'redisConfig' of type [com.syes.syes_springboot.config.RedisConfig$$EnhancerBySpringCGLIB$$f21b4144] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-09-15 14:08:26.016  INFO 10020 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8000 (http)
+2022-09-15 14:08:26.023  INFO 10020 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-09-15 14:08:26.023  INFO 10020 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-09-15 14:08:26.092  INFO 10020 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-09-15 14:08:26.092  INFO 10020 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1214 ms
+2022-09-15 14:08:26.395  INFO 10020 --- [restartedMain] c.a.d.s.b.a.DruidDataSourceAutoConfigure : Init DruidDataSource
+2022-09-15 14:08:26.461  INFO 10020 --- [restartedMain] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-09-15 14:08:26.705  WARN 10020 --- [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.syes.syes_springboot.entity.Itempic ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-09-15 14:08:26.795  WARN 10020 --- [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.syes.syes_springboot.entity.Tablemenu ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-09-15 14:08:26.823  WARN 10020 --- [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.syes.syes_springboot.entity.Usercollect ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-09-15 14:08:26.835  WARN 10020 --- [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.syes.syes_springboot.entity.Userlike ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-09-15 14:08:27.185  INFO 10020 --- [restartedMain] c.s.syes_springboot.schedule.BeanLife    : Springboot启动
+2022-09-15 14:08:27.424  INFO 10020 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-09-15 14:08:27.736  INFO 10020 --- [restartedMain] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2022-09-15 14:08:27.767  INFO 10020 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-09-15 14:08:27.811  INFO 10020 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8000 (http) with context path ''
+2022-09-15 14:08:27.823  INFO 10020 --- [restartedMain] c.s.s.SyesSpringbootApplication          : Started SyesSpringbootApplication in 3.413 seconds (JVM running for 4.113)
+2022-09-15 14:08:34.139  INFO 10020 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2022-09-15 14:08:34.140  INFO 10020 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-09-15 14:08:34.580  INFO 10020 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-09-15 14:08:34.580  INFO 10020 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed

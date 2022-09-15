@@ -1,5 +1,6 @@
 package com.syes.syes_springboot.schedule;
 
+import com.syes.syes_springboot.aop.VisitedCountHandler;
 import com.syes.syes_springboot.mapper.UserMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,20 +11,21 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Component
-public class BeanLifeTest {
+public class BeanLife {
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    VisitedCountHandler visitedCountHandler;
 
     @PostConstruct
     public void PostConstruct() {
-        Logger logger = LogManager.getLogger(BeanLifeTest.class);
-        logger.debug("debug测试");
-        logger.info("info测试");
-        logger.warn("warn测试");
+        Logger logger = LogManager.getLogger(BeanLife.class);
+        logger.info("Springboot启动");
     }
 
     @PreDestroy
     public void PreDestroy() {
-        System.out.println("Springboot关闭");
+        Logger logger = LogManager.getLogger(BeanLife.class);
+        logger.info("Springboot启动");
     }
 }

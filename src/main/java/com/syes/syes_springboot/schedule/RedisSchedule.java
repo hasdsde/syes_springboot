@@ -1,12 +1,15 @@
 package com.syes.syes_springboot.schedule;
 
 import com.syes.syes_springboot.mapper.ItemMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import javax.annotation.PreDestroy;
 import java.util.Set;
 
 @EnableScheduling
@@ -18,6 +21,7 @@ public class RedisSchedule {
     ItemMapper itemMapper;
 
     //每一分钟输出redis储存的item浏览量
+    @PreDestroy
     @Scheduled(cron = "0 */10 * * * ?")
     private void AddRedisIntoMysql() {
         Set items = redisTemplate.opsForHash().keys("item");
@@ -28,6 +32,7 @@ public class RedisSchedule {
         }
         //注意这里是清除全部数据
         redisTemplate.delete("item");
-        System.out.println("已将Redis浏览量缓存存入Mysql");
+        Logger logger = LogManager.getLogger(Autowired.class);
+        logger.info("已将Redis浏览量缓存存入Mysql");
     }
 }
