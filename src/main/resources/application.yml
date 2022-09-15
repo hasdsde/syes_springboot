@@ -29,19 +29,18 @@ spring:
 
 mybatis:
     mapper-locations: mapper/*.xml
+    configuration:
+        log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
 mybatis-plus:
     configuration:
         map-underscore-to-camel-case: true
-        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+        log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
     type-aliases-package: com.syes.syes_springboot.entity
-
 
 my:
     server: # 上传到服务器需要改这个
         name: http://localhost
         uploadPath: 'D:/pic/' # 文件下载到哪里，记得屁股加个杠
-
-
     file-config:
         uploadPath: '${my.server.uploadPath}'
         staticPath: '/file/img/'
@@ -49,3 +48,4 @@ my:
 logging:
     level:
         root: info
+

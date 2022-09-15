@@ -18,7 +18,7 @@ public class RedisSchedule {
     ItemMapper itemMapper;
 
     //每一分钟输出redis储存的item浏览量
-    @Scheduled(cron = "0 */1 * * * ?")
+    @Scheduled(cron = "0 */10 * * * ?")
     private void AddRedisIntoMysql() {
         Set items = redisTemplate.opsForHash().keys("item");
         for (Object item : items) {

@@ -30,7 +30,6 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
         }
         //获取token
         String token = request.getHeader("token");
-        System.out.println("Token已拦截请求");
         //token不存在直接报错
         if (token == null) {
             throw new BusinessException("Token不存在");
@@ -61,7 +60,6 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
         if (JwtUtil.checkDate(token)) {
             throw new BusinessException("499", "token过期");
         }
-        System.out.println("tocken验证成功");
         //布尔值验证
         if (userid.equals("root")) {
             return JwtUtil.vertifyRootToken(token, userid, rootUser.getPassword(), rootUser.getUsername());
