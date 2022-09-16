@@ -22,4 +22,5 @@ public class Item_homeDto {
     private int collectionnum;
     private int clicknum;
     private int grade;
+    private int onsale;
 }

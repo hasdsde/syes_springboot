@@ -20,6 +20,7 @@
                  left join (select itemid, count(*) as collectionnum from usercollect group by itemid) as guroupu
                            on item.id = guroupu.itemid
                  left join (select substr(id, 3, 2) as grade, id from user) as gi on item.userid = gi.id
+        where item.onsale = 1
         order by createtime desc
         limit #{arg0}, #{arg1}
     </select>
@@ -76,6 +77,7 @@
                item.price,
                item.createtime,
                guroupu.collectionnum,
+               item.onsale,
                gi.grade
         from item
                  left join user on item.userid = user.id
