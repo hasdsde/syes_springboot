@@ -31,6 +31,8 @@ public class Order implements Serializable {
 
     private String userid;
 
+    private String touserid;
+    
     private Integer itemid;
 
     private Integer enable;

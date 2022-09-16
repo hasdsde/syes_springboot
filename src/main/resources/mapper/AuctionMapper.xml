@@ -2,4 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.syes.syes_springboot.mapper.AuctionMapper">
 
+    <update id="setStatus">
+        update auction
+        set apply = true
+        where userid = #{arg0}
+          and itemid = #{arg1}
+    </update>
 </mapper>

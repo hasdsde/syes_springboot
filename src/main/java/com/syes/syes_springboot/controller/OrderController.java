@@ -1,11 +1,16 @@
 package com.syes.syes_springboot.controller;
 
+import com.syes.syes_springboot.Utils.IdUtil;
 import com.syes.syes_springboot.common.Result;
+import com.syes.syes_springboot.entity.Auction;
 import com.syes.syes_springboot.entity.Order;
+import com.syes.syes_springboot.mapper.AuctionMapper;
+import com.syes.syes_springboot.mapper.ItemMapper;
 import com.syes.syes_springboot.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +29,11 @@ import java.util.List;
 public class OrderController {
     @Autowired
     OrderMapper orderMapper;
+    @Autowired
+    ItemMapper itemMapper;
+
+    @Autowired
+    AuctionMapper auctionMapper;
 
     //新建order
     @PostMapping("/")
@@ -33,10 +43,24 @@ public class OrderController {
         return Result.success();
     }
 
+    //客户端新建order
+    @GetMapping("/u")
+    public Result USave(@RequestParam("itemid") int itemid, @RequestParam("auction") int auction, HttpServletRequest request) {
+        //获取出价的用户的id
+        Auction auction1 = auctionMapper.selectById(auction);
+        String Userid = IdUtil.getId(request);
+        Order order = new Order();
+        order.setUserid(Userid);
+        order.setItemid(itemid);
+        order.setTouserid(auction1.getUserid());
+        orderMapper.insert(order);
+        int i = auctionMapper.setStatus(auction1.getUserid(), itemid);
+        return Result.success();
+    }
+
     //修改order
     @PutMapping("/")
     public Result updateOrder(@RequestBody Order order) {
-        order.setCreatetime(LocalDateTime.now());
         int i = orderMapper.updateById(order);
         return Result.success();
     }

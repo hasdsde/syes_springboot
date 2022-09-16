@@ -1,6 +1,7 @@
 package com.syes.syes_springboot.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.syes.syes_springboot.Utils.IdUtil;
 import com.syes.syes_springboot.common.Result;
 import com.syes.syes_springboot.entity.Item;
 import com.syes.syes_springboot.entity.Itempic;
@@ -14,10 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -50,8 +48,17 @@ public class ItemController {
     //根据id获取id页面的信息
     @GetMapping("/id")
     public Result itemById(@RequestParam("itemid") int itemid, HttpServletRequest request) {
+        String id = IdUtil.getId(request);
         Item item = itemMapper.selectItemByid(itemid);
-        return Result.success(item);
+        Boolean own = false;
+        if (Objects.equals(item.getUserid(), id)) {
+            own = true;
+        }
+        item.setUserid(null);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("data", item);
+        map.put("own", own);
+        return Result.success(map);
     }
 
     // 新建item附带图片
@@ -95,6 +102,7 @@ public class ItemController {
         int insert = itemMapper.insert(item);
         return Result.success(item.getId());
     }
+
 
     //修改item
     @PutMapping("/")

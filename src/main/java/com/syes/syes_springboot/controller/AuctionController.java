@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -35,7 +36,7 @@ public class AuctionController {
     @Autowired
     UserMapper userMapper;
 
-    //查看用户是否出价
+    //获取用户出价列表
     @GetMapping("/")
     public Result checkAuction(@RequestParam("itemid") int itemid, HttpServletRequest request) {
         String id = IdUtil.getId(request);
@@ -55,6 +56,10 @@ public class AuctionController {
     @PostMapping("/")
     public Result addAuction(@RequestBody Auction auction, HttpServletRequest request) {
         String id = IdUtil.getId(request);
+        Item item = itemMapper.selectById(auction.getItemid());
+        if (Objects.equals(item.getUserid(), id)) {
+            return Result.error("666", "你不能给自己的物品出价");
+        }
         auction.setUserid(id);
         auction.setTime(LocalDateTime.now());
         auctionMapper.insert(auction);

@@ -30,7 +30,8 @@
                user.nickname,
                user.avatar,
                visited,
-               gi.grade
+               gi.grade,
+               userid
         from item
                  left join user on item.userid = user.id
                  left join (select substr(id, 3, 2) as grade, id from user) as gi on item.userid = gi.id

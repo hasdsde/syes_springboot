@@ -35,7 +35,7 @@ public class Auction implements Serializable {
     private float price;
 
     private LocalDateTime time;
-
+    private Boolean apply;
     //该属性在数据库中不存在
     @TableField(exist = false)
     private String avatar;

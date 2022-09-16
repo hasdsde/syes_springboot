@@ -16,4 +16,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AuctionMapper extends BaseMapper<Auction> {
 
 
+    int setStatus(String itemid, int id);
 }
