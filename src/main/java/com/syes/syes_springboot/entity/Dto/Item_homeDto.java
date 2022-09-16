@@ -23,4 +23,5 @@ public class Item_homeDto {
     private int clicknum;
     private int grade;
     private int onsale;
+    private int itemprice;
 }

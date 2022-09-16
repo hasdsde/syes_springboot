@@ -54,4 +54,15 @@ public class AboutController {
         return Result.success(posted);
     }
 
+    //我的出价
+    @GetMapping("/auction")
+    public Result GetAuction(HttpServletRequest request,
+                             @RequestParam("pagesize") int pagesize,
+                             @RequestParam("currentpage") int currentpage) {
+        int StartPage = (currentpage - 1) * pagesize;
+        String userid = IdUtil.getId(request);
+        List<Item_homeDto> posted = itemHomeMapper.getAuction(StartPage, pagesize, userid);
+        return Result.success(posted);
+
+    }
 }
