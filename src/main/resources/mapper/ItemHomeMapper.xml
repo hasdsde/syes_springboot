@@ -81,7 +81,6 @@
                gi.grade
         from item
                  left join user on item.userid = user.id
-                 left join userhistory on item.id = userhistory.itemid
                  left join itempic on item.id = itempic.itemid and itempic.ishead = 1
                  left join file on itempic.picid = file.id
                  left join (select itemid, count(*) as collectionnum from usercollect group by itemid) as guroupu

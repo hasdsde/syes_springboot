@@ -32,7 +32,7 @@ public class Auction implements Serializable {
 
     private Integer itemid;
 
-    private Integer price;
+    private float price;
 
     private LocalDateTime time;
 
