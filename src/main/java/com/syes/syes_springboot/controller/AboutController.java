@@ -78,4 +78,16 @@ public class AboutController {
 
     }
 
+    //我卖出的
+    @GetMapping("/SoldOrder")
+    public Result GetSoldOrder(HttpServletRequest request,
+                               @RequestParam("pagesize") int pagesize,
+                               @RequestParam("currentpage") int currentpage) {
+        int StartPage = (currentpage - 1) * pagesize;
+        String userid = IdUtil.getId(request);
+        List<Item_homeDto> posted = itemHomeMapper.getSoldOrder(StartPage, pagesize, userid);
+        return Result.success(posted);
+
+    }
+
 }

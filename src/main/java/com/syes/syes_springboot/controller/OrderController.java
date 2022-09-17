@@ -98,7 +98,8 @@ public class OrderController {
         }
         Order order = new Order();
         order.setId(id);
-        order.setEnable(order1.getStatus());
+        order.setPrice(order1.getPrice());
+        order.setStatus(order1.getStatus());
         orderMapper.updateById(order);
         return Result.success();
     }
