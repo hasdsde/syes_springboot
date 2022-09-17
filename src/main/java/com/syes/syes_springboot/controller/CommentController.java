@@ -2,6 +2,7 @@ package com.syes.syes_springboot.controller;
 
 import com.syes.syes_springboot.Utils.IdUtil;
 import com.syes.syes_springboot.common.Result;
+import com.syes.syes_springboot.config.BusinessException;
 import com.syes.syes_springboot.entity.Comment;
 import com.syes.syes_springboot.mapper.CommentMapper;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -87,10 +89,24 @@ public class CommentController {
     }
 
     //删除评论
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/r/{id}")
     public Result deleteComment(@PathVariable("id") String id) {
         mapper.deleteById(id);
         return Result.success(id);
+    }
+
+    //删除评论
+    @DeleteMapping("/u/{id}")
+    public Result deleteCommentU(@PathVariable("id") String id, HttpServletRequest request) {
+        String id1 = IdUtil.getId(request);
+        Comment comment = mapper.selectById(id);
+        if (Objects.equals(id1, comment.getUserid())) {
+            mapper.deleteById(id);
+            return Result.success(id);
+        } else {
+            throw new BusinessException("666", "这不是你的评论");
+        }
+
     }
 
 

@@ -43,6 +43,15 @@ public class AboutController {
         return Result.success(items);
     }
 
+    //我的评论
+    @GetMapping("/comment")
+    public Result GetComment(@RequestParam("pagesize") int pagesize, @RequestParam("currentpage") int currentpage, HttpServletRequest request) {
+        String userid = IdUtil.getId(request);
+        int StartPage = (currentpage - 1) * pagesize;
+        List<Item_homeDto> commenets = itemHomeMapper.queryComment(StartPage, pagesize, userid);
+        return Result.success(commenets);
+    }
+
     //我发布的
     @GetMapping("/posted")
     public Result GetIPosted(HttpServletRequest request,

@@ -153,4 +153,29 @@
         order by userorder.createtime desc
         limit #{arg0}, #{arg1}
     </select>
+    <select id="queryComment" resultType="com.syes.syes_springboot.entity.Dto.Item_homeDto">
+        select file.url,
+               item.id,
+               item.title,
+               u.nickname,
+               u.avatar,
+               comment.id                                                        as cid,
+               comment.content,
+               comment.createtime,
+               (select user.nickname from user where comment.touserid = user.id) as tnickname,
+               (select user.avatar from user where comment.touserid = user.id)   as tavatar
+        from comment,
+             item,
+             file,
+             itempic,
+             user u
+        where comment.userid = #{arg2}
+          and item.id = comment.itemid
+          and u.id = comment.userid
+          and itempic.itemid = item.id
+          and itempic.ishead = 1
+          and file.id = itempic.picid
+        order by item.id desc, createtime desc
+        limit #{arg0},#{arg1}
+    </select>
 </mapper>

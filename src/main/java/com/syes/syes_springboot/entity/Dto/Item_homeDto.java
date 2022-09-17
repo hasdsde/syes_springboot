@@ -15,9 +15,13 @@ public class Item_homeDto {
     //korewa超级缝合怪
     private String url;
     private int id;
+    private int cid;
     private String title;
     private String nickname;
+    private String tnickname;
     private String avatar;
+    private String tavatar;
+    private String content;
     private double price;
     private LocalDateTime createtime;
     private LocalDateTime updatatime;
