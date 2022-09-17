@@ -113,4 +113,24 @@
         order by createtime desc
         limit #{arg0}, #{arg1}
     </select>
+    <select id="getBuyOrder" resultType="com.syes.syes_springboot.entity.Dto.Item_homeDto">
+        select file.url,
+               userorder.id,
+               item.title,
+               user.nickname,
+               user.avatar,
+               userorder.createtime,
+               userorder.updatetime,
+               userorder.price,
+               userorder.status
+        from item
+                 left join user on item.userid = user.id
+                 left join userorder on item.id = userorder.itemid
+                 left join itempic on item.id = itempic.itemid and itempic.ishead = 1
+                 left join file on itempic.picid = file.id
+        where userorder.touserid = #{arg2}
+          and userorder.enable = 1
+        order by userorder.createtime desc
+        limit #{arg0}, #{arg1}
+    </select>
 </mapper>

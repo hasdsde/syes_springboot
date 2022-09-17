@@ -16,4 +16,6 @@ public interface ItemHomeMapper {
     List<Item_homeDto> getPosted(int startPage, int pagesize, String userid);
 
     List<Item_homeDto> getAuction(int startPage, int pagesize, String userid);
+
+    List<Item_homeDto> getBuyOrder(int startPage, int pagesize, String userid);
 }

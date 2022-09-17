@@ -53,6 +53,8 @@ public class OrderController {
         order.setUserid(Userid);
         order.setItemid(itemid);
         order.setTouserid(auction1.getUserid());
+        order.setPrice(auction1.getPrice());
+        order.setCreatetime(LocalDateTime.now());
         orderMapper.insert(order);
         int i = auctionMapper.setStatus(auction1.getUserid(), itemid);
         return Result.success();
@@ -74,14 +76,32 @@ public class OrderController {
 
     //根据id修改状态
     @GetMapping("/status")
-    public Result updateStatusByid(@RequestParam("id") int id, @RequestParam("status") Integer status) {
+    public Result updateStatusById(@RequestParam("id") int id) {
+        Order order1 = orderMapper.selectById(id);
+        if (order1.getStatus() == 1) {
+            order1.setStatus(order1.getStatus() + 1);
+        }
         Order order = new Order();
         order.setId(id);
-        int bstatus = status == 0 ? 1 : 0;
-        order.setEnable(bstatus);
+        order.setPrice(order1.getPrice());
+        order.setStatus(order1.getStatus());
         orderMapper.updateById(order);
         return Result.success();
-    }    //根据id修改状态
+    }
+
+    //根据id修改状态
+    @GetMapping("/status2")
+    public Result updateStatusById2(@RequestParam("id") int id) {
+        Order order1 = orderMapper.selectById(id);
+        if (order1.getStatus() == 2) {
+            order1.setStatus(order1.getStatus() + 1);
+        }
+        Order order = new Order();
+        order.setId(id);
+        order.setEnable(order1.getStatus());
+        orderMapper.updateById(order);
+        return Result.success();
+    }
 
     //切换12345状态
     @GetMapping("/status/order")

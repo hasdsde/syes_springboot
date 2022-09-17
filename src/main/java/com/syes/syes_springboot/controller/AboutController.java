@@ -65,4 +65,17 @@ public class AboutController {
         return Result.success(posted);
 
     }
+
+    //我买入的
+    @GetMapping("/BuyOrder")
+    public Result GetBuyOrder(HttpServletRequest request,
+                              @RequestParam("pagesize") int pagesize,
+                              @RequestParam("currentpage") int currentpage) {
+        int StartPage = (currentpage - 1) * pagesize;
+        String userid = IdUtil.getId(request);
+        List<Item_homeDto> posted = itemHomeMapper.getBuyOrder(StartPage, pagesize, userid);
+        return Result.success(posted);
+
+    }
+
 }

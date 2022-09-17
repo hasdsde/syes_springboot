@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item_homeDto {
+    //korewa超级缝合怪
     private String url;
     private int id;
     private String title;
@@ -19,9 +20,11 @@ public class Item_homeDto {
     private String avatar;
     private double price;
     private LocalDateTime createtime;
+    private LocalDateTime updatatime;
     private int collectionnum;
     private int clicknum;
     private int grade;
     private int onsale;
     private int itemprice;
+    private int status;
 }
