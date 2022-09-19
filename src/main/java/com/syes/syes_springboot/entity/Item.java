@@ -40,6 +40,7 @@ public class Item implements Serializable {
     private String userid;
 
     private int visited;
+    private String sort;
 
     @TableField(exist = false)
     private String nickname;

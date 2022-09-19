@@ -33,12 +33,21 @@ public class SortController {
         return Result.success(sorts);
     }
 
+    //获取子集id
     @GetMapping("/nAll")
     public Result SelectNsortAll() {
         List<Sort> sorts = sortMapper.NodeNotNull();
         return Result.success(sorts);
     }
 
+    //根据父级名字获取id
+    @GetMapping("/pn")
+    public Result GetSortNameByPName(@RequestParam("name") String name) {
+        List<Sort> sort = sortMapper.selectNnameByPname(name);
+        return Result.success(sort);
+    }
+
+    //根据父级id获取子集信息
     @GetMapping("/n")
     public Result SelectNsort(@RequestParam("checkid") String checkid) {
         List<Sort> sorts = new ArrayList<>();
@@ -72,7 +81,7 @@ public class SortController {
         int i = sortMapper.updateById(sort);
         return Result.success();
     }
-    
+
     //删除
     @DeleteMapping("/{id}")
     public Result DeleteByid(@PathVariable("id") int id) {

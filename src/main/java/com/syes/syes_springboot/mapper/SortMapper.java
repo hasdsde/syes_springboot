@@ -25,4 +25,6 @@ public interface SortMapper extends BaseMapper<Sort> {
 
 
     List<Sort> NodeNotNull();
+
+    List<Sort> selectNnameByPname(String name);
 }

@@ -68,6 +68,7 @@ public class ItemController {
             @RequestParam("userid") String userid,
             @RequestParam("description") String description,
             @RequestParam("price") Double price,
+            @RequestParam("sort") String sort,
             @RequestParam("piclist") int[] piclist
     ) {
         //上传物品并获取id
@@ -77,6 +78,7 @@ public class ItemController {
         item.setUserid(userid);
         item.setDescription(description);
         item.setPrice(price);
+        item.setSort(sort);
         Integer id = (Integer) SaveItem(item).getData();
         System.out.println("id==" + id);
         //上传的图片物品关联数据库

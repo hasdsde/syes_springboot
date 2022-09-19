@@ -25,4 +25,9 @@
         from sort
         where pid is not null
     </select>
+    <select id="selectNnameByPname" resultType="com.syes.syes_springboot.entity.Sort">
+        select name
+        from sort
+        where pid = (select pid from sort where name = #{arg0})
+    </select>
 </mapper>
