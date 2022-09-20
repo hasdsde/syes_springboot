@@ -28,6 +28,6 @@
     <select id="selectNnameByPname" resultType="com.syes.syes_springboot.entity.Sort">
         select name
         from sort
-        where pid = (select pid from sort where name = #{arg0})
+        where pid = (select id from sort where name = #{arg0})
     </select>
 </mapper>

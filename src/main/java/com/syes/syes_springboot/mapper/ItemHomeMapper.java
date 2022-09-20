@@ -22,4 +22,6 @@ public interface ItemHomeMapper {
     List<Item_homeDto> getSoldOrder(int startPage, int pagesize, String userid);
 
     List<Item_homeDto> queryComment(int startPage, int pagesize, String userid);
+
+    List<Item_homeDto> getSortList(int startPage, int pagesize, String sort);
 }

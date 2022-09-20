@@ -99,4 +99,14 @@ public class AboutController {
 
     }
 
+    //分类查询
+    @GetMapping("/sort")
+    public Result GetSort(
+            @RequestParam("sort") String sort,
+            @RequestParam("pagesize") int pagesize,
+            @RequestParam("currentpage") int currentpage) {
+        int StartPage = (currentpage - 1) * pagesize;
+        List<Item_homeDto> posted = itemHomeMapper.getSortList(StartPage, pagesize, sort);
+        return Result.success(posted);
+    }
 }
