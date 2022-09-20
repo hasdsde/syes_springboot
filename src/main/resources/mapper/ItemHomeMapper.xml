@@ -78,7 +78,8 @@
                item.createtime,
                guroupu.collectionnum,
                item.onsale,
-               gi.grade
+               gi.grade,
+               item.sort
         from item
                  left join user on item.userid = user.id
                  left join itempic on item.id = itempic.itemid and itempic.ishead = 1

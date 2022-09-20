@@ -22,6 +22,7 @@ public class Item_homeDto {
     private String avatar;
     private String tavatar;
     private String content;
+    private String sort;
     private double price;
     private LocalDateTime createtime;
     private LocalDateTime updatatime;
