@@ -66,6 +66,7 @@
     <select id="slectByPage" resultMap="CommentMap" parameterType="int">
         select c.id         cid,
                c.createtime ct,
+               c.touserid,
                u.id         uid,
                u.createtime ut,
                itemid,
@@ -86,14 +87,14 @@
                c.createtime ct,
                u.id         uid,
                u.createtime ut,
+               c.touserid,
                itemid,
                userid,
                content,
                fromcommentid,
                u.nickname,
                u.realname,
-               u.avatar,
-               u.phone
+               u.avatar
         from comment as c
                  left join user u on u.id = userid
         where userid = #{arg2}
@@ -105,6 +106,7 @@
                c.createtime ct,
                u.id         uid,
                u.createtime ut,
+               c.touserid,
                itemid,
                userid,
                content,
@@ -167,6 +169,7 @@
         <result property="itemid" column="itemid"/>
         <result property="userid" column="userid"/>
         <result property="content" column="content"/>
+        <result property="touserid" column="touserid"/>
         <result property="fromcommentid" column="fromcommentid"/>
         <!--    里面那个对象，学java永远不缺对象    -->
         <association property="user" javaType="User">

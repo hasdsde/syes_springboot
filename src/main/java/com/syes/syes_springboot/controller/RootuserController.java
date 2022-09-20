@@ -36,7 +36,7 @@ public class RootuserController {
         QueryWrapper<Rootuser> wrapper = new QueryWrapper<>();
         wrapper.eq("id", rootuser.getId());
         if (rootuserMapper.selectCount(wrapper) == 0) {
-            throw new BusinessException("499", "root用户不存在");
+            throw new BusinessException("499", "用户名或密码错误");
         }
         Rootuser user = rootuserMapper.selectById(rootuser.getId());
         if (Objects.equals(user.getPassword(), rootuser.getPassword())) {
@@ -46,7 +46,7 @@ public class RootuserController {
             data.put("username", user.getUsername());
             return Result.success(data);
         } else {
-            throw new BusinessException("401", "密码错误");
+            throw new BusinessException("499", "用户名或密码错误");
         }
     }
 }

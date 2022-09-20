@@ -50,7 +50,7 @@ public class UserController {
             data.put("userid", user.getId());
             return Result.success(data);
         } else {
-            throw new BusinessException("401", "密码错误");
+            throw new BusinessException("401", "用户名或密码错误");
         }
     }
 
