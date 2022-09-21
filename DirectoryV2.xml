@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trees>
+    <tree path="/src/main/java/com/syes/syes_springboot/aop" title="切面编程"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/aop/VisitedCountHandler.java" title="浏览量记录"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/common" title="其他分类"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/common/Constants.java" title="状态码" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/common/Generator.java" title="代码生成器" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/common/Result.java" title="请求结果类" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/config" title="设置"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/config/BusinessException.java" title="事务错误类"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/config/ExceptionAdvice.java" title="应用错误类"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/config/JwtAuthenticationInterceptor.java" title="JWT验证器"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/config/JwtInterceptorConfig.java" title="应用JWT验证器"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/config/MyWebMvcConfig.java" title="跨域问题" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/config/RedisConfig.java" title="Redis配置类" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/AboutController.java" title="关于页面"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/AuctionController.java" title="出价"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/CommentController.java" title="评论"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/FileController.java" title="文件" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/ItemController.java" title="物品" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/ItemHomeController.java" title="首页物品"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/ItempicController.java" title="物品与图片对应"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/OrderController.java" title="订单" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/RollimgController.java" title="轮播图"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/RootuserController.java" title="Root用户登录"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/SortController.java" title="分类" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/TablemenuController.java" title="后台表格"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/UsercollectController.java" title="用户收藏"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/UserController.java" title="用户" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/UserhistoryController.java" title="浏览历史"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/UserlikeController.java" title="点赞"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller" title="控制类"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/entity" title="java类"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Utils" title="工具类"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Utils/FileUtil.java" title="文件上传" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Utils/IdUtil.java" title="随机数" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Utils/JwtUtil.java" title="JWT加密" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Utils/RedisUtil.java" title="Redis" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/schedule" title="定时任务"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/schedule/BeanLife.java" title="开关系统任务" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/schedule/RedisSchedule.java" title="缓存定时任务"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/mapper" title="映射"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/service" title="服务类"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Rcontroller" title="后台控制类"/>
+</trees>
