@@ -1,4 +1,4 @@
-package com.syes.syes_springboot.controller;
+package com.syes.syes_springboot.Rcontroller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.syes.syes_springboot.Utils.JwtUtil;

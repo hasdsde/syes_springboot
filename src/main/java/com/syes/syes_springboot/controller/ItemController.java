@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * <p>
@@ -45,7 +47,7 @@ public class ItemController {
     @Value("${my.file-config.downloadPath}")
     private String downloadPath;
 
-    //根据id获取id页面的信息
+    //根据id获取物品的信息
     @GetMapping("/id")
     public Result itemById(@RequestParam("itemid") int itemid, HttpServletRequest request) {
         String id = IdUtil.getId(request);
@@ -114,45 +116,5 @@ public class ItemController {
         return Result.success();
     }
 
-    //删除item
-    @DeleteMapping("/{id}")
-    public Result deleteItem(@PathVariable("id") String id) {
-        itemMapper.deleteById(id);
-        return Result.success();
-    }
 
-    //分页查询
-    @GetMapping("/page")
-    public Result slectByPage(
-            @RequestParam("pagesize") int pagesize,
-            @RequestParam("currentpage") int currentPage,
-            @RequestParam("searchtext") String SearchText
-    ) {
-        Integer total;
-        int StartPage = (currentPage - 1) * pagesize; //开始页数
-        List<Item> itemList = new ArrayList<>();
-        QueryWrapper<Item> wrapper = new QueryWrapper<>();
-        wrapper.eq("userid", SearchText);
-        if (SearchText.isEmpty()) {
-            itemList = itemMapper.slectByPage(StartPage, pagesize); //列表
-            total = itemMapper.selectCount(null).intValue(); //获取总数
-        } else {
-            itemList = itemMapper.slectByPageSearch(StartPage, pagesize, SearchText); //列表
-            total = itemMapper.selectCount(wrapper).intValue(); //获取总数
-        }
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("data", itemList);
-        map.put("total", total);
-        return Result.success(map);
-    }
-
-    //切换上架下架状态
-    @GetMapping("/status")
-    public Result changeByStatus(@RequestParam("id") Integer id, @RequestParam("status") Boolean status) {
-        Item item = new Item();
-        item.setId(id);
-        item.setOnsale(status);
-        itemMapper.updateById(item);
-        return Result.success();
-    }
 }
