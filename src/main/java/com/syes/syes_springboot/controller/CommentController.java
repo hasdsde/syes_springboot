@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -88,12 +86,6 @@ public class CommentController {
         return Result.success();
     }
 
-    //删除评论
-    @DeleteMapping("/r/{id}")
-    public Result deleteComment(@PathVariable("id") String id) {
-        mapper.deleteById(id);
-        return Result.success(id);
-    }
 
     //删除评论
     @DeleteMapping("/u/{id}")
@@ -110,35 +102,4 @@ public class CommentController {
     }
 
 
-    //分页查询
-    @GetMapping("/page")
-    public Result slectByPage(
-            @RequestParam("pagesize") int pagesize,
-            @RequestParam("currentpage") int currentPage,
-            @RequestParam("searchtext") String SeatchText) {
-
-
-        int StartPage = (currentPage - 1) * pagesize; //开始页数
-        List<Comment> commentList = new ArrayList<>();
-        Integer total;
-        if (SeatchText.isEmpty()) {
-            commentList = mapper.slectByPage(StartPage, pagesize); //列表
-            total = mapper.selectCount(null).intValue(); //获取总数
-        } else {
-            if (Integer.valueOf(SeatchText) > 100000) {
-                commentList = mapper.slectByPageSearch(StartPage, pagesize, SeatchText); //列表
-                total = mapper.selectCountSearch(SeatchText).intValue(); //获取总数
-            } else {
-                commentList = mapper.slectByPageSearchItem(StartPage, pagesize, SeatchText); //列表
-                total = mapper.selectCountItem(SeatchText).intValue(); //获取总数
-            }
-
-        }
-
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("data", commentList);
-        map.put("total", total);
-        return Result.success(map);
-    }
-    // endregion
 }
