@@ -6,6 +6,7 @@ import com.syes.syes_springboot.mapper.SortMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -41,26 +42,12 @@ public class SortController {
         return Result.success(sorts);
     }
 
+    //根据父级名字获取id
+    @GetMapping("/pn")
+    public Result GetSortNameByPName(@RequestParam("name") String name) {
+        List<Sort> sort = sortMapper.selectNnameByPname(name);
+        return Result.success(sort);
+    }
 
-    //一个分类，分你吗页
-//    //分页查询
-//    @GetMapping("/page")
-//    public Result slectByPage(@RequestParam("pagesize") int pagesize, @RequestParam("currentpage") int currentPage, @RequestParam("searchtext") String SearchText) {
-//        Integer total;
-//        int StartPage = (currentPage - 1) * pagesize; //开始页数
-//        QueryWrapper<Sort> wrapper = new QueryWrapper<>();
-//        wrapper.eq("id", SearchText);
-//        List<Sort> sortList = new ArrayList<>();
-//        if (SearchText.isEmpty()) {
-//            sortList = sortMapper.slectByPage(StartPage, pagesize); //列表
-//            total = sortMapper.selectCount(null).intValue(); //获取总数
-//        } else {
-//            sortList = sortMapper.slectByPageSearch(StartPage, pagesize, SearchText); //列表
-//            total = sortMapper.selectCount(wrapper).intValue(); //获取总数
-//        }
-//        HashMap<String, Object> map = new HashMap<>();
-//        map.put("data", sortList);
-//        map.put("total", total);
-//        return Result.success(map);
-//    }
+
 }

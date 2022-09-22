@@ -1,16 +1,13 @@
 package com.syes.syes_springboot.entity;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
-
 import lombok.*;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -33,6 +30,7 @@ public class User implements Serializable {
     //主键策略，表示这个主键不是自动增加而是需要手动输入的
     @TableId(type = IdType.INPUT)
     private String id;
+
 
     private String nickname;
 

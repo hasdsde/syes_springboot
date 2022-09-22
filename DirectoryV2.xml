@@ -59,4 +59,5 @@
     <tree path="/src/main/java/com/syes/syes_springboot/mapper" title="映射"/>
     <tree path="/src/main/java/com/syes/syes_springboot/service" title="服务类"/>
     <tree path="/src/main/java/com/syes/syes_springboot/Rcontroller" title="后台控制类"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/ChatController.java" title="聊天" extension="java"/>
 </trees>
