@@ -29,12 +29,14 @@ public class User implements Serializable {
 
 
     /*
-     *  主键策略，这个不是主键，曾经是主键，单现在不是了
-     *为了还能继续用plus，所以还得吧这个方程主键
+     *  换回来了，这个是真的主键
+     * 不然真的必出事
+     *
      * */
     @TableId(type = IdType.INPUT)
     private String id;
-    //这个才是真正的主键，自动增加的主键
+    //这个是后面加的，自动增加，单不是主键
+//    @TableId(type = IdType.AUTO) 这个是自增的，但是不能加这个
     private int infoid;
 
     private String nickname;
