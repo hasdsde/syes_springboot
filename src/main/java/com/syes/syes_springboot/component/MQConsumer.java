@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class MQConsumer {
 
+    public String currentId = "chat.10";
 
     @RabbitListener(bindings = {
             @QueueBinding(
-                    value = @Queue("chat"),
+                    value = @Queue,//这里不能命名队列名
                     exchange = @Exchange(name = "chats", type = "topic"),
-                    key = {"to.* "}
-
+                    key = {"topic"}
             )
     })
     public void ReceiveAll(String message) {
