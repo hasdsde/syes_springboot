@@ -3,7 +3,6 @@ server:
     servlet:
         session:
             timeout: 1m
-
 spring:
     datasource:
         url: jdbc:mysql://hasdsd.cn:3307/syes?serverTimezone=UTC&characterEncoding=utf8&useSSL=false
@@ -26,7 +25,13 @@ spring:
         host: 192.168.0.99
         port: 6379
         database: 0
-
+    rabbitmq:
+        host: 192.168.0.99
+        virtual-host: syes
+        username: syes
+        password: syes
+        port: 5672
+#Mybatis
 mybatis:
     mapper-locations: mapper/*.xml
     configuration:
@@ -36,7 +41,15 @@ mybatis-plus:
         map-underscore-to-camel-case: true
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     type-aliases-package: com.syes.syes_springboot.entity
-
+#日志
+logging:
+    level:
+        root: info
+    file:
+        name: test.log
+        max-size: 10MB
+        clean-history-on-start: true
+#其他配置
 my:
     server: # 上传到服务器需要改这个
         name: http://localhost
@@ -45,10 +58,3 @@ my:
         uploadPath: '${my.server.uploadPath}'
         staticPath: '/file/img/'
         downloadPath: '${my.server.name}:${server.port}${my.file-config.staticPath}' # 存url到数据库时用的他
-logging:
-    level:
-        root: info
-    file:
-        name: test.log
-        max-size: 10MB
-        clean-history-on-start: true

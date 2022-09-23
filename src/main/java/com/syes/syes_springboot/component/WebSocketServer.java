@@ -5,8 +5,10 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -22,6 +24,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 @ServerEndpoint(value = "/chatServer/{id}")
 public class WebSocketServer {
+    @Resource
+    RabbitTemplate rabbitTemplate;
+
     Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
 
     //记录当前在线列表
@@ -69,7 +74,6 @@ public class WebSocketServer {
 
     /*
      *接受前端发来的消息
-     *
      * message已经默认发来的消息了，后端能成功接受，都不是问题
      * */
     @OnMessage
@@ -88,7 +92,7 @@ public class WebSocketServer {
         if (sessionMap.containsKey(toUserId)) {
             sendMessage(toMessage, sessionMap.get(toUserId));
         } else {
-            logger.info("该用户不在线");
+//            rabbitTemplate.convertAndSend("topics", "char", "test");
         }
 
     }

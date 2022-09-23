@@ -64,5 +64,5 @@
           extension="java"/>
     <tree path="/src/main/java/com/syes/syes_springboot/component/WebSocketServer.java" title="建立websocket连接"
           extension="java"/>
-    <tree path="/src/main/java/com/syes/syes_springboot/component" title="WebSocket"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/component" title="聊天"/>
 </trees>

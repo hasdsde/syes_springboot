@@ -16,6 +16,11 @@
     </properties>
 
     <dependencies>
+        <!--    RabbitMQ    -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
         <!--  Websocket -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
