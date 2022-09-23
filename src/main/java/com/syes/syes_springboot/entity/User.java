@@ -35,7 +35,7 @@ public class User implements Serializable {
      * */
     @TableId(type = IdType.INPUT)
     private String id;
-    //这个是后面加的，自动增加，单不是主键
+    //这个是后面加的，自动增加，但不是主键
 //    @TableId(type = IdType.AUTO) 这个是自增的，但是不能加这个
     private int infoid;
 

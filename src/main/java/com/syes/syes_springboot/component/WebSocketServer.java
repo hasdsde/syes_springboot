@@ -14,6 +14,8 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,7 +24,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class WebSocketServer {
     Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
 
-    //记录当前连接客户端
+    //记录当前在线列表
+    //ConcurrentHashMap专用于多线程，是线程安全的
     public static final Map<String, Session> sessionMap = new ConcurrentHashMap<>();
 
     /*
@@ -49,6 +52,7 @@ public class WebSocketServer {
                 }
             }
         });
+        //将用户加入到聊天列表
         sessionMap.put(id, session);
         logger.info("有新的用户加入聊天，当前用户id：{}，总人数为：{}", id, sessionMap.size());
     }
@@ -58,48 +62,45 @@ public class WebSocketServer {
      * */
     @OnClose
     public void onClose(Session session, @PathParam("id") String id) {
+        //将用户从列表中删除
         sessionMap.remove(id);
         logger.info("{}关闭了连接，当前在线人数为:{}", id, sessionMap.size());
     }
 
     /*
      *接受前端发来的消息
+     *
+     * message已经默认发来的消息了，后端能成功接受，都不是问题
      * */
     @OnMessage
-    public void onMessage(Session session, @PathParam("id") String id, String message) {
-        logger.info("来自id:{}的消息：{}", id, message);
-        //拆解消息
+    public void onMessage(Session session, @PathParam("id") String id, String message) throws IOException {
+        //发来的消息
         JSONObject obj = JSONUtil.parseObj(message);
-        //发送给哪个用户的消息
         String toUserId = obj.getStr("toUserId");
-        //发送消息的内容
-        String text = obj.getStr("context");
+        String context = obj.getStr("context");
+        //要发出去的消息
+        HashMap<String, Object> toMessage = new HashMap<>();
+        toMessage.put("fromUserId", id);
+        toMessage.put("message", context);
+        toMessage.put("time", LocalDateTime.now());
+
+        //遍历当前在线列表，有则直接发送消息，不在线就放到消息队列
+        if (sessionMap.containsKey(toUserId)) {
+            sendMessage(toMessage, sessionMap.get(toUserId));
+        } else {
+            logger.info("该用户不在线");
+        }
+
     }
 
     /**
      * 服务端发送消息给客户端
      */
-    private void sendMessage(String message, Session toSession) {
-        try {
-            logger.info("服务端给客户端[{}]发送消息{}", toSession.getId(), message);
-            toSession.getBasicRemote().sendText(message);
-        } catch (Exception e) {
-            logger.error("服务端发送消息给客户端失败", e);
-        }
+    private void sendMessage(HashMap message, Session toSession) throws IOException {
+        String s = JSONUtil.toJsonStr(message);
+        toSession.getBasicRemote().sendText(s);
     }
 
-    /**
-     * 服务端发送消息给所有客户端
-     */
-    private void sendAllMessage(String message) {
-        try {
-            for (Session session : sessionMap.values()) {
-                logger.info("服务端给客户端[{}]发送消息{}", session.getId(), message);
-                session.getBasicRemote().sendText(message);
-            }
-        } catch (Exception e) {
-            logger.error("服务端发送消息给客户端失败", e);
-        }
-    }
+
 }
 
