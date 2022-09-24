@@ -27,7 +27,7 @@ public class VisitedCountHandler {
     UserhistoryMapper userhistoryMapper;
 
     //触发方法时，获取itemid
-    @After(value = "execution(*  com.syes.syes_springboot.controller.ItemController.itemById(..)) )")
+    @After(value = "execution(*  com.syes.syes_springboot.controller.ItemController.itemById(..) )")
     public void before(JoinPoint joinPoint) throws Throwable {
         //获取参数
         Object[] args = joinPoint.getArgs();

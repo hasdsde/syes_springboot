@@ -1,11 +1,13 @@
 package com.syes.syes_springboot.component;
 
-
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.syes.syes_springboot.Utils.SpringUtil;
+import com.syes.syes_springboot.entity.Chat;
+import com.syes.syes_springboot.mapper.ChatMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -24,9 +26,11 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 @ServerEndpoint(value = "/chatServer/{id}")
 public class WebSocketServer {
-    @Resource
-    RabbitTemplate rabbitTemplate;
 
+    @Resource
+    ChatMapper chatMapper;
+    @Resource
+    RedisTemplate redisTemplate = SpringUtil.getBean(RedisTemplate.class);
     Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
 
     //记录当前在线列表
@@ -87,12 +91,22 @@ public class WebSocketServer {
         toMessage.put("fromUserId", id);
         toMessage.put("message", context);
         toMessage.put("time", LocalDateTime.now());
-
-        //遍历当前在线列表，有则直接发送消息，不在线就放到消息队列
+        //放入数据库或缓存
+        Chat chat = new Chat();
+        chat.setContent(context);
+        chat.setId(Integer.valueOf(id));
+        chat.setToUserId(toUserId);
+        chat.setCreateTime(LocalDateTime.now());
+        //遍历当前在线列表，有则直接发送消息并放入缓存，不在线就放到数据库
         if (sessionMap.containsKey(toUserId)) {
             sendMessage(toMessage, sessionMap.get(toUserId));
+            logger.info("对方在线，已将数据存入缓存数据库中");
+            String jsonStr = JSONUtil.toJsonStr(chat);
+            redisTemplate.opsForSet().add("ChatCache", jsonStr);
         } else {
-//            rabbitTemplate.convertAndSend("topics", "char", "test");
+            //当前用户不在线立即放入数据库
+            logger.info("对方不在线，已将数据存入数据库中");
+            chatMapper.insert(chat);
         }
 
     }
@@ -100,7 +114,7 @@ public class WebSocketServer {
     /**
      * 服务端发送消息给客户端
      */
-    private void sendMessage(HashMap message, Session toSession) throws IOException {
+    private void sendMessage(HashMap<String, Object> message, Session toSession) throws IOException {
         String s = JSONUtil.toJsonStr(message);
         toSession.getBasicRemote().sendText(s);
     }

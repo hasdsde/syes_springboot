@@ -36,12 +36,5 @@ class SyesSpringbootApplicationTests {
         System.out.println(comments);
     }
 
-    @Test
-    void TestMQ() {
-        rabbitTemplate.convertAndSend("chats", "to.10", "发送了一条消息");
-        rabbitTemplate.convertAndSend("chats", "to.11", "发送了一条消息");
-        rabbitTemplate.convertAndSend("chats", "to.21", "发送了一条消息");
-        rabbitTemplate.convertAndSend("chats", "to.13", "发送了一条消息");
-    }
 
 }
