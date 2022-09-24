@@ -2,16 +2,17 @@ package com.syes.syes_springboot.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author hasdsd
@@ -20,6 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @ApiModel(value = "Chat对象", description = "")
+@ToString
 public class Chat implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,13 +29,13 @@ public class Chat implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String userId;
+    private String userid;
 
-    private String toUserId;
+    private String touserid;
 
     private String content;
 
-    private LocalDateTime createTime;
+    private LocalDateTime createtime;
 
     private Boolean enable;
 }

@@ -68,4 +68,5 @@
     <tree path="/src/main/java/com/syes/syes_springboot/component/MQConsumer.java" title="消费者" extension="java"/>
     <tree path="/src/main/java/com/syes/syes_springboot/aop/ChatCacheHandler.java" title="聊天缓存" extension="java"/>
     <tree path="/src/main/java/com/syes/syes_springboot/Utils/SpringUtil.java" title="获取Bean" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Utils/ChatUtil.java" title="聊天工具类" extension="java"/>
 </trees>

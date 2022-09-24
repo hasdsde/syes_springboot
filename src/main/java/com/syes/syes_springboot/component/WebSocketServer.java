@@ -2,6 +2,7 @@ package com.syes.syes_springboot.component;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.syes.syes_springboot.Utils.CacheUtil;
 import com.syes.syes_springboot.Utils.SpringUtil;
 import com.syes.syes_springboot.entity.Chat;
 import com.syes.syes_springboot.mapper.ChatMapper;
@@ -28,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class WebSocketServer {
 
     @Resource
-    ChatMapper chatMapper;
+    ChatMapper chatMapper = SpringUtil.getBean(ChatMapper.class);
     @Resource
     RedisTemplate redisTemplate = SpringUtil.getBean(RedisTemplate.class);
     Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
@@ -74,6 +75,7 @@ public class WebSocketServer {
         //将用户从列表中删除
         sessionMap.remove(id);
         logger.info("{}关闭了连接，当前在线人数为:{}", id, sessionMap.size());
+        CacheUtil.handleChatSet(redisTemplate, id, chatMapper);
     }
 
     /*
@@ -94,15 +96,15 @@ public class WebSocketServer {
         //放入数据库或缓存
         Chat chat = new Chat();
         chat.setContent(context);
-        chat.setId(Integer.valueOf(id));
-        chat.setToUserId(toUserId);
-        chat.setCreateTime(LocalDateTime.now());
+        chat.setUserid(id);
+        chat.setTouserid(toUserId);
+        chat.setCreatetime(LocalDateTime.now());
         //遍历当前在线列表，有则直接发送消息并放入缓存，不在线就放到数据库
         if (sessionMap.containsKey(toUserId)) {
             sendMessage(toMessage, sessionMap.get(toUserId));
             logger.info("对方在线，已将数据存入缓存数据库中");
             String jsonStr = JSONUtil.toJsonStr(chat);
-            redisTemplate.opsForSet().add("ChatCache", jsonStr);
+            redisTemplate.opsForSet().add("ChatCache" + id, jsonStr);
         } else {
             //当前用户不在线立即放入数据库
             logger.info("对方不在线，已将数据存入数据库中");
