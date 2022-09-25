@@ -101,7 +101,6 @@ public class WebSocketServer {
         chat.setCreatetime(LocalDateTime.now());
         //遍历当前在线列表，有则直接发送消息并放入缓存，不在线就放到数据库
         if (sessionMap.containsKey(toUserId)) {
-            sendMessage(toMessage, sessionMap.get(toUserId));
             logger.info("对方在线，已将数据存入缓存数据库中");
             String jsonStr = JSONUtil.toJsonStr(chat);
             redisTemplate.opsForSet().add("ChatCache" + id, jsonStr);
@@ -110,15 +109,22 @@ public class WebSocketServer {
             logger.info("对方不在线，已将数据存入数据库中");
             chatMapper.insert(chat);
         }
-
+        //无论对方在不在线，都要给一个回调
+        sendMessage(toMessage, sessionMap.get(toUserId));
     }
 
     /**
      * 服务端发送消息给客户端
      */
     private void sendMessage(HashMap<String, Object> message, Session toSession) throws IOException {
-        String s = JSONUtil.toJsonStr(message);
-        toSession.getBasicRemote().sendText(s);
+
+        try {
+            String s = JSONUtil.toJsonStr(message);
+            toSession.getBasicRemote().sendText(s);
+        } catch (Exception e) {
+            throw new RuntimeException("消息发送失败");
+        }
+
     }
 
 

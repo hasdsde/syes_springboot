@@ -19,5 +19,7 @@ public class CacheUtil {
             Chat chat = JSONUtil.toBean(entries, Chat.class);
             chatMapper.insert(chat);
         }
+        redisTemplate.delete("ChatCache" + id);
+
     }
 }

@@ -9,7 +9,7 @@
             and touserid = #{arg1})
            or (userid = #{arg1}
             and touserid = #{arg0})
-        order by createtime
+        order by createtime desc
         limit #{arg2},#{arg3}
     </select>
 </mapper>
