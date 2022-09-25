@@ -2,4 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.syes.syes_springboot.mapper.ChatMapper">
 
+    <select id="getChatHistory" resultType="com.syes.syes_springboot.entity.Dto.ChatDto">
+        select chat.userid, chat.touserid, chat.content, chat.createtime
+        from chat
+        where (userid = #{arg0}
+            and touserid = #{arg1})
+           or (userid = #{arg1}
+            and touserid = #{arg0})
+        order by createtime
+        limit #{arg2},#{arg3}
+    </select>
 </mapper>

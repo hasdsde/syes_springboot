@@ -38,4 +38,6 @@ public class Chat implements Serializable {
     private LocalDateTime createtime;
 
     private Boolean enable;
+
+
 }
