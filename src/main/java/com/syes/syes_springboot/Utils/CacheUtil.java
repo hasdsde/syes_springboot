@@ -11,6 +11,7 @@ import java.util.Set;
 
 @Component
 public class CacheUtil {
+    //将Redis缓存装入MySQL里面
     public static void handleChatSet(RedisTemplate redisTemplate, String id, ChatMapper chatMapper) {
         Set set = redisTemplate.opsForSet().members("ChatCache" + id);
         for (Object o : set) {

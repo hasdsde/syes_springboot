@@ -8,10 +8,7 @@ import com.syes.syes_springboot.entity.Dto.UserDto;
 import com.syes.syes_springboot.entity.User;
 import com.syes.syes_springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -48,9 +45,24 @@ public class UserController {
             data.put("username", user.getNickname());
             data.put("avatar", user.getAvatar());
             data.put("userid", user.getId());
+            data.put("infoid", user.getInfoid());
             return Result.success(data);
         } else {
             throw new BusinessException("401", "用户名或密码错误");
         }
+    }
+
+    @GetMapping("/getinfo/{infoId}")
+    public Result GetChatInfo(@PathVariable("infoId") String infoId) {
+        User user = userMapper.selectOne(new QueryWrapper<User>().eq("infoid", infoId));
+        User Ruser = new User();
+        try {
+            Ruser.setInfoid(user.getInfoid());
+            Ruser.setNickname(user.getNickname());
+            Ruser.setAvatar(user.getAvatar());
+        } catch (Exception e) {
+            throw new BusinessException("该用户不存在");
+        }
+        return Result.success(Ruser);
     }
 }
