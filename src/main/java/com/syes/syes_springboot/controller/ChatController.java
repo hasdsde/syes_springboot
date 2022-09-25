@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * <p>
  * 前端控制器
@@ -26,10 +28,8 @@ public class ChatController {
     //获取用户聊天历史
     @PostMapping("/his")
     public Result getChatHistory(@RequestBody ChatDto chatDto) {
-        System.out.println(chatDto);
-        return null;
-//        int CurrentPage = Integer.parseInt(chatDto.getCurrentPage())
-//        List<ChatDto> chatHistory = chatMapper.getChatHistory(chatDto.getUserid(), chatDto.getTouserid(), CurrentPage, Integer.parseInt(chatDto.getPageSize()));
-//        return Result.success(chatHistory);
+        int CurrentPage = (chatDto.getCurrentPage() - 1) * chatDto.getPageSize();
+        List<ChatDto> chatHistory = chatMapper.getChatHistory(chatDto.getUserid(), chatDto.getTouserid(), CurrentPage, chatDto.getPageSize());
+        return Result.success(chatHistory);
     }
 }

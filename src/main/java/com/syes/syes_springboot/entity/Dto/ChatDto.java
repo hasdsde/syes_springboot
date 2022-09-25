@@ -24,7 +24,7 @@ public class ChatDto {
 
     private LocalDateTime createtime;
 
-    private Integer PageSize;
+    private Integer pageSize;
 
-    private Integer CurrentPage;
+    private Integer currentPage;
 }
