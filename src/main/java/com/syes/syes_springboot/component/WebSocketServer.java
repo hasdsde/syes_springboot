@@ -4,6 +4,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.syes.syes_springboot.Utils.CacheUtil;
 import com.syes.syes_springboot.Utils.SpringUtil;
+import com.syes.syes_springboot.config.BusinessException;
 import com.syes.syes_springboot.entity.Chat;
 import com.syes.syes_springboot.mapper.ChatMapper;
 import org.slf4j.Logger;
@@ -58,12 +59,15 @@ public class WebSocketServer {
                 try {
                     userSession.close();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    throw new BusinessException("在两个位置登录，旧连接已关闭");
                 }
             }
         });
         //将用户加入到聊天列表
         sessionMap.put(id, session);
+        sessionMap.forEach((ids, sessions) -> {
+            System.out.println("遍历map" + ids + "：" + sessions);
+        });
         logger.info("有新的用户加入聊天，当前用户id：{}，总人数为：{}", id, sessionMap.size());
     }
 
@@ -104,20 +108,22 @@ public class WebSocketServer {
             logger.info("对方在线，已将数据存入缓存数据库中");
             String jsonStr = JSONUtil.toJsonStr(chat);
             redisTemplate.opsForSet().add("ChatCache" + id, jsonStr);
+            //将消息发送给对方
+            sendMessage(toMessage, sessionMap.get(toUserId));
         } else {
             //当前用户不在线立即放入数据库
             logger.info("对方不在线，已将数据存入数据库中");
             chatMapper.insert(chat);
         }
-        //无论对方在不在线，都要给一个回调
-        sendMessage(toMessage, sessionMap.get(toUserId));
+        //无论对方在不在线，给自己发一份
+        sendMessage(toMessage, sessionMap.get(id));
     }
 
     /**
      * 服务端发送消息给客户端
      */
     private void sendMessage(HashMap<String, Object> message, Session toSession) throws IOException {
-
+        System.out.println(toSession);
         try {
             String s = JSONUtil.toJsonStr(message);
             toSession.getBasicRemote().sendText(s);
