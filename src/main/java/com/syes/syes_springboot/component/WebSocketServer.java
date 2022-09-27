@@ -111,7 +111,8 @@ public class WebSocketServer {
             //将消息发送给对方
             sendMessage(toMessage, sessionMap.get(toUserId));
         } else {
-            //当前用户不在线立即放入数据库
+            //未读消息
+            chat.setReaded(0);
             logger.info("对方不在线，已将数据存入数据库中");
             chatMapper.insert(chat);
         }

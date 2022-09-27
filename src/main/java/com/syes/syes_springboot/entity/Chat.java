@@ -39,5 +39,5 @@ public class Chat implements Serializable {
 
     private Boolean enable;
 
-
+    private int readed;//是否已读，默认为1，已读
 }
