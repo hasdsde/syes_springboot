@@ -94,9 +94,9 @@ public class WebSocketServer {
         String context = obj.getStr("context");
         //要发出去的消息
         HashMap<String, Object> toMessage = new HashMap<>();
-        toMessage.put("fromUserId", id);
-        toMessage.put("message", context);
-        toMessage.put("time", LocalDateTime.now());
+        toMessage.put("userid", id);
+        toMessage.put("content", context);
+        toMessage.put("createtime", LocalDateTime.now().toString());
         //放入数据库或缓存
         Chat chat = new Chat();
         chat.setContent(context);
