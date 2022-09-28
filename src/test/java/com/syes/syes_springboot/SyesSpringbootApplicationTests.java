@@ -1,5 +1,6 @@
 package com.syes.syes_springboot;
 
+import com.syes.syes_springboot.Utils.JwtUtil;
 import com.syes.syes_springboot.entity.Comment;
 import com.syes.syes_springboot.mapper.CommentMapper;
 import com.syes.syes_springboot.mapper.ItemMapper;
@@ -34,6 +35,12 @@ class SyesSpringbootApplicationTests {
     void contestLoads() {
         List<Comment> comments = commentMapper.slectByPage(10, 1);
         System.out.println(comments);
+    }
+
+    @Test
+    void getToken(){
+        String token = JwtUtil.CreateToken("20201313066", "田所浩二", "114514");
+        System.out.println(token);
     }
 
 
