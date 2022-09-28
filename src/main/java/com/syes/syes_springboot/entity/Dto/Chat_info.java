@@ -18,7 +18,7 @@ public class Chat_info implements Serializable {
 
     private String avatar;
 
-    private String content;
+    private String cont;
 
     private int count;
 

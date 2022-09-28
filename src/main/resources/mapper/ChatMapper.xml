@@ -22,12 +22,17 @@
         order by createtime desc
             limit #{arg2}, #{arg3}
     </select>
+    <!--   什么究极屎山代码  -->
     <select id="selectNewsInfo" resultType="com.syes.syes_springboot.entity.Dto.Chat_info">
-        select user.avatar, user.nickname, (select count(chat.userid)) as count
+        select user.avatar,
+               user.nickname,
+               (select count(chat.userid)) as count,
+(select chat.content from chat where chat.touserid = #{arg0} and chat.readed = 0 and user.infoid = chat.userid order by chat.createtime desc limit 1)as cont
         from chat, user
         where chat.touserid = #{arg0}
           and chat.readed = 0
           and user.infoid = chat.userid
         group by chat.userid
+
     </select>
 </mapper>
