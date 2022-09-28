@@ -10,6 +10,24 @@
            or (userid = #{arg1}
             and touserid = #{arg0})
         order by createtime desc
-        limit #{arg2},#{arg3}
+            limit #{arg2}, #{arg3}
+    </select>
+    <select id="selectNews" resultType="com.syes.syes_springboot.entity.Dto.ChatDto">
+        select chat.userid, chat.touserid, chat.content, chat.createtime
+        from chat
+        where (userid = #{arg0}
+            and touserid = #{arg1})
+           or (userid = #{arg1}
+            and touserid = #{arg0})
+        order by createtime desc
+            limit #{arg2}, #{arg3}
+    </select>
+    <select id="selectNewsInfo" resultType="com.syes.syes_springboot.entity.Dto.Chat_info">
+        select user.avatar, user.nickname, (select count(chat.userid)) as count
+        from chat, user
+        where chat.touserid = #{arg0}
+          and chat.readed = 0
+          and user.infoid = chat.userid
+        group by chat.userid
     </select>
 </mapper>

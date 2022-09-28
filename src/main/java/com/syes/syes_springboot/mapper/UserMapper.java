@@ -17,7 +17,9 @@ import java.util.List;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
-    List<User> slectByPage(int currentPage, int pagesize);
+    List<User> slectByPage(int currentPage, int pagesize);//这个为什么报错啊
 
     List<User> slectByPageSearch(int startPage, int pagesize, String searchText);
+
+
 }

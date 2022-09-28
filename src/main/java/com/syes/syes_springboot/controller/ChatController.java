@@ -1,14 +1,16 @@
 package com.syes.syes_springboot.controller;
 
+import com.syes.syes_springboot.Utils.IdUtil;
 import com.syes.syes_springboot.common.Result;
 import com.syes.syes_springboot.entity.Dto.ChatDto;
+import com.syes.syes_springboot.entity.Dto.Chat_info;
+import com.syes.syes_springboot.entity.User;
 import com.syes.syes_springboot.mapper.ChatMapper;
+import com.syes.syes_springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -25,11 +27,24 @@ public class ChatController {
     @Autowired
     ChatMapper chatMapper;
 
+    @Autowired
+    UserMapper userMapper;
+
+
     //获取用户聊天历史
     @PostMapping("/his")
     public Result getChatHistory(@RequestBody ChatDto chatDto) {
         int CurrentPage = (chatDto.getCurrentPage() - 1) * chatDto.getPageSize();
         List<ChatDto> chatHistory = chatMapper.getChatHistory(chatDto.getUserid(), chatDto.getTouserid(), CurrentPage, chatDto.getPageSize());
         return Result.success(chatHistory);
+    }
+
+    //获取未读消息和发送者信息
+    @GetMapping("/new")
+    public Result getNewinfo(HttpServletRequest request) {
+        String id = IdUtil.getId(request);
+        User user = userMapper.selectById(id);
+        List<Chat_info> chat_infos = chatMapper.selectNewsInfo(String.valueOf(user.getInfoid()));
+        return Result.success(chat_infos);
     }
 }
