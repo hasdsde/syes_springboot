@@ -22,11 +22,11 @@ spring:
         image:
             location: static/delisha.jpg
     redis:
-        host: 192.168.0.99
+        host: DP
         port: 6379
         database: 0
     rabbitmq:
-        host: 192.168.0.99
+        host: DP
         virtual-host: syes
         username: syes
         password: syes
@@ -39,7 +39,7 @@ mybatis:
 mybatis-plus:
     configuration:
         map-underscore-to-camel-case: true
-        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+        log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
     type-aliases-package: com.syes.syes_springboot.entity
 #日志
 logging:

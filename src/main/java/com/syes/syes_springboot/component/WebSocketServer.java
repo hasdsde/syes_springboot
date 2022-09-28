@@ -107,6 +107,7 @@ public class WebSocketServer {
         if (sessionMap.containsKey(toUserId)) {
             logger.info("对方在线，已将数据存入缓存数据库中");
             String jsonStr = JSONUtil.toJsonStr(chat);
+            //仅仅将自己的消息传入redis中
             redisTemplate.opsForSet().add("ChatCache" + id, jsonStr);
             //将消息发送给对方
             sendMessage(toMessage, sessionMap.get(toUserId));
