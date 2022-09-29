@@ -17,7 +17,7 @@ public class UnReadMessageHandler {
     @After(value = "execution(* com.syes.syes_springboot.controller.ChatController.getChatHistory(..))")
     public void after(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
-        ChatDto chatDto = new ChatDto();
+        ChatDto chatDto = ChatDto.class.cast(args[0]);
         chatMapper.changeReadStatus(chatDto.getUserid(), chatDto.getTouserid());
     }
 }

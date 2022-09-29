@@ -4,8 +4,9 @@
     <update id="changeReadStatus">
         update chat
         set readed = 1
-        where userid = #{arg0}
-          and touserid = #{arg1}
+        where userid = #{arg1}
+          and readed = 0
+          and touserid = #{arg0}
     </update>
 
     <select id="getChatHistory" resultType="com.syes.syes_springboot.entity.Dto.ChatDto">
