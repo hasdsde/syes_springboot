@@ -28,7 +28,7 @@ public class VisitedCountHandler {
 
     //触发方法时，获取itemid
     @After(value = "execution(*  com.syes.syes_springboot.controller.ItemController.itemById(..) )")
-    public void before(JoinPoint joinPoint) throws Throwable {
+    public void after(JoinPoint joinPoint) throws Throwable {//之前这个叫before
         //获取参数
         Object[] args = joinPoint.getArgs();
         Object itemid = args[0].toString();

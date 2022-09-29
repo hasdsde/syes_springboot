@@ -31,7 +31,7 @@ public class ChatController {
     UserMapper userMapper;
 
 
-    //获取用户聊天历史
+    //获取用户聊天内容
     @PostMapping("/his")
     public Result getChatHistory(@RequestBody ChatDto chatDto) {
         int CurrentPage = (chatDto.getCurrentPage() - 1) * chatDto.getPageSize();
@@ -39,7 +39,7 @@ public class ChatController {
         return Result.success(chatHistory);
     }
 
-    //获取未读消息和发送者信息
+    //获取未读消息
     @GetMapping("/new")
     public Result getNewinfo(HttpServletRequest request) {
         String id = IdUtil.getId(request);

@@ -3,9 +3,7 @@ package com.syes.syes_springboot.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -22,6 +20,8 @@ import java.time.LocalDateTime;
 @Setter
 @ApiModel(value = "Chat对象", description = "")
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Chat implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,4 +40,6 @@ public class Chat implements Serializable {
     private Boolean enable;
 
     private int readed;//是否已读，默认为1，已读
+
+
 }
