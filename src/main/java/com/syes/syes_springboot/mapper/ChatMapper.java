@@ -24,4 +24,6 @@ public interface ChatMapper extends BaseMapper<Chat> {
     List<ChatDto> getChatHistory(String userid, String touserid, int currentPage, int pageSize);
 
     List<ChatDto> selectNews(String userid, int currentPage, Integer pageSize);
+
+    List<Chat_info> selectChatHis(int currentPage, int pageSize, String id);
 }

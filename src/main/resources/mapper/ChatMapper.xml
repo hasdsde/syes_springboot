@@ -25,6 +25,7 @@
     <!--   什么究极屎山代码  -->
     <select id="selectNewsInfo" resultType="com.syes.syes_springboot.entity.Dto.Chat_info">
         select user.avatar,
+               user.infoid,
                user.nickname,
                (select count(chat.userid)) as count,
 (select chat.content from chat where chat.touserid = #{arg0} and chat.readed = 0 and user.infoid = chat.userid order by chat.createtime desc limit 1)as cont
@@ -34,5 +35,19 @@
           and user.infoid = chat.userid
         group by chat.userid
 
+    </select>
+    <select id="selectChatHis" resultType="com.syes.syes_springboot.entity.Dto.Chat_info">
+        select user.avatar,
+               user.infoid,
+               user.nickname,
+               (select count(chat.userid)) as count,
+(select chat.content from chat, user
+ where chat.touserid = #{arg2} and chat.readed = 1 and user.infoid = chat.userid order by chat.createtime desc limit 1) as cont
+        from chat, user
+        where chat.touserid = #{arg2}
+          and chat.readed = 1
+          and user.infoid = chat.userid
+        group by chat.userid
+            limit #{arg0}, #{arg1}
     </select>
 </mapper>

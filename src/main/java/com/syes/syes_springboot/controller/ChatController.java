@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -47,6 +45,17 @@ public class ChatController {
         String id = IdUtil.getId(request);
         User user = userMapper.selectById(id);
         List<Chat_info> chat_infos = chatMapper.selectNewsInfo(String.valueOf(user.getInfoid()));
+        return Result.success(chat_infos);
+    }
+
+    //获取历史消息
+    @GetMapping("/ChatHis")
+    public Result getChatHis(@RequestParam("CurrentPage") int CurrentPage, @RequestParam("PageSize") int PageSize, HttpServletRequest request) {
+        String id = IdUtil.getId(request);
+        User user = userMapper.selectById(id);
+        int currentPage = (CurrentPage - 1) * PageSize;
+        //这个Sql写的就离谱，不知道怎么写的，反正把历史消息和新消息分开了，哈↑哈↑哈↑哈↑哈peko
+        List<Chat_info> chat_infos = chatMapper.selectChatHis(currentPage, PageSize, String.valueOf(user.getInfoid()));
         return Result.success(chat_infos);
     }
 }
