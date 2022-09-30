@@ -57,4 +57,11 @@
         group by chat.userid
             limit #{arg0}, #{arg1}
     </select>
+    <select id="selectInfoid" resultType="java.lang.Integer">
+        select user.infoid
+        from user,
+             item
+        where item.id = #{arg0}
+          and user.id = item.userid
+    </select>
 </mapper>

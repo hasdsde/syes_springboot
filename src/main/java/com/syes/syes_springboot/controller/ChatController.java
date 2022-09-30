@@ -39,6 +39,13 @@ public class ChatController {
         return Result.success(chatHistory);
     }
 
+    //根据Iitemid获取对方聊天id
+    @GetMapping("/item")
+    public Result GetInfoIdByItemId(@RequestParam("itemid") int itemid) {
+        int i = chatMapper.selectInfoid(itemid);
+        return Result.success(i);
+    }
+
     //获取未读消息
     @GetMapping("/new")
     public Result getNewinfo(HttpServletRequest request) {

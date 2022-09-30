@@ -28,4 +28,6 @@ public interface ChatMapper extends BaseMapper<Chat> {
     List<Chat_info> selectChatHis(int currentPage, int pageSize, String id);
 
     int changeReadStatus(String userid, String touserid);
+
+    int selectInfoid(int itemid);
 }
