@@ -52,7 +52,7 @@ logging:
 #其他配置
 my:
     server: # 上传到服务器需要改这个
-        name: http://localhost
+        name: http://192.168.31.100
         uploadPath: 'D:/pic/' # 文件下载到哪里，记得屁股加个杠
     file-config:
         uploadPath: '${my.server.uploadPath}'

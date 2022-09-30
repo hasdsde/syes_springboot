@@ -116,5 +116,14 @@ public class ItemController {
         return Result.success();
     }
 
+    //切换上架下架状态
+    @GetMapping("/status")
+    public Result changeByStatus(@RequestParam("id") Integer id, @RequestParam("status") Boolean status) {
+        Item item = new Item();
+        item.setId(id);
+        item.setOnsale(status);
+        itemMapper.updateById(item);
+        return Result.success();
+    }
 
 }
