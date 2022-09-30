@@ -44,18 +44,12 @@
 
     </select>
     <select id="selectChatHis" resultType="com.syes.syes_springboot.entity.Dto.Chat_info">
-        select user.avatar,
-               user.infoid,
-               user.nickname,
-               (select count(chat.userid)) as count,
-(select chat.content from chat, user
- where chat.touserid = #{arg2} and chat.readed = 1 and user.infoid = chat.userid order by chat.createtime desc limit 1) as cont
-        from chat, user
-        where chat.touserid = #{arg2}
-          and chat.readed = 1
-          and user.infoid = chat.userid
-        group by chat.userid
-            limit #{arg0}, #{arg1}
+        select userid, touserid, content as cont, user.avatar, user.nickname, infoid
+        from chat,
+             user
+        where chat.id = any (select max(id) from chat where touserid = #{arg2} group by userid)
+          and chat.userid = user.infoid limit #{arg0}
+            , #{arg1}
     </select>
     <select id="selectInfoid" resultType="java.lang.Integer">
         select user.infoid
