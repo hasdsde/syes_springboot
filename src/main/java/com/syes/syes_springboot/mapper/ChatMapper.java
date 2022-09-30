@@ -30,4 +30,6 @@ public interface ChatMapper extends BaseMapper<Chat> {
     int changeReadStatus(String userid, String touserid);
 
     int selectInfoid(int itemid);
+
+    int selectUnreadCount(String id);
 }

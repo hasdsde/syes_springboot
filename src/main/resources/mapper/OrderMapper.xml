@@ -36,4 +36,10 @@
         order by createtime desc
         limit #{arg0},#{arg1}
     </select>
+    <select id="selectOrderCount" resultType="java.lang.Integer">
+        select count(userorder.id)
+        from userorder
+        where userorder.userid = #{arg0}
+          and (userorder.status = 1 or userorder.status = 2)
+    </select>
 </mapper>

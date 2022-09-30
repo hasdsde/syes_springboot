@@ -26,4 +26,6 @@ public interface OrderMapper extends BaseMapper<Order> {
     List<Order> slectByPageSearchItem(int startPage, int pagesize, String seatchText);
 
     Integer selectCountItem(String seatchText);
+
+    int selectOrderCount(String id);
 }

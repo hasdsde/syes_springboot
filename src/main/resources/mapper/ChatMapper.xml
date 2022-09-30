@@ -58,4 +58,12 @@
         where item.id = #{arg0}
           and user.id = item.userid
     </select>
+    <select id="selectUnreadCount" resultType="java.lang.Integer">
+        select count(chat.id)
+        from chat,
+             user
+        where chat.touserid = user.infoid
+          and user.id = #{arg0}
+          and chat.readed = 0
+    </select>
 </mapper>
