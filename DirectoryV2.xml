@@ -70,4 +70,5 @@
     <tree path="/src/main/java/com/syes/syes_springboot/Utils/SpringUtil.java" title="获取Bean" extension="java"/>
     <tree path="/src/main/java/com/syes/syes_springboot/Utils/ChatUtil.java" title="聊天工具类" extension="java"/>
     <tree path="/src/main/java/com/syes/syes_springboot/Utils/CacheUtil.java" title="聊天缓存" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/config/DruidConfig.java" title="连接池配置" extension="java"/>
 </trees>
