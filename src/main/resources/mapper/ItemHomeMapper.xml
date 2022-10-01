@@ -202,4 +202,16 @@
         order by createtime desc
         limit #{arg0},#{arg1}
     </select>
+    <select id="selectAboutCount" resultType="com.syes.syes_springboot.entity.Dto.AboutDto">
+        select (select count(userid) from usercollect where userid = #{arg0})              as collect,
+               (select count(userid) from userhistory where userid = #{arg0})              as history,
+               (select count(userid) from comment where userid = #{arg0})                  as comment,
+               (select count(userid) from item where userid = #{arg0})                     as post,
+               (select count(userid) from auction where userid = #{arg0})                  as auction,
+               (select count(userid)
+                from userorder
+                where touserid = #{arg0}
+                  and enable = 1)                                                          as orders,
+               (select count(userid) from userorder where userid = #{arg0} and enable = 1) as sold
+    </select>
 </mapper>

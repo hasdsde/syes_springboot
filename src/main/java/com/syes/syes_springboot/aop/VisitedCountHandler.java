@@ -2,7 +2,6 @@ package com.syes.syes_springboot.aop;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.syes.syes_springboot.Utils.IdUtil;
-import com.syes.syes_springboot.config.BusinessException;
 import com.syes.syes_springboot.entity.Userhistory;
 import com.syes.syes_springboot.mapper.UserhistoryMapper;
 import org.aspectj.lang.JoinPoint;
@@ -34,11 +33,7 @@ public class VisitedCountHandler {
         Object[] args = joinPoint.getArgs();
         Object itemid = args[0].toString();
         //将获取的参数传递到Redis
-        try {
-            redisTemplate.opsForHash().increment("item", itemid, 1);
-        } catch (Exception e) {
-            throw new BusinessException("Redis缓存异常!");
-        }
+        redisTemplate.opsForHash().increment("item", itemid, 1);
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
         HttpServletRequest request = sra.getRequest();

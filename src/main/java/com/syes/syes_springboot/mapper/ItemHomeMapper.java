@@ -1,5 +1,6 @@
 package com.syes.syes_springboot.mapper;
 
+import com.syes.syes_springboot.entity.Dto.AboutDto;
 import com.syes.syes_springboot.entity.Dto.Item_homeDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -24,4 +25,6 @@ public interface ItemHomeMapper {
     List<Item_homeDto> queryComment(int startPage, int pagesize, String userid);
 
     List<Item_homeDto> getSortList(int startPage, int pagesize, String sort);
+
+    AboutDto selectAboutCount(String id);
 }

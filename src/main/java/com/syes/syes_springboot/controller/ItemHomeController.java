@@ -2,6 +2,7 @@ package com.syes.syes_springboot.controller;
 
 import com.syes.syes_springboot.Utils.IdUtil;
 import com.syes.syes_springboot.common.Result;
+import com.syes.syes_springboot.entity.Dto.AboutDto;
 import com.syes.syes_springboot.entity.Dto.Item_homeDto;
 import com.syes.syes_springboot.mapper.ChatMapper;
 import com.syes.syes_springboot.mapper.ItemHomeMapper;
@@ -44,6 +45,14 @@ public class ItemHomeController {
         map.put("mCount", message);
         map.put("oCount", order);
         return Result.success(map);
+    }
+
+    //统计关于页面各个按钮内数量
+    @GetMapping("/About")
+    public Result GetAboutCount(HttpServletRequest request) {
+        String id = IdUtil.getId(request);
+        AboutDto aboutDto = itemHomeMapper.selectAboutCount(id);
+        return Result.success(aboutDto);
     }
 }
 
