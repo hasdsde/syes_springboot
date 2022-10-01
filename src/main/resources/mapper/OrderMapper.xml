@@ -41,5 +41,6 @@
         from userorder
         where userorder.userid = #{arg0}
           and (userorder.status = 1 or userorder.status = 2)
+          and enable = 1
     </select>
 </mapper>
