@@ -35,6 +35,17 @@ public class ItemHomeController {
         return Result.success(items);
     }
 
+    //首页搜索
+    @GetMapping("/search")
+    public Result querySearch(
+            @RequestParam("pagesize") int pagesize,
+            @RequestParam("currentpage") int currentpage,
+            @RequestParam("text") String text) {
+        int StartPage = (currentpage - 1) * pagesize;
+        List<Item_homeDto> items = itemHomeMapper.querySearch(StartPage, pagesize, text);
+        return Result.success(items);
+    }
+
     //检测是否有未读消息和进行中的交易
     @GetMapping("/Message")
     public Result CheckMessage(HttpServletRequest request) {

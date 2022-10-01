@@ -27,4 +27,6 @@ public interface ItemHomeMapper {
     List<Item_homeDto> getSortList(int startPage, int pagesize, String sort);
 
     AboutDto selectAboutCount(String id);
+
+    List<Item_homeDto> querySearch(int startPage, int pagesize, String text);
 }
