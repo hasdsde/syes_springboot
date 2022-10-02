@@ -30,7 +30,7 @@ spring:
             web-stat-filter:
                 enabled: true # 开启 WebStatFilter，即开启监控功能中的 Web 监控功能
                 url-pattern: /* # 映射地址，即统计指定地址的web请求
-                exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*' # 不统计的web请求，如下是不统计静态资源及druid监控页面本身的请求
+                exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*,/actuator/*' # 不统计的web请求，如下是不统计静态资源及druid监控页面本身的请求
                 session-stat-enable: true # 是否启用session统计
             filter:
                 wall:
@@ -91,3 +91,24 @@ my:
         uploadPath: '${my.server.uploadPath}'
         staticPath: '/file/img/'
         downloadPath: '${my.server.name}:${server.port}${my.file-config.staticPath}' # 存url到数据库时用的他
+#spring actuator
+management:
+    endpoints:
+        web:
+            exposure: #选择性开启
+                include: health,scheduledtasks,metrics,logfile,env,httptrace
+        enabled-by-default: false #这东西因为写了下面的所以没啥效果
+    endpoint:
+        health:
+            enabled: true
+            show-details: always
+        scheduledtasks: #定时任务
+            enabled: true
+        metrics: #系统信息
+            enabled: true
+        logfile: #日志
+            enabled: true
+        env: #环境变量
+            enabled: true
+        httptrace: #HTTP请求监控
+            enabled: true
