@@ -37,7 +37,10 @@ spring:
                     enabled: true  # 开启SQL防火墙功能
                     config:
                         select-allow: true # 允许执行Select查询操作
-                        delete-allow: false # 不允许执行delete操作
+                        delete-allow: true # 不允许执行delete操作
+                        update-allow: true
+                        insert-allow: true
+                        drop-table-allow: false
                         create-table-allow: false # 不允许创建表
             aop-patterns: com.syes.syes_springboot.mapper.* #开启Spring监控
     servlet:
