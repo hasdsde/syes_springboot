@@ -25,7 +25,7 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         String Turl = request.getServerName() + ":" + request.getServerPort() + request.getRequestURI();
-        System.out.println("拦截请求地址：" + Turl);
+//        System.out.println("拦截请求地址：" + Turl);
 
         //放行OPTIONS请求
         String method = request.getMethod();

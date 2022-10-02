@@ -15,7 +15,7 @@ spring:
             initial-size: 2 # 初始化时建立物理连接的个数。默认0
             max-active: 10 # 最大连接池数量，默认8
             min-idle: 1 # 最小连接池数量
-            max-wait: 2000 # 获取连接时最大等待时间，单位毫秒。
+            max-wait: 20000 # 获取连接时最大等待时间，单位毫秒。超出时间报错
             filters: stat,wall,log4j2
             # StatViewServlet监控器。开启后，访问http://域名/druid/index.html
             stat-view-servlet:
@@ -42,15 +42,18 @@ spring:
                         insert-allow: true
                         drop-table-allow: false
                         create-table-allow: false # 不允许创建表
+                stat:
+                    merge-sql: true #开启慢sql
+                    slow-sql-millis: 50000
             aop-patterns: com.syes.syes_springboot.mapper.* #开启Spring监控
+            test-on-borrow: true #连接时判断是否有效
+            test-while-idle: true  #连接时判断是否有效
+            time-between-eviction-runs-millis: 6000 #检测需要关闭的空闲连接
+            validation-query: SELECT 1 FROM DUAL  #检测需要关闭的空闲连接
     servlet:
         multipart:
             max-file-size: 10GB
             max-request-size: 10GB
-    mvc:
-        static-path-pattern: ${my.file-config.staticPath}** # 静态资源访问
-    resources:
-        static-locations: file:${my.file-config.uploadPath} # 静态资源目录
     banner:
         image:
             location: static/delisha.jpg
@@ -64,6 +67,14 @@ spring:
         username: syes
         password: syes
         port: 5672
+    mvc:
+        static-path-pattern: ${my.file-config.staticPath}** # 静态资源访问
+    resources:
+        static-locations: file:${my.file-config.uploadPath} # 静态资源目录
+
+
+
+
 #Mybatis
 mybatis:
     mapper-locations: mapper/*.xml
@@ -72,8 +83,11 @@ mybatis:
 mybatis-plus:
     configuration:
         map-underscore-to-camel-case: true
-        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+        log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
     type-aliases-package: com.syes.syes_springboot.entity
+
+
+
 #日志
 logging:
     level:
@@ -82,6 +96,9 @@ logging:
         name: test.log
         max-size: 10MB
         clean-history-on-start: true
+
+
+
 #其他配置
 my:
     server: # 上传到服务器需要改这个
@@ -91,6 +108,10 @@ my:
         uploadPath: '${my.server.uploadPath}'
         staticPath: '/file/img/'
         downloadPath: '${my.server.name}:${server.port}${my.file-config.staticPath}' # 存url到数据库时用的他
+
+
+
+
 #spring actuator
 management:
     endpoints:
