@@ -23,6 +23,10 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        String Turl = request.getServerName() + ":" + request.getServerPort() + request.getRequestURI();
+        System.out.println("拦截请求地址：" + Turl);
+
         //放行OPTIONS请求
         String method = request.getMethod();
         if ("OPTIONS".equals(method)) {
@@ -56,7 +60,7 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
                 throw new BusinessException("认证错误");
             }
         }
-        
+
 
         //检查是否过期
         if (JwtUtil.checkDate(token)) {

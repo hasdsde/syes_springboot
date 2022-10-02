@@ -25,6 +25,7 @@ spring:
                 login-password: 1234 # 密码
                 reset-enable: false # 是否允许重置数据（在页面的重置按钮）。（停用后，依然会有重置按钮，但重置后不会真的重置数据）
                 deny: 18.2.1.3 # 监控页面访问黑名单
+                allow:
             # 配置 WebStatFilter（StatFilter监控器中的Web模板）
             web-stat-filter:
                 enabled: true # 开启 WebStatFilter，即开启监控功能中的 Web 监控功能

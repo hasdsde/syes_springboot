@@ -17,10 +17,10 @@ public class JwtInterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(interceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/user/login", "/file/img/*", "/rootuser/login", "/file/upload", "/chatServer/*", "/actuator/**", "/druid/**");
+                .excludePathPatterns("/user/login", "/file/img/*", "/rootuser/login", "/file/upload", "/chatServer/*");
 
-        registry.addInterceptor(rootJwtAuthenticationInterceptor)
-                .addPathPatterns("/actuator/**", "/druid/**");
+//        registry.addInterceptor(rootJwtAuthenticationInterceptor)
+//                .addPathPatterns("/actuator/**", "/druid/**");
     }
 
 }
