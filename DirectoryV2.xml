@@ -71,4 +71,8 @@
     <tree path="/src/main/java/com/syes/syes_springboot/Utils/ChatUtil.java" title="聊天工具类" extension="java"/>
     <tree path="/src/main/java/com/syes/syes_springboot/Utils/CacheUtil.java" title="聊天缓存" extension="java"/>
     <tree path="/src/main/java/com/syes/syes_springboot/config/DruidConfig.java" title="连接池配置" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/config/RJwtInterceptorConfig.java" title="Root关键权限拦截器"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/config/RJwtAuthenticationInterceptor.java"
+          title="Root拦截器应用" extension="java"/>
 </trees>

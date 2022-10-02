@@ -2,9 +2,7 @@ package com.syes.syes_springboot.config;
 
 import com.syes.syes_springboot.Utils.JwtUtil;
 import com.syes.syes_springboot.entity.Rootuser;
-import com.syes.syes_springboot.entity.User;
 import com.syes.syes_springboot.mapper.RootuserMapper;
-import com.syes.syes_springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -15,9 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 @Component
-public class JwtAuthenticationInterceptor implements HandlerInterceptor {
-    @Autowired
-    UserMapper userMapper;
+public class RootJwtAuthenticationInterceptor implements HandlerInterceptor {
     @Autowired
     RootuserMapper rootuserMapper;
 
@@ -28,6 +24,7 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
         if ("OPTIONS".equals(method)) {
             return true;
         }
+        System.out.println("Token拦截Root请求");
         //获取token
         String token = request.getHeader("token");
         //token不存在直接报错
@@ -42,7 +39,6 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
             throw new BusinessException("499", "数据校验失败");
         }
         //带着token验证载荷username是否正确
-        User RealUser = null;
         Rootuser rootUser = null;
         if (userid.equals("root")) {
             rootUser = rootuserMapper.selectById(userid);
@@ -50,24 +46,14 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
                 throw new BusinessException("认证错误");
             }
         } else {
-            RealUser = userMapper.selectById(userid);
-            //姓名不匹配返回
-            if (!Objects.equals(RealUser.getRealname(), JwtUtil.getClaimByName(token, "username").asString())) {
-                throw new BusinessException("认证错误");
-            }
+            throw new BusinessException("不是Root用户");
         }
-        
-
         //检查是否过期
         if (JwtUtil.checkDate(token)) {
             throw new BusinessException("499", "token过期");
         }
         //布尔值验证
-        if (userid.equals("root")) {
-            return JwtUtil.vertifyRootToken(token, userid, rootUser.getPassword(), rootUser.getUsername());
-        } else {
-            return JwtUtil.vertifyToken(token, userid, RealUser.getPassword());
-        }
+        return JwtUtil.vertifyRootToken(token, userid, rootUser.getPassword(), rootUser.getUsername());
     }
 
     @Override
