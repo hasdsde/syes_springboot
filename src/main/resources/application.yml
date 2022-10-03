@@ -133,3 +133,5 @@ management:
             enabled: true
         httptrace: #HTTP请求监控
             enabled: true
+    server:
+        port: 8001

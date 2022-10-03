@@ -25,4 +25,7 @@ public interface ItemMapper extends BaseMapper<Item> {
     Item selectItemByid(int itemid);
 
     int plusVisited(int id, int count);
+
+
+    int KeepItAlive();
 }

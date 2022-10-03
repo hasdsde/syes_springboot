@@ -37,4 +37,9 @@
                  left join (select substr(id, 3, 2) as grade, id from user) as gi on item.userid = gi.id
         where item.id = #{arg0}
     </select>
+    <select id="KeepItAlive" resultType="int">
+        select id
+        from grade
+        where id = 13
+    </select>
 </mapper>

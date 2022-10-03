@@ -54,7 +54,7 @@
     <tree path="/src/main/java/com/syes/syes_springboot/Utils/RedisUtil.java" title="Redis" extension="java"/>
     <tree path="/src/main/java/com/syes/syes_springboot/schedule" title="定时任务"/>
     <tree path="/src/main/java/com/syes/syes_springboot/schedule/BeanLife.java" title="开关系统任务" extension="java"/>
-    <tree path="/src/main/java/com/syes/syes_springboot/schedule/RedisSchedule.java" title="缓存定时任务"
+    <tree path="/src/main/java/com/syes/syes_springboot/schedule/RedisSchedule.java" title="定时任务"
           extension="java"/>
     <tree path="/src/main/java/com/syes/syes_springboot/mapper" title="映射"/>
     <tree path="/src/main/java/com/syes/syes_springboot/service" title="服务类"/>

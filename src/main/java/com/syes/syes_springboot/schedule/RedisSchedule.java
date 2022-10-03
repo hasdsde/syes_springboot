@@ -20,9 +20,13 @@ public class RedisSchedule {
     @Autowired
     ItemMapper itemMapper;
 
+
+    Logger logger = LogManager.getLogger(RedisSchedule.class);
+
+
     //每一分钟输出redis储存的item浏览量
     @PreDestroy
-    @Scheduled(cron = "0 */10 * * * ?")
+    @Scheduled(cron = "0 */20 * * * ?")
     private void AddRedisIntoMysql() {
         Set items = redisTemplate.opsForHash().keys("item");
         for (Object item : items) {
@@ -33,6 +37,12 @@ public class RedisSchedule {
         //注意这里是清除全部数据
         redisTemplate.delete("item");
         Logger logger = LogManager.getLogger(Autowired.class);
-        logger.info("已将Redis浏览量缓存存入Mysql");
+        logger.info("定时任务：Redis缓存存入Mysql");
+    }
+
+    @Scheduled(cron = "0 */2 * * * ?")
+    private void KeepItAlive() {
+        int i = itemMapper.KeepItAlive();
+        logger.info("定时任务：保持连接。。。。。");
     }
 }
