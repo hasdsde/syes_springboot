@@ -55,7 +55,7 @@ public class OrderController {
 
 
     //根据id修改当前状态
-    @GetMapping("/status")
+    @GetMapping("/status2")
     public Result updateStatusById2(@RequestParam("id") int id) {
         Order order1 = orderMapper.selectById(id);
         if (order1.getStatus() == 2) {
@@ -69,5 +69,19 @@ public class OrderController {
         return Result.success();
     }
 
+    //根据id修改当前状态
+    @GetMapping("/status")
+    public Result updateStatusById(@RequestParam("id") int id) {
+        Order order1 = orderMapper.selectById(id);
+        if (order1.getStatus() == 1) {
+            order1.setStatus(order1.getStatus() + 1);
+        }
+        Order order = new Order();
+        order.setId(id);
+        order.setPrice(order1.getPrice());
+        order.setStatus(order1.getStatus());
+        orderMapper.updateById(order);
+        return Result.success();
+    }
 
 }
