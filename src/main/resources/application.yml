@@ -21,11 +21,11 @@ spring:
             stat-view-servlet:
                 enabled: true # 开启 StatViewServlet，即开启监控功能
                 url-pattern: /druid/* # Servlet的映射地址，不填写默认为"/druid/*"。
-                login-username: root # 访问监控页面时登录的账号
-                login-password: 1234 # 密码
+                #                login-username: root # 访问监控页面时登录的账号
+                #                login-password: 1234 # 密码
                 reset-enable: false # 是否允许重置数据（在页面的重置按钮）。（停用后，依然会有重置按钮，但重置后不会真的重置数据）
                 deny: 18.2.1.3 # 监控页面访问黑名单
-                allow:
+                allow: 192.168.31.100,192.168.31.99
             # 配置 WebStatFilter（StatFilter监控器中的Web模板）
             web-stat-filter:
                 enabled: true # 开启 WebStatFilter，即开启监控功能中的 Web 监控功能
@@ -133,5 +133,4 @@ management:
             enabled: true
         httptrace: #HTTP请求监控
             enabled: true
-    server:
-        port: 8001
+
