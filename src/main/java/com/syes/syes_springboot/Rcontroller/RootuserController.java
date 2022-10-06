@@ -7,10 +7,7 @@ import com.syes.syes_springboot.config.BusinessException;
 import com.syes.syes_springboot.entity.Rootuser;
 import com.syes.syes_springboot.mapper.RootuserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -48,5 +45,12 @@ public class RootuserController {
         } else {
             throw new BusinessException("499", "用户名或密码错误");
         }
+    }
+
+    //通过拦截器检测用户是否登录
+    @GetMapping("/online")
+    public Result Login() {
+        //什么都不需要做
+        return Result.success("success");
     }
 }

@@ -75,4 +75,19 @@
           extension="java"/>
     <tree path="/src/main/java/com/syes/syes_springboot/config/RJwtAuthenticationInterceptor.java"
           title="Root拦截器应用" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Rcontroller/RCommentController.java" title="评论"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Rcontroller/RFileController.java" title="文件"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Rcontroller/RItemController.java" title="物品"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Rcontroller/RootuserController.java" title="Root用户"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Rcontroller/ROrderController.java" title="订单"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Rcontroller/RRollingController.java" title="轮播图"
+          extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Rcontroller/Rsort.java" title="分类" extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/Rcontroller/RUserController.java" title="用户"
+          extension="java"/>
 </trees>
