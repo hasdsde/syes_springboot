@@ -40,9 +40,9 @@ public class RedisSchedule {
         logger.info("定时任务：Redis缓存存入Mysql");
     }
 
-    @Scheduled(cron = "0 */2 * * * ?")
-    private void KeepItAlive() {
-        int i = itemMapper.KeepItAlive();
-        logger.info("定时任务：保持连接。。。。。");
-    }
+//    @Scheduled(cron = "0 */2 * * * ?")
+//    private void KeepItAlive() {
+//        int i = itemMapper.KeepItAlive();
+//        logger.info("定时任务：保持连接。。。。。");
+//    }
 }
