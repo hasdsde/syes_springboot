@@ -1,8 +1,10 @@
 package com.syes.syes_springboot.mapper;
 
-import com.syes.syes_springboot.entity.Roll;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.syes.syes_springboot.entity.Roll;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +17,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface RollMapper extends BaseMapper<Roll> {
 
+    List<Roll> selectAll();
+
+    List<Roll> selectEnable();
 }

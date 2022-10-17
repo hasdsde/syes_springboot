@@ -90,4 +90,5 @@
     <tree path="/src/main/java/com/syes/syes_springboot/Rcontroller/Rsort.java" title="分类" extension="java"/>
     <tree path="/src/main/java/com/syes/syes_springboot/Rcontroller/RUserController.java" title="用户"
           extension="java"/>
+    <tree path="/src/main/java/com/syes/syes_springboot/controller/RollController.java" title="抽卡" extension="java"/>
 </trees>
