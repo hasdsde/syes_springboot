@@ -30,8 +30,8 @@ public class RollController {
     }
 
     //删
-    @DeleteMapping("/")
-    public Result delRoll(@RequestParam("id") int id) {
+    @DeleteMapping("/{id}")
+    public Result delRoll(@PathVariable("id") int id) {
         rollMapper.deleteById(id);
         return Result.success();
     }
@@ -55,5 +55,15 @@ public class RollController {
     public Result selectEnableRoll() {
         List<Roll> rollList = rollMapper.selectEnable();
         return Result.success(rollList);
+    }
+
+    //换状态
+    @GetMapping("/status")
+    public Result setStatus(@RequestParam("id") int id, @RequestParam("status") int status) {
+        Roll roll = new Roll();
+        roll.setId(id);
+        roll.setEnable(status);
+        rollMapper.updateById(roll);
+        return Result.success();
     }
 }

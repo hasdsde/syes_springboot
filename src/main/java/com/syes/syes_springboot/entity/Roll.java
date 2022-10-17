@@ -2,11 +2,11 @@ package com.syes.syes_springboot.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -33,6 +33,7 @@ public class Roll implements Serializable {
     private String sort;
 
     private Integer level;
+    private Integer enable;
 
     private String p;
 }
