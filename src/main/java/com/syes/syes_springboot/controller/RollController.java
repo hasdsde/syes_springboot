@@ -59,10 +59,10 @@ public class RollController {
 
     //换状态
     @GetMapping("/status")
-    public Result setStatus(@RequestParam("id") int id, @RequestParam("status") int status) {
+    public Result setStatus(@RequestParam("id") int id, @RequestParam("status") Boolean status) {
         Roll roll = new Roll();
         roll.setId(id);
-        roll.setEnable(status);
+        roll.setEnable(status ? 1 : 0);
         rollMapper.updateById(roll);
         return Result.success();
     }
